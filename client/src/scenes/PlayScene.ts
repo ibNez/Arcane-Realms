@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import { ChatPanel } from '../ui/ChatPanel'
+import { registerHeroAnimations } from '../animations/heroAnimations'
 
 type Enemy = { id:number; node:Phaser.GameObjects.Arc; hp:number; maxHp:number; speed:number }
 type Loot = { id:number; node:Phaser.GameObjects.Rectangle; value:number }
@@ -46,6 +47,9 @@ export class PlayScene extends Phaser.Scene {
 
     // world
     this.buildArena()
+
+    // animations
+    registerHeroAnimations(this)
 
     // player
     this.me = this.add.circle(this.scale.width*0.5, this.scale.height*0.5, 10, 0x77c0ff).setDepth(5)

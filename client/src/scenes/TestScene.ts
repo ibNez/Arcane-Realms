@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { ChatPanel } from '../ui/ChatPanel'
 import { SkillBar } from '../ui/SkillBar'
 import { getDevConsole } from '../ui/DevConsole'
+import { registerHeroAnimations } from '../animations/heroAnimations'
 
 type Enemy = { id:number; node:Phaser.GameObjects.Arc; hp:number; maxHp:number; speed:number; hpBg: Phaser.GameObjects.Rectangle; hpFg: Phaser.GameObjects.Rectangle }
 type Loot  = { id:number; node:Phaser.GameObjects.Rectangle; value:number }
@@ -83,6 +84,9 @@ export class TestScene extends Phaser.Scene {
 
     // world + player
     this.buildArena()
+
+    // animations
+    registerHeroAnimations(this)
     this.me = this.add.circle(this.scale.width*0.5, this.scale.height*0.5, 10, 0x77c0ff).setDepth(5)
 
     // lock UI
