@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Top-Down ARPG MVP v0.2</title>
+    <style>
+      html, body, #app { height: 100%; margin:0; background:#0b0e14; overflow:hidden; position:relative; z-index:1 }
+      .hud { position:fixed; top:8px; left:8px; color:#eaeefb; font-family:ui-sans-serif,system-ui; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div class="hud" style="pointer-events:none">
+      TEST AREA: WASD/Arrows • Left-click = move / click enemy = cast • 1/Q = Magic Missile (CD) • C = chat • Panel for spawns/toggles
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
