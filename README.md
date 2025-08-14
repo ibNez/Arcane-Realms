@@ -63,6 +63,7 @@ Controls: WASD/Arrows to move • Left click to shoot • C to chat
 
 ---
 ## v0.3T — Test Area Build
+See [docs/test-area.md](docs/test-area.md) for a detailed overview of the Test Area used to verify character and enemy interactions.
 Adds a dedicated **TestScene** with a clean arena and a DOM control panel:
 - **Spawn Enemy**: adds a single enemy at a test marker.
 - **Toggle AI**: pause/resume enemy pursuit (for NPC movement tests).
