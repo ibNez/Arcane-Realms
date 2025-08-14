@@ -186,7 +186,12 @@ export class TestScene extends Phaser.Scene {
         padding:'8px 10px', borderRadius:'6px', border:'1px solid rgba(255,255,255,0.15)',
         background:'rgba(255,255,255,0.08)', color:'#eaeefb', cursor:'pointer'
       } as CSSStyleDeclaration)
-      b.onclick = onclick
+      b.onclick = () => {
+        onclick()
+        // ensure keyboard input stays active after clicking a panel button
+        this.game.canvas.focus()
+      }
+      b.onmousedown = e => e.preventDefault()
       panel.appendChild(b)
       return b
     }
