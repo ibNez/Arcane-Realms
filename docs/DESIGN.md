@@ -2,7 +2,19 @@
 
 This document outlines the game design for Arcane Realms.
 
-#### AI‑Driven NPCs
+#### Dynamic Content**: Points of interest, dungeons, and special locations are generated based on player actions and exploration patterns
+
+### Dynamic Visual Environment
+The world features **AI-generated environmental assets** that adapt to biome, history, and context:
+
+- **Base Component System**: Foundational assets (walls, houses, farmland) serve as templates for generation
+- **Contextual Adaptation**: Stable Diffusion transforms base assets to match biome characteristics
+  - Forest walls become vine-covered stone with moss and climbing plants
+  - Desert houses transform into weathered adobe with sun-bleached textures
+  - Arctic structures gain ice formations, snow coverage, and winter details
+- **Historical Layering**: Assets reflect age, player traffic, and regional events
+- **Functional Preservation**: Generated assets maintain gameplay clarity and mechanical function
+- **Smart Caching**: Content-hashed assets ensure consistency while preventing redundant generation## AI‑Driven NPCs
 
 ### Core AI Systems
 - NPCs use **Ollama** via the server's `/llm` endpoint for natural language dialogue.
@@ -67,6 +79,103 @@ The game uses a fixed top‑down camera. The camera follows the player smoothly 
 - **Chat panel**: toggled with **C**, used to talk to NPCs; integrates with the AI service.
 - **Dev console**: toggled with **~** for debugging; captures logs and errors.
 
+## Character Creation System
+
+### AI-Generated Character Portraits
+Players begin their journey with a **dynamic character creation experience** powered by Stable Diffusion. Instead of traditional sliders and preset options, the system generates unique character portraits using AI, allowing for infinite variety while maintaining artistic consistency.
+
+### Creation Workflow
+- **Initial Generation**: System creates a random character portrait using predetermined base parameters
+- **Randomization Options**: Large "Randomize" button generates completely new character appearances
+- **Fine-Tuning Controls**: Limited adjustment options for specific features players want to modify
+- **Preview Integration**: Real-time preview shows how the character will appear in-game
+- **Name Input**: Text field for character name with optional AI-generated suggestions
+
+### Character Parameters
+
+#### Base Generation Settings
+- **Race/Heritage**: Human variants with different cultural aesthetics
+- **Age Range**: Young adult to middle-aged appearance options
+- **Body Type**: Varied but appropriate for the fantasy adventure setting
+- **Art Style**: Consistent with game's overall artistic direction
+
+#### Customizable Features
+- **Hair Style & Color**: Multiple options generated per session
+- **Eye Color**: Various natural and fantastical options
+- **Skin Tone**: Diverse range representing different backgrounds
+- **Facial Features**: Subtle variations in facial structure
+- **Clothing Style**: Starting outfit variations appropriate to class choice
+- **Accessories**: Optional elements like jewelry, scars, or distinctive marks
+
+#### Locked Parameters
+- **Proportions**: Maintained for gameplay consistency
+- **Art Quality**: Professional game art standards
+- **Appropriateness**: Family-friendly content filters
+- **Performance**: Optimized for in-game use
+
+### User Experience Flow
+
+#### Step 1: First Impression
+```
+[Character Creation Screen]
+┌─────────────────────────────────────┐
+│           Welcome, Adventurer       │
+│                                     │
+│  [Generated Character Portrait]     │
+│                                     │
+│  Character Name: [Text Input]       │
+│                                     │
+│  [ Randomize ]  [ Customize ]       │
+│  [    Start Adventure    ]          │
+└─────────────────────────────────────┘
+```
+
+#### Step 2: Customization Panel
+```
+[Detailed Customization]
+┌─────────────────────────────────────┐
+│  [Character Portrait]    [Preview]  │
+│                                     │
+│  Hair: [Style Variants]             │
+│  Eyes: [Color Options]              │
+│  Skin: [Tone Selection]             │
+│  Clothing: [Style Options]          │
+│                                     │
+│  [ Randomize All ]                  │
+│  [ Back ]  [ Accept Character ]     │
+└─────────────────────────────────────┘
+```
+
+### Technical Implementation
+
+#### Generation Pipeline
+- **Base Prompt**: "Fantasy game character portrait, [parameters], detailed digital art, isometric style"
+- **Style Consistency**: Seed-based generation ensures cohesive art style
+- **Quality Control**: Automated filtering for appropriate content
+- **Performance Optimization**: Efficient generation and caching
+
+#### Caching Strategy
+- **Popular Combinations**: Cache frequently generated character types
+- **Regional Storage**: Store generated characters for quick access
+- **Cleanup Policy**: Remove unused character data after account deletion
+- **Backup Systems**: Fallback character options if generation fails
+
+### Integration with Gameplay
+
+#### Character Representation
+- **In-Game Avatar**: Character portrait appears in UI elements
+- **Social Features**: Other players see character portraits in social interactions
+- **NPC Recognition**: NPCs may comment on character appearance in dialogue
+- **Progression Tracking**: Character portrait remains consistent throughout gameplay
+
+#### Future Enhancements
+- **Equipment Reflection**: Character portraits update to show equipped gear
+- **Aging System**: Characters may show signs of adventure and experience over time
+- **Customization Expansion**: Additional appearance options unlocked through gameplay
+- **Community Gallery**: Players can share and appreciate character creations
+
+> **📖 For detailed technical specifications**, see `docs/character-creation.md`
+
 ## Procedural World
 
 ### World Generation Philosophy
@@ -106,7 +215,7 @@ To maintain server performance and ensure quality content generation:
 - **Persistence**: All generated content is saved and remains consistent across sessions
 - **Rollback Protection**: Safeguards prevent loss of discovered content due to technical issues
 
-> **📖 For detailed technical specifications**, see `docs/world-generation.md`
+> **📖 For detailed technical specifications**, see `docs/world-generation.md` and `docs/dynamic-assets.md`
 
 ## Enemies & Combat Design
 
