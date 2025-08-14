@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import { ChatPanel } from '../ui/ChatPanel'
+import { registerHeroAnimations } from '../animations/heroAnimations'
 
 type Enemy = { id:number; node:Phaser.GameObjects.Arc; hp:number; maxHp:number; speed:number }
 type Loot = { id:number; node:Phaser.GameObjects.Rectangle; value:number }
@@ -12,7 +13,7 @@ export class PlayScene extends Phaser.Scene {
   ws!: WebSocket
   id: string | null = null
 
-  me!: Phaser.GameObjects.Arc
+  me!: Phaser.GameObjects.Sprite
   hp = 100; maxHp = 100; score = 0
 
   others: Map<string, Phaser.GameObjects.Arc> = new Map()
@@ -20,6 +21,7 @@ export class PlayScene extends Phaser.Scene {
   target: Phaser.Math.Vector2 | null = null
   reconnectAttempts = 0
   chat!: ChatPanel
+  facing: 'down' | 'left' | 'right' | 'up' = 'down'
 
   // world
   arena!: Phaser.GameObjects.Rectangle
@@ -48,7 +50,8 @@ export class PlayScene extends Phaser.Scene {
     this.buildArena()
 
     // player
-    this.me = this.add.circle(this.scale.width*0.5, this.scale.height*0.5, 10, 0x77c0ff).setDepth(5)
+    this.me = this.add.sprite(this.scale.width*0.5, this.scale.height*0.5, 'hero', 0).setDepth(5)
+    registerHeroAnimations(this)
 
     // pointer
     this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
@@ -204,8 +207,16 @@ export class PlayScene extends Phaser.Scene {
     const t = this.add.text(x, y, String(dmg), { color, fontFamily:'monospace', fontSize:'12px' }).setDepth(10)
     this.tweens.add({ targets: t, y: y-14, alpha:{ from:1, to:0 }, duration: 500, onComplete: () => t.destroy() })
   }
-  hitFlash(target: Phaser.GameObjects.Arc) {
-    const orig = target.fillColor; target.setFillStyle(0xffffff); this.time.delayedCall(80, () => target.setFillStyle(orig))
+  hitFlash(target: Phaser.GameObjects.Arc | Phaser.GameObjects.Sprite) {
+    if ('setFillStyle' in target) {
+      const orig = (target as Phaser.GameObjects.Arc).fillColor
+      ;(target as Phaser.GameObjects.Arc).setFillStyle(0xffffff)
+      this.time.delayedCall(80, () => (target as Phaser.GameObjects.Arc).setFillStyle(orig))
+    } else if ('setTint' in target) {
+      const orig = (target as Phaser.GameObjects.Sprite).tintTopLeft
+      ;(target as Phaser.GameObjects.Sprite).setTint(0xffffff)
+      this.time.delayedCall(80, () => (target as Phaser.GameObjects.Sprite).setTint(orig))
+    }
   }
 
   // ===== Update =====
@@ -231,17 +242,55 @@ export class PlayScene extends Phaser.Scene {
     const down = !!(this.cursors.down?.isDown || this.wasd.down?.isDown)
     if ((left || right || up || down) && this.target) this.target = null
 
-    let vx = 0, vy = 0
+    let vx = 0, vy = 0, moving = false
+    let dir = this.facing
     if (left) vx -= 1; if (right) vx += 1; if (up) vy -= 1; if (down) vy += 1
     if (vx || vy) {
       const len = Math.hypot(vx, vy) || 1
       this.me.x += (vx/len) * speed * dt
       this.me.y += (vy/len) * speed * dt
+      moving = true
+      dir = Math.abs(vx) > Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : (vy > 0 ? 'down' : 'up')
     } else if (this.target) {
       const dx = this.target.x - this.me.x, dy = this.target.y - this.me.y
       const dist = Math.hypot(dx, dy)
       if (dist <= 4) this.target = null
-      else { this.me.x += (dx/dist) * speed * dt; this.me.y += (dy/dist) * speed * dt }
+      else { this.me.x += (dx/dist) * speed * dt; this.me.y += (dy/dist) * speed * dt; moving = true }
+      if (moving) dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up')
+    }
+
+    if (moving) {
+      this.facing = dir
+      switch(dir) {
+        case 'down':
+          this.me.flipX = false
+          this.me.anims.play('hero-walk-down', true)
+          break
+        case 'left':
+          this.me.flipX = false
+          this.me.anims.play('hero-walk-left', true)
+          break
+        case 'right':
+          this.me.flipX = true
+          this.me.anims.play('hero-walk-left', true)
+          break
+        case 'up':
+          this.me.flipX = false
+          this.me.anims.play('hero-walk-up', true)
+          break
+      }
+    } else {
+      this.me.anims.stop()
+      switch(this.facing) {
+        case 'down':
+          this.me.setFrame(0); this.me.flipX = false; break
+        case 'left':
+          this.me.setFrame(3); this.me.flipX = false; break
+        case 'right':
+          this.me.setFrame(3); this.me.flipX = true; break
+        case 'up':
+          this.me.setFrame(6); this.me.flipX = false; break
+      }
     }
 
     const halfW = (this.arena.width as number)/2 - 12, halfH = (this.arena.height as number)/2 - 12

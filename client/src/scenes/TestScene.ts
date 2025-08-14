@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { ChatPanel } from '../ui/ChatPanel'
 import { SkillBar } from '../ui/SkillBar'
 import { getDevConsole } from '../ui/DevConsole'
+import { registerHeroAnimations } from '../animations/heroAnimations'
 
 type Enemy = { id:number; node:Phaser.GameObjects.Arc; hp:number; maxHp:number; speed:number; hpBg: Phaser.GameObjects.Rectangle; hpFg: Phaser.GameObjects.Rectangle }
 type Loot  = { id:number; node:Phaser.GameObjects.Rectangle; value:number }
@@ -24,10 +25,11 @@ export class TestScene extends Phaser.Scene {
   reconnectAttempts = 0
 
   // player
-  me!: Phaser.GameObjects.Arc
+  me!: Phaser.GameObjects.Sprite
   hp = 100; maxHp = 100; score = 0
   targetPos: Phaser.Math.Vector2 | null = null
   lastMoveDir: Phaser.Math.Vector2 = new Phaser.Math.Vector2(1,0)
+  facing: 'down' | 'left' | 'right' | 'up' = 'down'
 
   // chat
   chat!: ChatPanel
@@ -83,7 +85,8 @@ export class TestScene extends Phaser.Scene {
 
     // world + player
     this.buildArena()
-    this.me = this.add.circle(this.scale.width*0.5, this.scale.height*0.5, 10, 0x77c0ff).setDepth(5)
+    this.me = this.add.sprite(this.scale.width*0.5, this.scale.height*0.5, 'hero', 0).setDepth(5)
+    registerHeroAnimations(this)
 
     // lock UI
     this.lockRing = this.add.circle(0,0,14,0x000000,0).setStrokeStyle(2,0x88e3ff).setVisible(false).setDepth(7)
@@ -447,13 +450,14 @@ export class TestScene extends Phaser.Scene {
     const down = !!(this.cursors.down?.isDown || this.wasd.down?.isDown)
     if ((left || right || up || down) && this.targetPos) this.targetPos = null
 
-    let vx = 0, vy = 0
+    let vx = 0, vy = 0, moving = false
     if (left) vx -= 1; if (right) vx += 1; if (up) vy -= 1; if (down) vy += 1
     if (vx || vy) {
       const len = Math.hypot(vx, vy) || 1
       this.me.x += (vx/len) * speed * dt
       this.me.y += (vy/len) * speed * dt
       this.lastMoveDir.set(vx, vy).normalize()
+      moving = true
     } else if (this.targetPos) {
       const dxm = this.targetPos.x - this.me.x, dym = this.targetPos.y - this.me.y
       const dm = Math.hypot(dxm, dym) || 1
@@ -462,6 +466,44 @@ export class TestScene extends Phaser.Scene {
         this.me.x += (dxm/dm) * speed * dt
         this.me.y += (dym/dm) * speed * dt
         this.lastMoveDir.set(dxm/dm, dym/dm)
+        moving = true
+      }
+    }
+
+    let dir = this.facing
+    if (moving) {
+      const l = this.lastMoveDir
+      dir = Math.abs(l.x) > Math.abs(l.y) ? (l.x > 0 ? 'right' : 'left') : (l.y > 0 ? 'down' : 'up')
+      this.facing = dir
+      switch(dir) {
+        case 'down':
+          this.me.flipX = false
+          this.me.anims.play('hero-walk-down', true)
+          break
+        case 'left':
+          this.me.flipX = false
+          this.me.anims.play('hero-walk-left', true)
+          break
+        case 'right':
+          this.me.flipX = true
+          this.me.anims.play('hero-walk-left', true)
+          break
+        case 'up':
+          this.me.flipX = false
+          this.me.anims.play('hero-walk-up', true)
+          break
+      }
+    } else {
+      this.me.anims.stop()
+      switch(this.facing) {
+        case 'down':
+          this.me.setFrame(0); this.me.flipX = false; break
+        case 'left':
+          this.me.setFrame(3); this.me.flipX = false; break
+        case 'right':
+          this.me.setFrame(3); this.me.flipX = true; break
+        case 'up':
+          this.me.setFrame(6); this.me.flipX = false; break
       }
     }
 
