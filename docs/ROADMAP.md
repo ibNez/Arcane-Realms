@@ -5,9 +5,9 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 ## Phase 0 – MVP (2–4 players)
 
 - [ ] Single authoritative **zone server** with basic WebSocket multiplayer.
-- [ ] Implement one **Mage class** with three skills: Magic Missile, Arcane Nova and Heal.
+- [ ] Implement one **Mage class** with three skills: Magic Missile, Arcane Nova and Heal. ([spec](mage-skills.md))
 - [ ] Create a **Test Area** scene with spawn/reset controls, Dev Console (`~`) and skill bar.
-- [ ] Enemy **FSM** (Idle → Pursue → Wind‑up → Attack → Recover) and simple melee telegraph.
+- [ ] Enemy **FSM** (Idle → Pursue → Wind‑up → Attack → Recover) and simple melee telegraph. ([spec](enemy-fsm.md))
 - [ ] Player **HP**, **death & respawn** flow, invulnerability frames.
 - [ ] In‑game **chat NPC** using Ollama via `/llm`.
 - [ ] Set up **Milvus** with a tiny bestiary and NPC memory collection.
