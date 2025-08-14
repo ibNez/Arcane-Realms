@@ -1,5 +1,14 @@
 # Mage Skills Design
 
+## Overview
+The Mage class is a ranged spellcaster focused on elemental damage, crowd control, and battlefield manipulation. Mages rely on Intelligence (INT) for spell power and have a diverse toolkit ranging from quick-casting missiles to powerful area-of-effect spells. All mage abilities consume mana and follow a standardized casting system with cooldowns.
+
+### Class Characteristics
+- **Primary Attribute:** Intelligence (INT) - affects all spell damage and healing
+- **Resource:** Mana - consumed by all abilities
+- **Range:** Primarily ranged combat with some point-blank area effects
+- **Role:** Damage dealer with utility and crowd control options
+
 ## Shared Skill State Diagram
 ```mermaid
 stateDiagram-v2
@@ -22,31 +31,141 @@ stateDiagram-v2
 | 7 | Polymorph / Mind Control | Crowd control, incapacitate enemies | Control |
 | 8 | Mana Shield / Barrier | Damage absorption using mana | Defense |
 | 9 | Chain Lightning / Thunderbolt | Bouncing lightning spell | Offense (Damage) |
-| 10 | Time Manipulation / Slow / Haste | Slow enemies or haste allies | Control / Mobility |
+| 10 | Time Manipulation | Slow enemies or haste allies | Control / Utility |
 
 ## Skills
+
 ### Magic Missile
-- **Cooldown:** 1.5 s
+- **Cooldown:** 1.5 s
 - **Damage:** `10 + 2 * INT`
-- **Details:** Fires a homing projectile at the target.
+- **Range:** 8 m
+- **Mana Cost:** 10
+- **Cast Time:** 1.0 s
+- **Details:** Fires a homing projectile at the target. Cannot miss once cast.
+
+### Fireball
+- **Cooldown:** 3.0 s
+- **Damage:** `25 + 3 * INT`
+- **Range:** 10 m
+- **Area:** 2 m radius explosion
+- **Mana Cost:** 25
+- **Cast Time:** 2.0 s
+- **Details:** High damage fire projectile that explodes on impact, dealing area damage.
+
+### Frost Nova
+- **Cooldown:** 12 s
+- **Damage:** `8 + 1 * INT`
+- **Range:** Self-centered
+- **Area:** 5 m radius
+- **Mana Cost:** 30
+- **Cast Time:** 1.5 s
+- **Status Effect:** Freeze for 3 seconds
+- **Details:** AoE freeze that immobilizes all enemies within range.
+
+### Arcane Missiles
+- **Cooldown:** 6 s
+- **Damage:** `6 + 1.5 * INT` per missile (5 missiles)
+- **Range:** 12 m
+- **Mana Cost:** 35
+- **Cast Time:** 3.0 s (channeled)
+- **Details:** Rapid-fire magical projectiles. Can be interrupted by movement or damage.
+
+### Summon Elemental
+- **Cooldown:** 45 s
+- **Range:** 5 m
+- **Mana Cost:** 80
+- **Cast Time:** 3.0 s
+- **Duration:** 60 s
+- **Details:** Summons a fire elemental with 50 + 5 * INT health that fights alongside you.
+
+### Blink
+- **Cooldown:** 8 s
+- **Range:** 6 m
+- **Mana Cost:** 20
+- **Cast Time:** Instant
+- **Details:** Instantly teleports to target location within range. Cannot pass through walls.
+
+### Meteor
+- **Cooldown:** 20 s
+- **Damage:** `50 + 5 * INT`
+- **Range:** 15 m
+- **Area:** 4 m radius
+- **Mana Cost:** 100
+- **Cast Time:** 4.0 s
+- **Details:** Massive area damage with a delay. Area is marked before impact.
+
+### Polymorph
+- **Cooldown:** 15 s
+- **Range:** 8 m
+- **Mana Cost:** 40
+- **Cast Time:** 2.0 s
+- **Duration:** 8 s
+- **Details:** Transforms target enemy into a harmless sheep. Breaks on damage.
+
+### Mana Shield
+- **Cooldown:** 30 s
+- **Range:** Self
+- **Mana Cost:** 50
+- **Cast Time:** 1.0 s
+- **Duration:** 20 s
+- **Details:** Absorbs `30 + 2 * INT` damage using mana instead of health (2 mana per damage).
+
+### Chain Lightning
+- **Cooldown:** 10 s
+- **Damage:** `20 + 2.5 * INT` (decreases by 25% per jump)
+- **Range:** 10 m
+- **Targets:** Up to 5 enemies
+- **Mana Cost:** 60
+- **Cast Time:** 1.5 s
+- **Details:** Lightning bounces between nearby enemies, dealing reduced damage with each jump.
+
+### Time Manipulation
+- **Cooldown:** 25 s
+- **Range:** 8 m
+- **Area:** 6 m radius
+- **Mana Cost:** 70
+- **Cast Time:** 2.5 s
+- **Duration:** 10 s
+- **Details:** Slows enemy movement and attack speed by 50%, or increases ally speed by 30%.
 
 ### Arcane Nova
-- **Cooldown:** 8 s
-- **Damage:** `15 + 1.5 * INT` to all enemies in radius 4 m.
+- **Cooldown:** 8 s
+- **Damage:** `15 + 1.5 * INT`
+- **Range:** Self-centered
+- **Area:** 4 m radius
+- **Mana Cost:** 45
+- **Cast Time:** 1.0 s
 - **Details:** Point-blank area burst with brief knockback.
 
-### Heal
-- **Cooldown:** 5 s
-- **Healing:** `12 + 3 * INT`
-- **Details:** Single-target heal; can be self-cast.
+## Design Principles
+- **Skill Diversity:** Each skill should serve a distinct tactical purpose
+- **Resource Management:** Mana costs should create meaningful choices
+- **Risk/Reward:** Longer cast times for more powerful effects
+- **Counterplay:** All crowd control effects should have counterplay options
+- **Scaling:** All abilities scale with INT to maintain relevance
 
 ## Open Questions
-- Should skills queue if activated during Recover?
-- What is the casting range for Heal?
-- Do critical hits apply to spells?
+- Should skills queue if activated during Recover state, or should they be ignored?
+- Do critical hits apply to spells, and if so, what's the base critical chance?
+- Should mana regeneration be affected by casting spells or taking damage?
+- How should spell interruption work for channeled abilities like Arcane Missiles?
+- Should there be spell resistance mechanics for certain enemies?
+- What happens when a mage runs out of mana mid-cast?
+- Should area spells have friendly fire considerations?
+- How should line-of-sight affect targeted spells?
 
 ## Acceptance Criteria
-- Each skill follows the shared state diagram and respects its cooldown.
-- Damage/healing formulas are implemented exactly as specified.
-- Casting animations lock out movement during Casting phase.
-- Unit tests cover cooldown enforcement and formula calculations.
+- Each skill follows the shared state diagram and respects its cooldown
+- Damage/healing formulas are implemented exactly as specified
+- Casting animations lock out movement during Casting phase
+- Mana costs are properly deducted and validated before casting
+- Area effects properly detect and affect all valid targets
+- Status effects (freeze, polymorph) are applied with correct durations
+- Channeled abilities can be interrupted by movement or taking damage
+- Line-of-sight checks are performed for targeted abilities
+- Unit tests cover:
+  - Cooldown enforcement and formula calculations
+  - Mana cost validation and deduction
+  - Status effect application and duration
+  - Area detection and damage distribution
+  - Interruption mechanics for channeled spells
