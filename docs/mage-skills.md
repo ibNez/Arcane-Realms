@@ -9,6 +9,21 @@ stateDiagram-v2
     Recover --> Ready: Cooldown expires
 ```
 
+## Skill List
+
+| Rank | Skill Name | Description | Skill Type |
+| --- | --- | --- | --- |
+| 1 | Fireball / Pyroblast | High burst/fire damage | Offense (Damage) |
+| 2 | Frost Nova / Ice Blast | AoE freeze/root crowd control | Control |
+| 3 | Arcane Missiles | Rapid magical projectile attacks | Offense (Damage) |
+| 4 | Summon Elemental / Pet | Summons helper elemental minions | Utility / Control |
+| 5 | Blink / Teleportation | Instant repositioning/mobility spell | Mobility |
+| 6 | Meteor / Comet Call | Massive AoE fire damage with cinematic effect | Offense (Damage) |
+| 7 | Polymorph / Mind Control | Crowd control, incapacitate enemies | Control |
+| 8 | Mana Shield / Barrier | Damage absorption using mana | Defense |
+| 9 | Chain Lightning / Thunderbolt | Bouncing lightning spell | Offense (Damage) |
+| 10 | Time Manipulation / Slow / Haste | Slow enemies or haste allies | Control / Mobility |
+
 ## Skills
 ### Magic Missile
 - **Cooldown:** 1.5 s
