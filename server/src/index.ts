@@ -28,9 +28,10 @@ const wss = new WebSocketServer({ server });
 type Client = { id: string; ws: any; x: number; y: number };
 const clients = new Map<string, Client>();
 
-function broadcast(obj: any) {
+function broadcast(obj: any, skipId?: string) {
   const msg = JSON.stringify(obj);
   for (const c of clients.values()) {
+    if (c.id === skipId) continue;
     try { c.ws.send(msg); } catch {}
   }
 }
@@ -40,7 +41,7 @@ wss.on('connection', (ws) => {
   const c: Client = { id, ws, x: 100 + Math.random()*100, y: 100 + Math.random()*100 };
   clients.set(id, c);
   ws.send(JSON.stringify({ t: 'hello', id }));
-  broadcast({ t: 'join', id, x: c.x, y: c.y });
+  broadcast({ t: 'join', id, x: c.x, y: c.y }, id);
 
   ws.on('message', (data: any) => {
     try {
