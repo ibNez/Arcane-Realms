@@ -54,12 +54,77 @@ For other models (Mistral, Gemma, etc.), change the model name accordingly. You 
 
 ### Whisper and Piper
 
-Whisper (speech‑to‑text) and Piper (text‑to‑speech) are optional services that run outside docker‑compose. They need to be installed separately:
+Whisper (speech‑to‑text) and Piper (text‑to‑speech) run outside `docker-compose` and must be installed manually. After starting the servers, point the game server at them via `server/.env`.
 
-- **Whisper** – we recommend [faster‑whisper](https://github.com/guillaumekln/faster-whisper). Install Python dependencies, then run a small server (see `docs/SETUP.md`).
-- **Piper** – install from [rhasspy/piper](https://github.com/rhasspy/piper) and run a local server.
+#### faster‑whisper
 
-Once running, you can configure the game server (`server/.env`) to point to these services.
+```sh
+python3 -m venv whisper-venv
+source whisper-venv/bin/activate
+pip install faster-whisper fastapi uvicorn
+cat <<'EOF' > whisper_server.py
+from fastapi import FastAPI, UploadFile
+from faster_whisper import WhisperModel
+
+app = FastAPI()
+model = WhisperModel("base")
+
+@app.post("/transcribe")
+async def transcribe(file: UploadFile):
+    segments, _ = model.transcribe(await file.read())
+    return {"text": " ".join(seg.text for seg in segments)}
+EOF
+uvicorn whisper_server:app --host 0.0.0.0 --port 9001
+```
+
+Example systemd service (`/etc/systemd/system/faster-whisper.service`):
+
+```ini
+[Unit]
+Description=Faster Whisper API
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/whisper
+ExecStart=/opt/whisper/whisper-venv/bin/uvicorn whisper_server:app --host 0.0.0.0 --port 9001
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### Piper
+
+```sh
+python3 -m pip install "piper-tts[http]"
+python3 -m piper.download_voices en_US-lessac-medium
+python3 -m piper.http_server -m en_US-lessac-medium --host 0.0.0.0 --port 9002
+```
+
+Example systemd service (`/etc/systemd/system/piper.service`):
+
+```ini
+[Unit]
+Description=Piper TTS HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/piper
+ExecStart=/usr/bin/python3 -m piper.http_server -m en_US-lessac-medium --host 0.0.0.0 --port 9002
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Set the following variables in `server/.env` to let the game know where these services live:
+
+```env
+WHISPER_URL=http://localhost:9001
+PIPER_URL=http://localhost:9002
+```
 
 ## Running the Game Locally
 
@@ -104,3 +169,9 @@ docker compose -f ops/docker-compose.yml down
 The database and vector data are persisted in the `ops/` volumes configured in `docker-compose.yml`.
 
 For more information about the architecture, see `docs/20k-Scalability.md`.
+
+## Troubleshooting
+
+- **GPU not detected** – confirm `nvidia-smi` works and that your CUDA toolkit matches the driver version. Both faster‑whisper and Piper can fall back to CPU with the appropriate flags.
+- **CPU models too slow** – use smaller models (e.g., `base` for Whisper or `en_US-lessac-medium` for Piper) or enable GPU acceleration.
+- **Illegal instruction errors** – some binaries require AVX2; compile from source if running on older CPUs.
