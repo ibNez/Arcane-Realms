@@ -2,6 +2,8 @@
 This build adds a Chat panel (press **C**) that talks to `/llm` on the server (Ollama if running, stub otherwise),
 and keeps the improved input (WASD + arrows + click-to-move; keys cancel click-to-move immediately).
 
+See the [API reference](docs/API.md) for available REST routes and WebSocket messages.
+
 ## Run (Dev)
 1) Server
    ```bash
