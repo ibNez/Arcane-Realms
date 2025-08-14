@@ -260,6 +260,14 @@ export class TestScene extends Phaser.Scene {
     this.lockHpFg.width = w
   }
 
+  updateEnemyHp(e: Enemy) {
+    const pct = Math.max(0, Math.min(1, e.hp / e.maxHp))
+    const w = 26 * pct
+    e.hpBg.setPosition(e.node.x, e.node.y - 18)
+    e.hpFg.setPosition(e.node.x - (26 - w)/2, e.node.y - 18)
+    e.hpFg.width = w
+  }
+
   // ===== Net/LLM stubs =====
   async askNpc(text: string): Promise<string> {
     try {
