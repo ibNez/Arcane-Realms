@@ -38,10 +38,12 @@ docker compose -f ops/docker-compose.yml up -d
 
 This starts the following services (ports exposed on your machine):
 
-- **Ollama** on `http://localhost:11434` – hosts the LLM models  
-- **Postgres** on `localhost:5432` – game state  
-- **Redis** on `localhost:6379` – pub/sub and caches  
-- **Milvus** on `localhost:19530` – vector memory (NPC memory, creature lineages)  
+- **Ollama** on `http://localhost:11434` – hosts the LLM models
+- **Postgres** on `localhost:5432` – game state
+- **Redis** on `localhost:6379` – pub/sub and caches
+- **Milvus** on `localhost:19530` – vector memory (NPC memory, creature lineages)
+
+Stable Diffusion is not part of `docker-compose`. Run it separately if you plan to generate or edit images. See [stable-diffusion.md](stable-diffusion.md) for Windows installation and API options.
 
 You should pull any required models into the Ollama container before first use. From your host:
 

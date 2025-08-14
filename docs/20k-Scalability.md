@@ -42,8 +42,8 @@
 ## 4) AI Services (Offline-capable)
 - **Ollama** @ `http://localhost:11434`, proxied behind a thin service with per-zone **request queues** and response caching.
 - **Whisper** (faster-whisper) for STT with **Silero VAD** (optional) for push-to-talk gating.
-- **Piper** for TTS voices (per-zone instances to reduce cross-traffic).
-- **Stable Diffusion** (SDXL + ControlNet) in an **asset-gen microservice** (async) with CDN/object store caching.
+ - **Piper** for TTS voices (per-zone instances to reduce cross-traffic).
+ - **Stable Diffusion** (SDXL + ControlNet) in an **asset-gen microservice** (async) with CDN/object store caching. See [stable-diffusion.md](stable-diffusion.md) for local, open-source API options.
 
 **Budgets**
 - Per-zone LLM token/QPS caps; prompt/result cache by **(persona, memory hash, intent)**.
