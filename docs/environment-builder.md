@@ -42,7 +42,9 @@ space of ~1000 ft per side, combine tiles in a **4 × 4 grid** (16 tiles t
 ## Component Library
 The test tool exposes the core pieces used in world generation. Components are
 layered over the background image and include metadata, such as whether
-collision is enabled:
+collision is enabled. The authoritative list of components lives in
+[asset-catalog.md](asset-catalog.md) and is mirrored in a SQLite database
+(`ops/data/assets.db`) that the editor reads on startup:
 - Trees and bushes
 - Walls and fences
 - Houses and doors

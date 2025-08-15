@@ -21,7 +21,7 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 - [ ] **Creature capture** and basic **player breeding** (UI for combining two creatures and viewing offspring).
 - [ ] Background **wild breeding** ticks (5–15 s) with population caps per cell.
 - [ ] Add an **asset generation queue** for icons/portraits via SDXL; cache by content hash.
-- [ ] Implement **dynamic environment system** with base asset library and biome-specific Stable Diffusion transformations.
+- [ ] Implement **dynamic environment system** with base asset library and biome-specific Stable Diffusion transformations (see [asset-catalog.md](asset-catalog.md)).
 - [ ] Support **multi‑zone** deployment; route players to a zone; persist state per zone.
 - [ ] Sticky routing at the gateway to keep players on the same zone while exploring.
 

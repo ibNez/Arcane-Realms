@@ -19,6 +19,11 @@ Arcane Realms employs an **AI-powered dynamic asset generation system** using St
 
 ## Base Asset Library
 
+The foundational assets are cataloged in
+[asset-catalog.md](asset-catalog.md) and mirrored in a SQLite database
+(`ops/data/assets.db`) so generation and gameplay systems share the same
+authoritative metadata.
+
 ### Architectural Foundation
 ```
 Building Components
