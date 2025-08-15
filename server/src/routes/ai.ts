@@ -4,6 +4,7 @@ import { FileMemory } from '../memory/fileMemory.js';
 import type { LlmRequest, LlmResponse, EmbedRequest, EmbedResponse } from '../types/contracts.js';
 
 const OLLAMA = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
+const SD_URL = process.env.A1111_API_URL || process.env.SD_URL || 'http://localhost:7860';
 const memory = new FileMemory();
 
 export async function llm(req: Request, res: Response) {
@@ -64,7 +65,21 @@ export async function tts(_req: Request, res: Response) {
   res.json({ audioWavBase64: wav.toString('base64') });
 }
 
-export async function genImage(_req: Request, res: Response) {
-  const png1x1 = Buffer.from('89504E470D0A1A0A0000000D49484452000000010000000108020000009077240000000A49444154789C636000000200015F0A2DB40000000049454E44AE426082','hex');
-  res.json({ imagePngBase64: png1x1.toString('base64'), assetKey: 'stub-1x1' });
+export async function genImage(req: Request, res: Response) {
+  const { prompt } = req.body as { prompt?: string };
+  try {
+    const r = await fetch(SD_URL + '/sdapi/v1/txt2img', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt || 'fantasy landscape' })
+    });
+    if (!r.ok) throw new Error('SD HTTP ' + r.status);
+    const data: any = await r.json();
+    const img = data?.images?.[0] || '';
+    const seed = data?.parameters?.seed;
+    res.json({ imagePngBase64: img, assetKey: seed ? 'sd-' + seed : 'sd-image' });
+  } catch (e) {
+    const png1x1 = Buffer.from('89504E470D0A1A0A0000000D49484452000000010000000108020000009077240000000A49444154789C636000000200015F0A2DB40000000049454E44AE426082','hex');
+    res.json({ imagePngBase64: png1x1.toString('base64'), assetKey: 'stub-1x1' });
+  }
 }
