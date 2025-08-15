@@ -23,11 +23,13 @@ graph TD
 
 ## Prerequisites
 
-- **Node.js v20.x** (LTS) and npm or yarn  
-- **Git** for version control  
+- **Node.js v20.x** (LTS) and npm or yarn
+- **Git** for version control
 - **Docker** and **docker‑compose** for the offline AI stack
-- A working **GPU** is recommended if you plan to run larger models like SDXL
-> **TODO:** Specify minimum hardware requirements and OS compatibility.
+- **CPU:** Quad-core (e.g., Intel i5 or AMD Ryzen 5)
+- **RAM:** 16 GB
+- **GPU:** NVIDIA GTX 1660 or better with ≥6 GB VRAM (needed for large models like SDXL)
+- **Operating systems:** Windows 10/11, macOS 13+, or Ubuntu 22.04+
 
 Clone the repository:
 
