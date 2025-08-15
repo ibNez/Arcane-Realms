@@ -2,9 +2,12 @@
 This build adds a Chat panel (press **C**) that talks to `/llm` on the server (Ollama if running, stub otherwise),
 and keeps the improved input (WASD + arrows + click-to-move; keys cancel click-to-move immediately).
 
+This repository ships with **Arcane Forge**, the local development environment for Arcane Realms. See
+[docs/arcane-forge.md](docs/arcane-forge.md) for full setup details.
+
 See the [API reference](docs/API.md) for available REST routes and WebSocket messages.
 
-## Run (Dev)
+## Run (Arcane Forge)
 1) Server
    ```bash
    cd server
