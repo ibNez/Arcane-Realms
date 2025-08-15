@@ -75,12 +75,14 @@ resources scale with distance, encouraging players to grow before venturing
 outward.
 
 ## Environment Design Tools
-To author Realm Tiles, designers use an Inkarnate-style editor (see
-[environment-builder.md](environment-builder.md)). The editor must support:
+To author Realm Tiles, designers begin with a single generated background image
+of flat ground—such as a field or desert—and layer objects from a component
+library on top (see [environment-builder.md](environment-builder.md)). Each
+object includes metadata, including a collision on/off flag. The editor must
+support:
 
-- Layer-based drawing with brushes and texture fills
-- Drag-and-drop placement from a component library
-- Snap-to-grid alignment and freeform painting modes
+- Drag-and-drop placement from the component library
+- Snap-to-grid alignment
 - Export/import of tile data for version control and sharing
 - Previewing neighboring tiles to verify seamless borders
 
