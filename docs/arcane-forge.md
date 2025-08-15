@@ -67,16 +67,19 @@ place components, verify snap-to-grid alignment, and confirm that tiles connect
 cleanly.
 
 ## Realm Tiles
-The world is assembled from **Realm Tiles** – square 200 m × 200 m areas composed
-of 10 × 10 20 m chunks. When a player reaches a tile edge, the next tile is
+The world is assembled from **Realm Tiles** — each derived from a 1024 × 1024
+Stable Diffusion image mapped to a 64 × 64 grid. With 1 cell = 16 px = 5 ft, a
+single tile spans **320 ft (≈100 m)** per side. Larger playable areas combine
+multiple tiles; for example, a **4 × 4 tile set** covers ~1280 ft per side to meet
+the 1000 ft design target. When a player reaches a tile edge, the next tile is
 created and stitched seamlessly to the current one. Outer tiles belong to
 progressively harder "rings" radiating from the starting tile; enemies and
 resources scale with distance, encouraging players to grow before venturing
 outward.
 
 ## Environment Design Tools
-To author Realm Tiles, designers begin with a single generated background image
-of flat ground—such as a field or desert—and layer objects from a component
+To author Realm Tiles, designers begin with a single **seamless 1024 × 1024**
+ground image—such as a field or desert—and layer objects from a component
 library on top (see [environment-builder.md](environment-builder.md)). Each
 object includes metadata, including a collision on/off flag. The editor must
 support:

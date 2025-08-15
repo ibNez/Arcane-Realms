@@ -33,3 +33,21 @@ All of these options run locally and satisfy the requirement to use public, free
 - Enable `xformers` or FlashAttention to reduce VRAM usage.
 - SDXL models require roughly 12 GB of VRAM, which fits comfortably on the 5090.
 
+## Tiling Strategy & Scale
+
+Stable Diffusion commonly outputs images at **1024 × 1024**. Arcane Realms treats
+each output as a ground **tile** and maps it to gameplay space:
+
+- **Pixel scale**: 1 grid cell = 16 px
+- **World scale**: 1 grid cell = 5 ft
+- **Tile span**: 1024 px ÷ 16 px = 64 cells → 64 × 5 ft = **320 ft per side**
+
+To exceed the single-tile limit:
+
+- **2 × 2 tiles** (4 tiles total) → 2048 × 2048 scene covering ~640 ft per side
+- **4 × 4 tiles** (16 tiles total) → 4096 × 4096 scene covering ~1280 ft per side
+
+Tiles must be generated with seamless borders so ground textures repeat cleanly
+in any arrangement. Characters drawn at **32–48 px** tall will appear roughly
+human‑sized (5–7 ft) on this scale.
+
