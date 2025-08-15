@@ -2,9 +2,10 @@
 
 ## Overview
 The environment builder is a standalone editor for assembling and validating
-grid-based world segments before integrating them into gameplay. It provides a
-controlled sandbox where designers can spawn components, experiment with
-decoration themes, and ensure every square connects cleanly to its neighbors.
+grid-based world segments called **Realm Tiles** before integrating them into
+gameplay. It provides a controlled sandbox where designers can spawn
+components, experiment with decoration themes, and ensure every square connects
+cleanly to its neighbors.
 
 ## Goals
 - Run independently from the main application, similar to character testing
@@ -26,6 +27,12 @@ decoration themes, and ensure every square connects cleanly to its neighbors.
 - **Delete Item** to remove selected components
 - **Drag & Duplicate** for rapid placement of multiples
 - **Snap to Grid** toggle for precise alignment
+
+### Inkarnate-Style Editing
+- Layer and brush system for painting terrain and textures
+- Stamp library for rapid placement of props and structures
+- Undo/redo history for safe experimentation
+- Export to and import from JSON for source control
 
 ## Component Library
 The test tool should expose the core pieces used in world generation:

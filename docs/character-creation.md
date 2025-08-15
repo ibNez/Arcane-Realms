@@ -326,6 +326,14 @@ class FallbackManager:
         pass
 ```
 
+## Testing Requirements
+- **Parameter Handling** – validate enums, ranges, and required fields
+- **Prompt Assembly** – ensure prompts include all selected parameters
+- **Generation Queue** – test concurrent requests and queue limits
+- **Caching Layers** – verify file, Redis, and memory caches serve expected data
+- **Fallback Logic** – confirm preset characters load when generation fails
+- **Route Coverage** – API routes return appropriate errors and success responses
+
 ## Integration with Game Systems
 
 ### Character Data Storage

@@ -220,7 +220,8 @@ isometric game art style, detailed but clean
 ### Adaptive Generation
 - **Player Influence**: Areas generate content appropriate to discovering player's level/progress
 - **Historical Context**: New areas reference previously discovered locations and events
-- **Difficulty Scaling**: Content difficulty scales based on regional progression
+- **Radial Difficulty Scaling**: Each ring of [Realm Tiles](development-environment.md#realm-tiles) farther from the origin
+  increases enemy strength and reward value
 - **Resource Scarcity**: Rare resources become more scarce as world expands
 
 ### Discovery Mechanics
