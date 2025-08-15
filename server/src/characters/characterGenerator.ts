@@ -1,5 +1,5 @@
 import { generateCharacter } from './generator.js';
-import { ContentFilter } from './contentFilter.js';
+import type { ContentFilter } from './contentFilter.js';
 import { FallbackManager, fallbackManager as defaultFallback } from './fallback.js';
 
 export interface Cache {
@@ -24,13 +24,13 @@ export class CharacterGenerator {
   private queue: Promise<void> = Promise.resolve();
   private generateFn: (params: Record<string, any>) => Promise<any>;
   private cache: Cache;
-  private filter: ContentFilter;
+  private filter?: ContentFilter;
   private fallback: FallbackManager;
 
   constructor(deps: Deps = {}) {
     this.generateFn = deps.generate ?? generateCharacter;
     this.cache = deps.cache ?? new MemoryCache();
-    this.filter = deps.filter ?? new ContentFilter();
+    this.filter = deps.filter;
     this.fallback = deps.fallback ?? defaultFallback;
   }
 
@@ -52,7 +52,8 @@ export class CharacterGenerator {
   private async generateImmediate(params: Record<string, any>, key: string) {
     try {
       const result = await this.generateFn(params);
-      if (!(await this.filter.validate(result.portrait))) {
+      const filter = await this.getFilter();
+      if (!(await filter.validate(result.portrait))) {
         return this.fallback.get(params);
       }
       await this.cache.set(key, result);
@@ -60,6 +61,14 @@ export class CharacterGenerator {
     } catch {
       return this.fallback.get(params);
     }
+  }
+
+  private async getFilter(): Promise<ContentFilter> {
+    if (!this.filter) {
+      const mod = await import('./contentFilter.js');
+      this.filter = new mod.ContentFilter();
+    }
+    return this.filter;
   }
 }
 
