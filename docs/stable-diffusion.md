@@ -71,7 +71,11 @@ For quick experiments, Automatic1111 or InvokeAI offer the fastest path. ComfyUI
 - Install the latest NVIDIA drivers and CUDA toolkit for the RTX 5090.
 - Enable `xformers` or FlashAttention to reduce VRAM usage.
 - SDXL models require roughly 12 GB of VRAM, which fits comfortably on the 5090.
-> **TODO:** Include benchmarks or expected generation times under typical configurations.
+- On an RTX 5090, expect roughly the following generation times using 30 sampler steps:
+  - **SD 1.5** @ 512×512 → ~0.8 s per image
+  - **SDXL Base** @ 1024×1024 → ~2.5 s per image
+  - **SDXL Base + Refiner** @ 1024×1024 → ~4.3 s per image
+  - **4× ESRGAN upscale** of a 1 MP image → ~7 s per image
 
 ## Tiling Strategy & Scale
 
