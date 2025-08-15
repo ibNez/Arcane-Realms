@@ -116,4 +116,10 @@ consistent while speeding up repeat sessions.
 - Save/load layouts for regression testing
 - Batch-generate random squares to stress test decoration themes
 
-> **TODO:** Investigate collaboration features for multiple designers editing the same scene.
+## Collaboration and Version Control
+Supporting multiple designers on a single scene can follow several patterns:
+
+- **Real-time synchronization** – a shared server relays state via WebSockets or WebRTC. Libraries based on CRDTs (e.g., Yjs, Automerge) merge edits from each client without conflicts.
+- **Operational-transform workflows** – clients send user operations to a coordinator that rebases them in sequence, similar to Google Docs style editing.
+- **Version-control model** – treat each tile's JSON as code: designers branch, commit, and open pull requests. Git LFS or a lightweight binary store manages large assets while reviews ensure quality.
+- **Hybrid approach** – live sessions for quick iteration backed by Git history to audit changes, roll back mistakes, and reconcile diverging branches.
