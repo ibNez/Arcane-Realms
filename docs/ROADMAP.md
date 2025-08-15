@@ -2,6 +2,8 @@
 
 This document outlines a phased plan for building Arcane Realms from a minimum viable product (MVP) to a full multi‑realm deployment supporting tens of thousands of players. Each phase includes key deliverables and example tasks.
 
+> **TODO:** Add estimated timelines and dependencies between phases to aid planning.
+
 ## Phase 0 – MVP (2–4 players)
 
 - [ ] Single authoritative **zone server** with basic WebSocket multiplayer.
@@ -13,6 +15,7 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 - [ ] **AI-powered character creation** with Stable Diffusion generated portraits and randomization options.
 - [ ] Set up **Milvus** with a tiny bestiary and NPC memory collection.
 - [ ] Local AI stack via `ops/docker-compose.yml` (Ollama, Postgres, Redis, Milvus).
+> **TODO:** Determine success metrics for Phase 0 completion.
 
 ## Phase 1 – Dozens to Hundreds of Players
 
@@ -24,6 +27,7 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 - [ ] Implement **dynamic environment system** with base asset library and biome-specific Stable Diffusion transformations (see [asset-catalog.md](asset-catalog.md)).
 - [ ] Support **multi‑zone** deployment; route players to a zone; persist state per zone.
 - [ ] Sticky routing at the gateway to keep players on the same zone while exploring.
+> **TODO:** Specify load-testing targets for Phase 1 features.
 
 ## Phase 2 – Thousands of Players
 
@@ -33,6 +37,7 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 - [ ] Introduce **combat events** and **bosses** with load‑shedding (split instance if threshold).
 - [ ] Implement **per‑zone AI quotas**; shard Milvus collections by zone or realm.
 - [ ] Optimise server code; offload CPU‑intensive tasks (physics, AoE checks) to Rust/Go microservices.
+> **TODO:** Identify profiling tools and benchmarks for performance optimization.
 
 ## Phase 3 – 20 000 Concurrency Target
 
@@ -43,6 +48,7 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 - [ ] Use a **CDN/object store** for generated assets (portraits, creature images); implement cache invalidation.
 - [ ] Integrate **additional classes** (Warrior, Ranger, Summoner) and cooperative features (dungeons, raids).
 - [ ] Enhance the **breeding ecosystem** with genes for temperament, diet, and new species.
+> **TODO:** Define release criteria and monitoring for multi-realm rollout.
 
 ## Ongoing Tasks
 
@@ -51,3 +57,4 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 - [ ] Harden security: input validation, rate limiting, anti‑cheat measures.
 - [ ] Continually refine **user experience**: controls, feedback, art direction, accessibility.
 - [ ] Gather **player feedback** through playtests and adjust roadmap accordingly.
+> **TODO:** Outline process for updating the roadmap based on feedback and changing priorities.

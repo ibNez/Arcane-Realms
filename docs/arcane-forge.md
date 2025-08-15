@@ -6,11 +6,14 @@ brings together the tools needed to build and test new features, including
 character creation and world assembly. This document explains how to set up and
 use Arcane Forge while highlighting the areas that require focused testing.
 
+> **TODO:** Provide architecture diagrams showing how client and server components interact during development.
+
 ## Prerequisites
 - **Node.js v20.x** and npm
 - **Git**
 - **Docker** and **docker-compose** for optional offline AI services
 - A **GPU** is recommended when running large models locally
+> **TODO:** Clarify supported operating systems and any platform-specific caveats for these prerequisites.
 
 ## Setup
 1. Clone the repository:
@@ -45,6 +48,7 @@ npm run dev
 
 - **Server**: http://localhost:8080
 - **Client**: http://localhost:5173
+> **TODO:** Describe how environment variables are managed during local development and testing.
 
 ## Testing
 
@@ -76,6 +80,7 @@ created and stitched seamlessly to the current one. Outer tiles belong to
 progressively harder "rings" radiating from the starting tile; enemies and
 resources scale with distance, encouraging players to grow before venturing
 outward.
+> **TODO:** Document tools or scripts used to generate and validate Realm Tiles automatically.
 
 ## Environment Design Tools
 To author Realm Tiles, designers begin with a single **seamless 1024 × 1024**
@@ -90,6 +95,7 @@ support:
 - Snap-to-grid alignment
 - Export/import of tile data for version control and sharing
 - Previewing neighboring tiles to verify seamless borders
+> **TODO:** Add guidance on exporting/importing tile data formats and version control strategies.
 
 ## Interactive Features
 To prototype gameplay, Arcane Forge includes basic simulation tools:

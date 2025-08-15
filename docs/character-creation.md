@@ -3,6 +3,8 @@
 ## Overview
 Arcane Realms features an **AI-powered character creation system** that uses Stable Diffusion to generate unique character portraits. This system provides infinite variety while maintaining artistic consistency and ensuring all generated content is appropriate for the game's fantasy setting.
 
+> **TODO:** Explain where generated portraits are stored and how long-term caching or CDN distribution is handled.
+
 ## Design Philosophy
 
 ### Player Agency with Guidance
@@ -16,6 +18,7 @@ Arcane Realms features an **AI-powered character creation system** that uses Sta
 - **Quality Assurance**: Automated content filtering and quality validation
 - **Scalability**: System designed to handle high concurrent usage
 - **Fallback Safety**: Graceful degradation when AI services are unavailable
+> **TODO:** Detail moderation policies and tools used for filtering inappropriate content.
 
 ## Character Generation Framework
 
@@ -45,6 +48,8 @@ class CharacterParameters:
     quality_level: QualityTier
 ```
 
+> **TODO:** Define allowable ranges and validation rules for each parameter.
+
 ### Heritage and Cultural Representation
 ```python
 class Heritage(Enum):
@@ -57,6 +62,8 @@ class Heritage(Enum):
     COASTAL_CITIES = "mediterranean_inspired"
     MYSTIC_ENCLAVES = "fantasy_original"
 ```
+
+> **TODO:** Include examples or references for each heritage to guide prompt design.
 
 ### Customization Categories
 

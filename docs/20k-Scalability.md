@@ -27,8 +27,9 @@
 - Node.js + TypeScript initially; **Go/Rust** microservices for hot paths later.  
 - Each zone simulates gameplay; target **500–2,000 players/zone** depending on density and sim cost.
 
-**World Orchestrator**  
+**World Orchestrator**
 - Assigns players to zones/instances, handles cross-zone transfers, spins/tears zones as caps are hit.
+> **TODO:** Define the orchestrator's implementation language and messaging protocols.
 
 ## 3) State & Persistence
 - **Postgres**: authoritative game state (accounts, inventories, economy), via Prisma.
@@ -38,6 +39,7 @@
 **Backups & Schema**
 - Nightly Postgres snapshots; Milvus collection export; Redis is ephemeral.
 - Migrations managed with Prisma Migrate; versioned collections for Milvus.
+> **TODO:** Document backup restoration procedures and disaster-recovery playbooks.
 
 ## 4) AI Services (Offline-capable)
 - **Ollama** @ `http://localhost:11434`, proxied behind a thin service with per-zone **request queues** and response caching.
@@ -50,6 +52,7 @@
 - Whisper chunks with short PTT windows; transcripts summarized before LLM.
 - TTS: pre-warm voices; dedupe identical lines across players; short lines in combat.
 - SDXL: pre-batch during low load; cache by **content hash**; stream to clients when ready.
+> **TODO:** Include expected hardware specs to meet these budget assumptions.
 
 ## 5) World Slicing to Reach 20k CCU
 - **Realms (macro)**: geographic clusters (e.g., NA/EU/APAC). CCU per realm depends on hardware (e.g., 2k–4k).
@@ -70,6 +73,7 @@
 - **Sim tick**: **20–30 Hz**; **net send**: **10–20 Hz** with delta compression and snapshot packing.
 - Encodings: **FlatBuffers/Protobuf**, bit-packed transforms; optional **zstd** at the gateway.
 - **Anti-cheat**: sanity checks on input rates, server-enforced cooldowns, server damage rolls.
+> **TODO:** Clarify versioning strategy for network protocols and schema evolution.
 
 ## 7) Wildlife & Breeding at Scale
 - **Background sim per cell**: ecological ticks every **5‑15s**; deterministic PRNG per cell.

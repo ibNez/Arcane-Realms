@@ -2,6 +2,8 @@
 
 This document outlines the game design for Arcane Realms.
 
+> **TODO:** Add an overview of the full technology stack (engines, frameworks, languages) to give contributors context on how the design maps to implementation.
+
 #### Dynamic Content**: Points of interest, dungeons, and special locations are generated based on player actions and exploration patterns
 
 ### Dynamic Visual Environment
@@ -15,12 +17,14 @@ The world features **AI-generated environmental assets** that adapt to biome, hi
 - **Historical Layering**: Assets reflect age, player traffic, and regional events
 - **Functional Preservation**: Generated assets maintain gameplay clarity and mechanical function
 - **Smart Caching**: Content-hashed assets ensure consistency while preventing redundant generation## AI‑Driven NPCs
+> **TODO:** Document the image-generation pipeline and asset storage strategy, including any preprocessing steps or CDN usage.
 
 ### Core AI Systems
 - NPCs use **Ollama** via the server's `/llm` endpoint for natural language dialogue.
 - Each NPC has a **persona prompt**, context about the world, and access to a **function‑calling schema** to perform game actions (grant quests, unlock skills, give lore).
 - NPC memory is stored in **Milvus**; queries retrieve relevant dialogue history or lore to inform responses.
 - STT (Whisper) and TTS (Piper) are used to enable voice chat with NPCs when available.
+> **TODO:** Specify fallback behavior when AI services are unavailable and how network errors are surfaced to players.
 
 ### Quest System & Player Tracking
 - **Cross-Player Awareness**: Quest-giving NPCs maintain awareness of all players who have accepted their quests
@@ -64,12 +68,14 @@ The world features **AI-generated environmental assets** that adapt to biome, hi
     - **1 / Q – Magic Missile**: fires a homing projectile at the locked target or forward if no lock.
     - **2 / E – Arcane Nova**: an area‑of‑effect explosion centered on the player with a short wind‑up and knockback.
     - **3 / R – Heal**: restores health; long cooldown.
-    - **4 / F – Mobility** (future): dash or blink to reposition.
+- **4 / F – Mobility** (future): dash or blink to reposition.
 - **Combat**: Left‑clicking on an enemy both locks the target and immediately casts skill 1. Right‑clicking (or Space) will trigger a basic attack. Holding modifiers will be used for advanced skills later.
+> **TODO:** Clarify controller and mobile input support and how keybinds can be remapped.
 
 ## Camera & View
 
 The game uses a fixed top‑down camera. The camera follows the player smoothly and zooms in/out based on context (e.g., zoom out slightly when many enemies spawn).
+> **TODO:** Describe the camera smoothing and zoom algorithms and any performance considerations.
 
 ## HUD & UI
 
@@ -78,6 +84,7 @@ The game uses a fixed top‑down camera. The camera follows the player smoothly 
 - **Target indicators**: a ring around the locked target and a floating health bar above each enemy.
 - **Chat panel**: toggled with **C**, used to talk to NPCs; integrates with the AI service.
 - **Dev console**: toggled with **~** for debugging; captures logs and errors.
+> **TODO:** Detail the UI framework and accessibility features for HUD elements.
 
 ## Character Creation System
 

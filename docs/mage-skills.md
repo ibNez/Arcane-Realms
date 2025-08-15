@@ -33,6 +33,8 @@ stateDiagram-v2
 | 9 | Chain Lightning / Thunderbolt | Bouncing lightning spell | Offense (Damage) |
 | 10 | Time Manipulation | Slow enemies or haste allies | Control / Utility |
 
+> **TODO:** Outline progression tiers and how new mage skills unlock over levels.
+
 ## Skills
 
 ### Magic Missile
@@ -42,6 +44,7 @@ stateDiagram-v2
 - **Mana Cost:** 10
 - **Cast Time:** 1.0 s
 - **Details:** Fires a homing projectile at the target. Cannot miss once cast.
+> **TODO:** Describe projectile speed and interaction with obstacles.
 
 ### Fireball
 - **Cooldown:** 3.0 s
@@ -69,6 +72,7 @@ stateDiagram-v2
 - **Mana Cost:** 35
 - **Cast Time:** 3.0 s (channeled)
 - **Details:** Rapid-fire magical projectiles. Can be interrupted by movement or damage.
+> **TODO:** Specify channel break conditions and whether partial damage is applied on interruption.
 
 ### Summon Elemental
 - **Cooldown:** 45 s
@@ -109,6 +113,7 @@ stateDiagram-v2
 - **Cast Time:** 1.0 s
 - **Duration:** 20 s
 - **Details:** Absorbs `30 + 2 * INT` damage using mana instead of health (2 mana per damage).
+> **TODO:** Define recharge mechanics and interactions with other defensive buffs.
 
 ### Chain Lightning
 - **Cooldown:** 10 s
@@ -153,6 +158,7 @@ stateDiagram-v2
 - What happens when a mage runs out of mana mid-cast?
 - Should area spells have friendly fire considerations?
 - How should line-of-sight affect targeted spells?
+> **TODO:** Decide if terrain and obstacles block spells and include LOS checks in design.
 
 ## Acceptance Criteria
 - Each skill follows the shared state diagram and respects its cooldown

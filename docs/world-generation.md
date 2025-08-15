@@ -3,6 +3,8 @@
 ## Overview
 Arcane Realms features a **player-driven world generation system** where the game world expands dynamically based on player exploration. This document outlines the technical and design aspects of how the world grows, evolves, and maintains performance at scale.
 
+> **TODO:** Describe the persistence layer and how world state is stored and retrieved across sessions.
+
 ## Generation Philosophy
 
 ### Player-Centric Design
@@ -25,6 +27,8 @@ World
 │   └── Regional Themes/Lore
 └── Global World State
 ```
+
+> **TODO:** Clarify which mapping or ECS libraries handle these hierarchical regions.
 
 ### Tile Scale & Seamless Tiling
 
@@ -55,6 +59,8 @@ the player’s immediate surroundings.
 6. **Integration**: Seamlessly connect to existing world
 7. **Activation**: Make available for player exploration
 
+> **TODO:** Specify error-handling and rollback strategies when generation fails.
+
 #### Ground Tile Generation Steps
 1. **Determine Tile Set**: Calculate which 1024 × 1024 tiles (and any 4 × 4 groups)
    are required based on player direction and world coordinates
@@ -73,6 +79,8 @@ the player’s immediate surroundings.
 
 ### AI-Powered Asset Generation
 Arcane Realms features a **dynamic visual environment** where the world's appearance adapts to its biome, history, and current state through AI-generated imagery. Rather than using static, pre-made assets, the game employs **Stable Diffusion** to create contextually appropriate visuals that maintain gameplay functionality while providing infinite visual variety.
+
+> **TODO:** Outline hardware requirements and performance budgets for the generation service.
 
 ### Base Component Library
 The system starts with a **foundational asset library** of core structural

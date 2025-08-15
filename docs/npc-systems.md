@@ -3,6 +3,8 @@
 ## Overview
 Arcane Realms features a sophisticated NPC system where characters exhibit realistic behaviors, maintain complex social relationships, and provide dynamic quest content. This document outlines the technical architecture and design principles behind the AI-driven NPC experience.
 
+> **TODO:** Document the runtime frameworks and libraries used to implement these NPC systems.
+
 ## NPC AI Architecture
 
 ### Core AI Components
@@ -32,6 +34,7 @@ NPC AI System
 - **Function Calling**: NPCs can trigger game actions (quest assignment, item trading, skill teaching)
 - **Conversation Memory**: Each interaction is stored and referenced in future conversations
 - **Voice Support**: Optional STT/TTS for immersive voice interactions
+> **TODO:** Explain how dialogue latency is managed and what happens if the LLM service times out.
 
 ## Quest System Architecture
 
@@ -77,6 +80,8 @@ class NPCSchedule:
     special_events: List[ScheduleOverride]
 ```
 
+> **TODO:** Specify the pathfinding algorithm and how movement meshes are generated for NPC navigation.
+
 ### Activity Types
 - **Work**: Profession-based activities (blacksmith, merchant, guard)
 - **Social**: Visiting friends, attending events, casual conversations
@@ -103,6 +108,8 @@ class NPCRelationship:
     shared_interests: List[Topic]
     conversation_frequency: float
 ```
+
+> **TODO:** Clarify how long-term memory persistence is stored and synchronized across servers.
 
 ### Conversation System
 - **Trigger Conditions**: NPCs converse when paths cross based on relationship and context

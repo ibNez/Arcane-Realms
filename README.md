@@ -5,10 +5,14 @@ and keeps the improved input (WASD + arrows + click-to-move; keys cancel click-t
 This repository ships with **Arcane Forge**, the local development environment for Arcane Realms. See
 [docs/arcane-forge.md](docs/arcane-forge.md) for full setup details.
 
+> **TODO:** Add a concise project overview and list of core technologies used.
+
 See the [API reference](docs/API.md) for available REST routes and WebSocket messages.
 
 For component metadata and images used throughout the world, consult the
 [asset catalog](docs/asset-catalog.md).
+
+> **TODO:** Provide links to additional documentation such as contribution guidelines and roadmap.
 
 ## Run (Arcane Forge)
 1) Server
