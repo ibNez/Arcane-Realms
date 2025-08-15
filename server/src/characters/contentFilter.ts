@@ -1,6 +1,6 @@
 import type { Buffer } from 'node:buffer';
 import * as tf from '@tensorflow/tfjs-node';
-import nsfwjs from 'nsfwjs';
+import * as nsfwjs from 'nsfwjs';
 import sharp from 'sharp';
 
 class NSFWDetector {
