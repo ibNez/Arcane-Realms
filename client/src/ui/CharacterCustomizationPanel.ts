@@ -17,11 +17,11 @@ export class CharacterCustomizationPanel {
   private root: HTMLDivElement
   private imgEl: HTMLImageElement
   private params: Params
-  private onAccept: ((p:Params)=>void) | null
+  private onApply: ((p:Params)=>void) | null
   private selects: Record<string, HTMLSelectElement> = {}
 
-  constructor(onAccept?: (p:Params)=>void) {
-    this.onAccept = onAccept || null
+  constructor(onApply?: (p:Params)=>void) {
+    this.onApply = onApply || null
     this.params = { hairStyle: HAIR_STYLES[0], hairColor: HAIR_COLORS[0], eyeColor: EYE_COLORS[0], clothing: CLOTHING[0] }
     this.root = document.createElement('div')
     Object.assign(this.root.style, {
@@ -67,7 +67,7 @@ export class CharacterCustomizationPanel {
       border:'1px solid rgba(255,255,255,0.12)',
       background:'rgba(255,255,255,0.08)', color:'#eaeefb', cursor:'pointer'
     } as CSSStyleDeclaration)
-    randBtn.onclick = () => { this.randomizeAll() }
+    randBtn.onclick = () => { this.randomizeAll(); this.onApply?.(this.params) }
     row.appendChild(randBtn)
 
     const acceptBtn = document.createElement('button')
@@ -77,7 +77,7 @@ export class CharacterCustomizationPanel {
       border:'1px solid rgba(255,255,255,0.12)',
       background:'rgba(255,255,255,0.15)', color:'#eaeefb', cursor:'pointer'
     } as CSSStyleDeclaration)
-    acceptBtn.onclick = () => { this.onAccept?.(this.params); this.hide() }
+    acceptBtn.onclick = () => { this.onApply?.(this.params); this.hide() }
     row.appendChild(acceptBtn)
 
     document.body.appendChild(this.root)
@@ -107,6 +107,7 @@ export class CharacterCustomizationPanel {
     sel.onchange = () => {
       this.params[key] = sel.value
       this.generate()
+      this.onApply?.(this.params)
     }
     wrap.appendChild(sel)
     root.appendChild(wrap)
