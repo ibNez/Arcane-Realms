@@ -2,7 +2,35 @@
 
 Arcane Realms relies on open-source Stable Diffusion services for text-to-image, image-to-image, and inpainting tasks (e.g., redrawing walls, trees, bushes, or houses) on Windows 11 hardware with an RTX 5090 GPU.
 
-> **TODO:** Document steps for Linux/macOS setups and any GPU driver requirements beyond the RTX 5090 example.
+## Linux and macOS Setup
+
+### Linux (Ubuntu 22.04 example)
+
+1. Install up‑to‑date GPU drivers.
+   - **NVIDIA**: `sudo apt install nvidia-driver-535` then verify with `nvidia-smi`.
+   - **AMD**: install ROCm 5+ following [AMD’s instructions](https://rocm.docs.amd.com/en/latest/).
+2. Install Python 3.10 and Git: `sudo apt install python3 python3-venv git`.
+3. Clone and launch a Stable Diffusion service (Automatic1111 shown):
+   ```bash
+   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+   cd stable-diffusion-webui
+   ./webui.sh --xformers --api
+   ```
+
+### macOS (Apple Silicon)
+
+1. Ensure macOS 13+ with Xcode command line tools: `xcode-select --install`.
+2. Install Homebrew, Python 3.10, and Git: `brew install python@3.10 git`.
+3. Install PyTorch with Metal (GPU) acceleration:
+   ```bash
+   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/metal
+   ```
+4. Clone and launch the service:
+   ```bash
+   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+   cd stable-diffusion-webui
+   ./webui.sh --api
+   ```
 
 ## Available Options
 
