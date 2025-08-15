@@ -65,7 +65,12 @@ and ensure any generated files are ignored.
 - Link any related GitHub issues in the PR description.
 - At least one maintainer approval is required before merging.
 - Keep PRs focused—smaller, incremental changes are easier to review.
-> **TODO:** Explain required test coverage and link to any CI pipelines.
+- Tests must pass with at least **80%** line coverage. Run `npm test -- --coverage`
+  in any affected package and ensure overall coverage stays above this
+  threshold.
+- Continuous integration runs via GitHub Actions—see
+  [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for the pipeline that
+  builds, tests, and checks coverage.
 
 ## Where to Ask Questions
 - **Issues:** Report bugs or request features at
