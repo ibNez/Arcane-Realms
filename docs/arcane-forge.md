@@ -18,7 +18,17 @@ state for rapid iteration.
 - **Git**
 - **Docker** and **docker-compose** for optional offline AI services
 - A **GPU** is recommended when running large models locally
-> **TODO:** Clarify supported operating systems and any platform-specific caveats for these prerequisites.
+Arcane Forge is tested on Windows 10/11, macOS 12+, and modern Linux distributions
+such as Ubuntu 20.04+ and Fedora 38+. Platform-specific notes:
+
+- **Windows:** Use WSL 2 for a Linux-compatible environment. Install Node.js and
+  Git via `winget` or Chocolatey, and enable Docker Desktop with WSL 2 or
+  Hyper-V. GPU workloads require current NVIDIA drivers.
+- **macOS:** Install Node.js, Git, and Docker Desktop through Homebrew. Apple
+  Silicon systems may need Rosetta for x86-only tools.
+- **Linux:** Install Node.js and Git from your package manager or via `nvm`. Add
+  your user to the `docker` group and ensure vendor GPU drivers are present so
+  Docker can access the GPU.
 
 ## Setup
 1. Clone the repository:
