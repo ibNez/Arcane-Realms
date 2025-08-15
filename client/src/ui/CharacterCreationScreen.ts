@@ -125,11 +125,17 @@ export class CharacterCreationScreen {
     const hairColor = params.hairColor || params.hair_color
     const eyes = params.eyeColor || params.eye_color
     const clothing = params.clothing || params.clothing_style
+    const accessory = Array.isArray(params.accessories) ? params.accessories[0] : params.accessories
+    const expression = params.expression
+    const pose = params.pose
     const parts = [] as string[]
     if (hair) parts.push(`Hair: ${hair}`)
     if (hairColor) parts.push(`Hair Color: ${hairColor}`)
     if (eyes) parts.push(`Eyes: ${eyes}`)
     if (clothing) parts.push(`Clothing: ${clothing}`)
+    if (accessory) parts.push(`Accessory: ${accessory}`)
+    if (expression) parts.push(`Expression: ${expression}`)
+    if (pose) parts.push(`Pose: ${pose}`)
     this.optionsEl.textContent = parts.join(', ')
   }
 
