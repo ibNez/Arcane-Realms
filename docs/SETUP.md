@@ -80,7 +80,18 @@ This starts the following services (ports exposed on your machine):
 - **Postgres** on `localhost:5432` – game state
 - **Redis** on `localhost:6379` – pub/sub and caches
 - **Milvus** on `localhost:19530` – vector memory (NPC memory, creature lineages)
-> **TODO:** Provide instructions for initializing databases and seeding data after services start.
+After the containers are up, initialize the databases:
+
+```sh
+# Create tables and seed demo rows in Postgres
+docker compose exec -T postgres psql -U game -d game < ops/init-postgres.sql
+
+# Create a Milvus collection and insert a sample vector
+pip install pymilvus
+python ops/init-milvus.py
+```
+
+These scripts create the basic Postgres schema and an example Milvus collection with one starter entry.
 
 Stable Diffusion is not part of `docker-compose`. Run it separately if you plan to generate or edit images. See [stable-diffusion.md](stable-diffusion.md) for Windows installation and API options.
 
