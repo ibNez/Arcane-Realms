@@ -63,7 +63,32 @@ npm run dev
 
 - **Server**: http://localhost:8080
 - **Client**: http://localhost:5173
-> **TODO:** Describe how environment variables are managed during local development and testing.
+ 
+Server configuration values are stored in `server/.env`. Start by copying the
+sample file and adjusting settings for your machine:
+
+```bash
+cp server/.env.example server/.env
+```
+
+The server loads this file on startup via `dotenv`, making each entry available
+through `process.env`. Example values:
+
+```
+PORT=8080
+CORS_ORIGIN=http://localhost:5173
+OLLAMA_BASE_URL=http://localhost:11434
+```
+
+Client-side variables live in `client/.env` and must be prefixed with `VITE_` so
+Vite exposes them to the browser. For example:
+
+```
+VITE_API_BASE_URL=http://localhost:8080
+```
+
+These values are injected at build time and accessed with
+`import.meta.env.VITE_API_BASE_URL`.
 
 ## Testing
 
