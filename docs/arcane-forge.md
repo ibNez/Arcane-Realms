@@ -147,7 +147,16 @@ support:
 - Snap-to-grid alignment
 - Export/import of tile data for version control and sharing
 - Previewing neighboring tiles to verify seamless borders
-> **TODO:** Add guidance on exporting/importing tile data formats and version control strategies.
+
+### Exporting and Importing Tiles
+1. Select **File → Export Tile** to save the current layout as `<tile-name>.json` and a corresponding `<tile-name>.png` base image.
+2. Place these files in `tiles/<biome>/` and commit them to version control.
+   - Keep the JSON file in Git for readable diffs.
+   - Track large images with Git LFS or another binary store.
+3. To reuse a layout, choose **File → Import Tile** and pick the exported `.json`; the editor restores the tile and links to the existing image.
+
+This workflow keeps tiles shareable while preserving history and enabling rollbacks through Git.
+
 
 ## Interactive Features
 To prototype gameplay, Arcane Forge includes basic simulation tools:
