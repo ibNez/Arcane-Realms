@@ -106,7 +106,10 @@ To add a new component to the library:
 - Sliced assets feed Stable Diffusion prompts to generate themed variants
 - Generated pieces remain aligned to the grid for seamless square assembly
 
-> **TODO:** Describe how asset variations are cached and reused across sessions.
+Generated variants are cached on disk using a hash of the source sprite and the
+prompt used to generate it. On startup the editor checks this cache and reuses
+matching entries instead of calling Stable Diffusion again, keeping visuals
+consistent while speeding up repeat sessions.
 
 ## Future Enhancements
 - Connect multiple squares to build larger test scenes
