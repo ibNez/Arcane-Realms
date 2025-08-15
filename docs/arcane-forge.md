@@ -80,7 +80,9 @@ outward.
 ## Environment Design Tools
 To author Realm Tiles, designers begin with a single **seamless 1024 × 1024**
 ground image—such as a field or desert—and layer objects from a component
-library on top (see [environment-builder.md](environment-builder.md)). Each
+library on top (see [environment-builder.md](environment-builder.md)). Asset
+definitions originate from the shared [asset-catalog.md](asset-catalog.md)
+and its companion SQLite database (`ops/data/assets.db`). Each
 object includes metadata, including a collision on/off flag. The editor must
 support:
 

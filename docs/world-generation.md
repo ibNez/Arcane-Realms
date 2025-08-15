@@ -75,7 +75,10 @@ the player’s immediate surroundings.
 Arcane Realms features a **dynamic visual environment** where the world's appearance adapts to its biome, history, and current state through AI-generated imagery. Rather than using static, pre-made assets, the game employs **Stable Diffusion** to create contextually appropriate visuals that maintain gameplay functionality while providing infinite visual variety.
 
 ### Base Component Library
-The system starts with a **foundational asset library** of core structural elements:
+The system starts with a **foundational asset library** of core structural
+elements tracked in [asset-catalog.md](asset-catalog.md) and stored in a
+SQLite database (`ops/data/assets.db`) for fast lookup by generation
+pipelines:
 
 #### Architectural Components
 - **Walls**: Stone walls, wooden walls, brick walls, metal barriers

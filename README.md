@@ -7,6 +7,9 @@ This repository ships with **Arcane Forge**, the local development environment f
 
 See the [API reference](docs/API.md) for available REST routes and WebSocket messages.
 
+For component metadata and images used throughout the world, consult the
+[asset catalog](docs/asset-catalog.md).
+
 ## Run (Arcane Forge)
 1) Server
    ```bash

@@ -7,7 +7,7 @@ This document outlines the game design for Arcane Realms.
 ### Dynamic Visual Environment
 The world features **AI-generated environmental assets** that adapt to biome, history, and context:
 
-- **Base Component System**: Foundational assets (walls, houses, farmland) serve as templates for generation
+- **Base Component System**: Foundational assets (walls, houses, farmland) serve as templates for generation and are detailed in [asset-catalog.md](asset-catalog.md)
 - **Contextual Adaptation**: Stable Diffusion transforms base assets to match biome characteristics
   - Forest walls become vine-covered stone with moss and climbing plants
   - Desert houses transform into weathered adobe with sun-bleached textures
