@@ -38,7 +38,7 @@ See the [API reference](docs/API.md) for available REST routes and WebSocket mes
 For component metadata and images used throughout the world, consult the
 [asset catalog](docs/asset-catalog.md).
 
-> **TODO:** Provide links to additional documentation such as contribution guidelines and roadmap.
+Refer to the [contribution guidelines](CONTRIBUTING.md) and [project roadmap](docs/ROADMAP.md) for more documentation.
 
 ## Run (Arcane Forge)
 1) Server
