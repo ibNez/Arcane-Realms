@@ -35,7 +35,14 @@ Built with **Phaser** for rendering, **React** for the interface, and **Vite** w
 - **Drag & Duplicate** for rapid placement of multiples
 - **Snap to Grid** toggle for precise alignment
 
-> **TODO:** Document keyboard shortcuts and UI conventions for these controls.
+| Control | Shortcut | UI Behavior |
+|---------|----------|-------------|
+| Add Component | **A** | Opens the component palette with search focus. |
+| Zoom In/Out | Mouse wheel or **+ / -** | Zooms around the cursor and updates the grid scale indicator. |
+| Select Item | **S** | Highlights the hovered object and enables movement handles. |
+| Delete Item | **Del** or **Backspace** | Removes the currently selected component. |
+| Drag & Duplicate | **Alt + Drag** | Creates a copy of the dragged component. |
+| Snap to Grid | **G** | Toggles grid snapping and reflects state in the toolbar icon. |
 
 ### Realm Tile Composition
 - Start with a single 1024 × 1024 seamless ground tile
