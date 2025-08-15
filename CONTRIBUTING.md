@@ -43,7 +43,11 @@ dependencies require Node 18 or newer).
 There are currently **no dedicated lint or format scripts**.
 Please run your preferred tooling (e.g. ESLint or Prettier) before committing
 and ensure any generated files are ignored.
-> **TODO:** Provide recommended ESLint/Prettier configurations or shared settings.
+> **Recommended:** Use ESLint's [recommended config](https://eslint.org/docs/latest/use/configure/)
+> or the TypeScript variant [`plugin:@typescript-eslint/recommended`](https://typescript-eslint.io/linting/configs#recommended).
+> Format code with Prettier using a [.prettierrc](https://prettier.io/docs/en/configuration.html) or a shared
+> config such as [`prettier-config-standard`](https://github.com/prettier/prettier-config-standard).
+> To avoid conflicts between the two tools, add [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
 ## Branch and Commit Guidelines
 - Create branches from `main` using prefixes such as
