@@ -5,7 +5,33 @@ and keeps the improved input (WASD + arrows + click-to-move; keys cancel click-t
 This repository ships with **Arcane Forge**, the local development environment for Arcane Realms. See
 [docs/arcane-forge.md](docs/arcane-forge.md) for full setup details.
 
-> **TODO:** Add a concise project overview and list of core technologies used.
+## Arcane Realms – Game Overview
+Arcane Realms is a fast-paced top-down action RPG built around limitless exploration and emergent adventures. The world is a living tapestry generated as players push into the unknown: seamlessly stitched Realm Tiles expand outward, each tile a hand-crafted 1024 × 1024 landscape spun up by Stable Diffusion. Biomes shift from forests to deserts to coastal cities, enemies scale in difficulty the farther you roam, and resource-rich points of interest materialize just beyond the horizon.
+
+### Dynamic World & Encounters
+- **Procedural Realms:** Every zone is generated on demand; once discovered, it persists for the entire community, creating a shared history.
+- **Adaptive Environment:** Asset generation transforms base components to match the local biome—moss-covered forest walls, sun‑bleached desert houses, etc.
+- **NPC Ecosystem:** AI-driven NPCs possess personalities, daily routines, and social networks. They remember interactions, gossip about player deeds, and spawn dynamic quests that evolve the storyline.
+- **Combat & Progression:** Tight WASD movement, click-to-move, and telegraphed enemy attacks form the core of combat. Boss fights escalate to group and massive raid encounters, rewarding teamwork and strategy.
+- **Limitless Discovery:** Exploration is incentivized by first-discovery rewards, hidden events, and radial difficulty scaling that pushes players outward as they grow stronger.
+
+## Arcane Forge – Development Environment
+Arcane Forge is the integrated playground where designers and programmers craft, test, and iterate on Arcane Realms’ systems. It bundles client and server tooling, asset pipelines, and optional offline AI services into a cohesive local stack.
+
+### Key Capabilities
+- **Environment Builder:** Assemble and validate Realm Tiles with drag‑and‑drop components, snap‑to‑grid placement, and neighbor previews to guarantee seamless world edges.
+- **Character Pipeline:** Run Vitest suites and generation queues to vet the AI-powered character creation system, including content filtering and fallback logic.
+- **AI Integration Sandbox:** Optional Docker‑based stack for offline LLMs enables testing NPC dialogue, quest generation, and contextual responses without external dependencies.
+- **Test Area & Tooling:** Dedicated scenes allow spawning enemies, toggling AI, validating collisions, and stress‑testing skills like Magic Missile or Arcane Nova.
+- **Rapid Iteration:** Hot‑reload server/client builds, structured asset catalogs, and QA scripts let developers refine combat, world generation, and NPC behavior in real time.
+
+Together, Arcane Realms delivers an endlessly evolving adventure, while Arcane Forge empowers creators to shape every spell, tile, and quest that makes the world come alive.
+
+Core technologies:
+- Phaser
+- Node.js
+- Vite
+- Docker
 
 See the [API reference](docs/API.md) for available REST routes and WebSocket messages.
 
