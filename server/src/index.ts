@@ -4,6 +4,7 @@ import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import http from 'node:http';
 import { llm, embed, memorySearch, memoryUpsert, stt, tts, genImage} from './routes/ai.js';
+import { generateCharacter } from './routes/character.js';
 
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '0.0.0.0';
@@ -21,6 +22,7 @@ app.post('/memory/upsert', memoryUpsert);
 app.post('/stt', stt);
 app.post('/tts', tts);
 app.post('/gen/image', genImage);
+app.post('/character/generate', generateCharacter);
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });

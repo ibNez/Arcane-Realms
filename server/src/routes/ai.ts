@@ -15,7 +15,7 @@ export async function llm(req: Request, res: Response) {
       body: JSON.stringify({ model: 'llama3.1:8b', messages: body.messages, stream: false })
     });
     if (!r.ok) throw new Error('LLM HTTP ' + r.status);
-    const data = await r.json();
+    const data: any = await r.json();
     const text = data?.message?.content || data?.response || '';
     const out: LlmResponse = { text, toolCalls: [] };
     res.json(out);
@@ -33,7 +33,7 @@ export async function embed(req: Request, res: Response) {
       body: JSON.stringify({ model: 'nomic-embed-text', prompt: body.texts.join('\n') })
     });
     if (!r.ok) throw new Error('Embed HTTP ' + r.status);
-    const data = await r.json();
+    const data: any = await r.json();
     const vectors = data?.embedding ? [data.embedding] : body.texts.map(_ => Array(768).fill(0));
     const out: EmbedResponse = { vectors };
     res.json(out);
