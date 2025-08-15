@@ -14,6 +14,7 @@ import {
   OutfitStyle,
   AccessoryType,
   EmotionalExpression,
+  Pose,
   ArtStyle,
   QualityTier,
   type CharacterParameters
@@ -32,6 +33,7 @@ describe('parameter conversions', () => {
     clothingStyle: OutfitStyle.CASUAL,
     accessories: [AccessoryType.SCAR],
     expression: EmotionalExpression.NEUTRAL,
+    pose: Pose.NEUTRAL,
     artSeed: 123,
     styleVariant: ArtStyle.REALISTIC,
     qualityLevel: QualityTier.STANDARD

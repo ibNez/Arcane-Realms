@@ -77,6 +77,14 @@ export enum EmotionalExpression {
   DETERMINED = 'determined'
 }
 
+export enum Pose {
+  NEUTRAL = 'neutral',
+  ACTION = 'action',
+  GUARD = 'guard',
+  CASUAL = 'casual',
+  HEROIC = 'heroic'
+}
+
 export enum ArtStyle {
   REALISTIC = 'realistic',
   ANIME = 'anime',
@@ -104,6 +112,7 @@ export interface CharacterParameters {
   clothingStyle: OutfitStyle;
   accessories: AccessoryType[];
   expression: EmotionalExpression;
+  pose: Pose;
   artSeed: number;
   styleVariant: ArtStyle;
   qualityLevel: QualityTier;
@@ -122,6 +131,7 @@ export function paramsToCacheKey(p: CharacterParameters): string {
     p.clothingStyle,
     p.accessories.slice().sort().join(','),
     p.expression,
+    p.pose,
     String(p.artSeed),
     p.styleVariant,
     p.qualityLevel
@@ -142,6 +152,7 @@ export function cacheKeyToParams(key: string): CharacterParameters {
     clothingStyle,
     accessories,
     expression,
+    pose,
     artSeed,
     styleVariant,
     qualityLevel
@@ -158,6 +169,7 @@ export function cacheKeyToParams(key: string): CharacterParameters {
     clothingStyle: clothingStyle as OutfitStyle,
     accessories: accessories ? accessories.split(',').filter(Boolean) as AccessoryType[] : [],
     expression: expression as EmotionalExpression,
+    pose: (pose as Pose) || Pose.NEUTRAL,
     artSeed: Number(artSeed) || 0,
     styleVariant: styleVariant as ArtStyle,
     qualityLevel: qualityLevel as QualityTier
@@ -177,6 +189,7 @@ export function paramsToApi(p: CharacterParameters) {
     clothing_style: p.clothingStyle,
     accessories: p.accessories,
     expression: p.expression,
+    pose: p.pose,
     art_seed: p.artSeed,
     style_variant: p.styleVariant,
     quality_level: p.qualityLevel
@@ -196,6 +209,7 @@ export function apiToParams(obj: any): CharacterParameters {
     clothingStyle: obj.clothing_style as OutfitStyle,
     accessories: Array.isArray(obj.accessories) ? obj.accessories as AccessoryType[] : [],
     expression: obj.expression as EmotionalExpression,
+    pose: (obj.pose as Pose) || Pose.NEUTRAL,
     artSeed: Number(obj.art_seed) || 0,
     styleVariant: obj.style_variant as ArtStyle,
     qualityLevel: obj.quality_level as QualityTier

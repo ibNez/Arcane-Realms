@@ -51,6 +51,7 @@ const validParams = {
   clothing_style: 'casual',
   accessories: ['scar'],
   expression: 'neutral',
+  pose: 'neutral',
   art_seed: 123,
   style_variant: 'realistic',
   quality_level: 'standard'

@@ -1,17 +1,25 @@
 // client/src/ui/CharacterCustomizationPanel.ts
 // In-game character portrait generator with basic appearance options
 
+import { AccessoryType, EmotionalExpression, Pose } from '../../../server/src/characters/parameters'
+
 type Params = {
   hairStyle: string
   hairColor: string
   eyeColor: string
   clothing: string
+  accessories: string[]
+  expression: string
+  pose: string
 }
 
 const HAIR_STYLES = ['short','long','braids','mohawk']
 const HAIR_COLORS = ['black','brown','blonde','red','white','blue']
 const EYE_COLORS = ['brown','blue','green','hazel','violet']
 const CLOTHING = ['robe','leather','plate','casual']
+const ACCESSORIES = Object.values(AccessoryType)
+const EXPRESSIONS = Object.values(EmotionalExpression)
+const POSES = Object.values(Pose)
 
 export class CharacterCustomizationPanel {
   private root: HTMLDivElement
@@ -22,7 +30,15 @@ export class CharacterCustomizationPanel {
 
   constructor(onApply?: (p:Params)=>void) {
     this.onApply = onApply || null
-    this.params = { hairStyle: HAIR_STYLES[0], hairColor: HAIR_COLORS[0], eyeColor: EYE_COLORS[0], clothing: CLOTHING[0] }
+    this.params = {
+      hairStyle: HAIR_STYLES[0],
+      hairColor: HAIR_COLORS[0],
+      eyeColor: EYE_COLORS[0],
+      clothing: CLOTHING[0],
+      accessories: [],
+      expression: EXPRESSIONS[0],
+      pose: POSES[0]
+    }
     this.root = document.createElement('div')
     Object.assign(this.root.style, {
       position:'fixed', inset:'0', display:'none',
@@ -55,6 +71,9 @@ export class CharacterCustomizationPanel {
     this.addSelect(opts, 'Hair Color', HAIR_COLORS, 'hairColor')
     this.addSelect(opts, 'Eye Color', EYE_COLORS, 'eyeColor')
     this.addSelect(opts, 'Clothing', CLOTHING, 'clothing')
+    this.addAccessorySelect(opts)
+    this.addSelect(opts, 'Expression', EXPRESSIONS, 'expression')
+    this.addSelect(opts, 'Pose', POSES, 'pose')
 
     const row = document.createElement('div')
     Object.assign(row.style, { display:'flex', gap:'8px', marginTop:'8px' } as CSSStyleDeclaration)
@@ -114,12 +133,51 @@ export class CharacterCustomizationPanel {
     this.selects[key as string] = sel
   }
 
+  private addAccessorySelect(root: HTMLDivElement) {
+    const wrap = document.createElement('div')
+    Object.assign(wrap.style, { display: 'flex', flexDirection: 'column', gap: '4px' } as CSSStyleDeclaration)
+    const lab = document.createElement('label')
+    lab.textContent = 'Facial Accessory'
+    Object.assign(lab.style, { fontSize: '14px', opacity: 0.85 } as CSSStyleDeclaration)
+    wrap.appendChild(lab)
+    const sel = document.createElement('select')
+    ;['none', ...ACCESSORIES].forEach(o => {
+      const op = document.createElement('option')
+      op.value = o
+      op.textContent = o
+      sel.appendChild(op)
+    })
+    sel.value = this.params.accessories[0] || 'none'
+    Object.assign(sel.style, {
+      padding: '6px 8px', borderRadius: '6px',
+      border: '1px solid rgba(255,255,255,0.12)',
+      background: 'rgba(255,255,255,0.06)', color: '#eaeefb'
+    } as CSSStyleDeclaration)
+    sel.onchange = () => {
+      this.params.accessories = sel.value === 'none' ? [] : [sel.value]
+      this.generate()
+      this.onApply?.(this.params)
+    }
+    wrap.appendChild(sel)
+    root.appendChild(wrap)
+    this.selects['accessories'] = sel
+  }
+
   private async generate() {
     try {
+      const body = {
+        hairStyle: this.params.hairStyle,
+        hairColor: this.params.hairColor,
+        eyeColor: this.params.eyeColor,
+        clothing: this.params.clothing,
+        accessories: this.params.accessories,
+        expression: this.params.expression,
+        pose: this.params.pose
+      }
       const r = await fetch('/character/generate', {
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(this.params)
+        body: JSON.stringify(body)
       })
       const data = await r.json()
       const b64 = data?.imagePngBase64 || ''
@@ -134,9 +192,18 @@ export class CharacterCustomizationPanel {
       hairStyle: HAIR_STYLES[Math.floor(Math.random()*HAIR_STYLES.length)],
       hairColor: HAIR_COLORS[Math.floor(Math.random()*HAIR_COLORS.length)],
       eyeColor: EYE_COLORS[Math.floor(Math.random()*EYE_COLORS.length)],
-      clothing: CLOTHING[Math.floor(Math.random()*CLOTHING.length)]
+      clothing: CLOTHING[Math.floor(Math.random()*CLOTHING.length)],
+      accessories: Math.random() < 0.5 ? [] : [ACCESSORIES[Math.floor(Math.random()*ACCESSORIES.length)]],
+      expression: EXPRESSIONS[Math.floor(Math.random()*EXPRESSIONS.length)],
+      pose: POSES[Math.floor(Math.random()*POSES.length)]
     }
-    for (const k in this.selects) this.selects[k].value = (this.params as any)[k]
+    for (const k in this.selects) {
+      if (k === 'accessories') {
+        this.selects[k].value = this.params.accessories[0] || 'none'
+      } else {
+        this.selects[k].value = (this.params as any)[k]
+      }
+    }
     this.generate()
   }
 
