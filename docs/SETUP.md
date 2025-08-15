@@ -1,6 +1,6 @@
-# Setup Guide
+# Arcane Forge Setup Guide
 
-This document explains how to set up the Arcane Realms project for local development and testing.
+This document explains how to set up the **Arcane Forge** development environment for local development and testing.
 
 ## Prerequisites
 
