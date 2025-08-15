@@ -14,7 +14,7 @@ async function postProcessImage(img: Buffer): Promise<Buffer> {
 }
 
 export async function generateCharacter(params: CharacterParameters) {
-  const prompt = buildCharacterPrompt(params);
+  const prompt = buildCharacterPrompt(params as any);
   const negativePrompt = buildNegativePrompt();
   const seed = typeof params?.artSeed === 'number' ? params.artSeed : Math.floor(Math.random() * 1e9);
   const client = new StableDiffusionClient();

@@ -5,11 +5,9 @@ import {
   paramsToCacheKey,
   type CharacterParameters
 } from '../characters/parameters.js';
-import { ContentFilter } from '../characters/contentFilter.js';
+import { contentFilter } from '../characters/contentFilter.js';
 import { get as cacheGet, store as cacheStore } from '../characters/cache.js';
 import { getFallbackCharacter } from '../characters/fallback.js';
-
-const filter = new ContentFilter();
 
 export async function generateCharacter(req: Request, res: Response) {
   const params: CharacterParameters = apiToParams(req.body || {});
@@ -25,7 +23,7 @@ export async function generateCharacter(req: Request, res: Response) {
     const result = await characterGenerator.generate(params);
     const portrait: any = (result as any)?.portrait;
     if (!portrait) throw new Error('no portrait');
-    if (!filter.validate(portrait)) throw new Error('content rejected');
+    if (!(await contentFilter.validate(portrait))) throw new Error('content rejected');
 
     const portraitUrl = `data:image/png;base64,${portrait.toString('base64')}`;
     const out = { portraitUrl, parameters: params };
