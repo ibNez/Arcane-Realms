@@ -42,7 +42,15 @@ Arcane Realms relies on open-source Stable Diffusion services for text-to-image,
 | [Diffusers + FastAPI](https://github.com/huggingface/diffusers) | Apache‑2.0 | Build a custom service using Hugging Face Diffusers and FastAPI for maximum control. |
 
 All of these options run locally and satisfy the requirement to use public, free software.
-> **TODO:** Provide guidance on choosing between these services and outline pros/cons for production deployment.
+
+### Choosing a Service
+
+- **Automatic1111 WebUI** – quick to launch and backed by a huge extension ecosystem. Ideal for individual artists or rapid prototyping with a familiar browser UI. *Cons:* heavier on resources and not optimized for headless scaling.
+- **ComfyUI** – node-based graph editor excels at building complex, repeatable pipelines. Great when you need ControlNet chains or multi-step workflows. *Cons:* steeper learning curve and more cumbersome to automate.
+- **InvokeAI** – polished installer with streamlined Web and CLI interfaces focused on image editing. Efficient memory usage. *Cons:* smaller community and a less extensive plugin system.
+- **Diffusers + FastAPI** – build exactly what you need with Hugging Face Diffusers in a minimal FastAPI service. Ideal for production backends where you want tight control over models, security, and scaling. *Cons:* requires Python development effort to implement features provided out of the box by other tools.
+
+For quick experiments, Automatic1111 or InvokeAI offer the fastest path. ComfyUI shines for custom pipelines, while a bespoke Diffusers service is best for long‑term, production deployments.
 
 ## Quick Start (Automatic1111 Example)
 
