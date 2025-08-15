@@ -5,67 +5,71 @@ import { fileURLToPath } from 'url';
 export type CharacterParams = Record<string, string | undefined>;
 
 export interface CharacterPreset {
-    id: string;
-    name?: string;
-    portraitUrl?: string;
-    params: CharacterParams;
-    [key: string]: any;
+  id: string;
+  name?: string;
+  portraitUrl?: string;
+  params: CharacterParams;
+  [key: string]: any;
 }
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PRESET_DIR = path.resolve(__dirname, '../../../assets/characters/presets');
+const DEFAULT_PRESET_DIR = path.resolve(__dirname, '../../../assets/characters/presets');
 
-function loadPresetLibrary(): CharacterPreset[] {
+export class FallbackManager {
+  private presets: CharacterPreset[] = [];
+
+  constructor(private presetDir: string = DEFAULT_PRESET_DIR) {
+    this.loadPresets();
+  }
+
+  loadPresets(): void {
     try {
-        const files = fs.readdirSync(PRESET_DIR).filter(f => f.endsWith('.json'));
-        return files.map(file => {
-            const raw = fs.readFileSync(path.join(PRESET_DIR, file), 'utf-8');
-            return JSON.parse(raw) as CharacterPreset;
-        });
+      const files = fs.readdirSync(this.presetDir).filter(f => f.endsWith('.json'));
+      this.presets = files.map(file => {
+        const raw = fs.readFileSync(path.join(this.presetDir, file), 'utf-8');
+        return JSON.parse(raw) as CharacterPreset;
+      });
     } catch {
-        return [];
+      this.presets = [];
     }
-}
+  }
 
-const PRESETS: CharacterPreset[] = loadPresetLibrary();
-
-export function findClosestPreset(params: CharacterParams): CharacterPreset | null {
+  findClosest(params: CharacterParams): CharacterPreset | null {
     let best: CharacterPreset | null = null;
     let bestScore = -1;
-    for (const preset of PRESETS) {
-        let score = 0;
-        for (const key of Object.keys(params)) {
-            if (params[key] !== undefined && preset.params?.[key] === params[key]) {
-                score += 1;
-            }
+    for (const preset of this.presets) {
+      let score = 0;
+      for (const key of Object.keys(params)) {
+        if (params[key] !== undefined && preset.params?.[key] === params[key]) {
+          score += 1;
         }
-        if (score > bestScore) {
-            best = preset;
-            bestScore = score;
-        }
+      }
+      if (score > bestScore) {
+        best = preset;
+        bestScore = score;
+      }
     }
     return best;
-}
+  }
 
-export function customizePreset(preset: CharacterPreset, params: CharacterParams): CharacterPreset {
+  private customize(preset: CharacterPreset, params: CharacterParams): CharacterPreset {
     return {
-        ...preset,
-        params: {
-            ...preset.params,
-            ...params,
-        },
+      ...preset,
+      params: {
+        ...preset.params,
+        ...params
+      }
     };
-}
+  }
 
-export function getFallbackCharacter(params: CharacterParams): CharacterPreset {
-    const match = findClosestPreset(params);
+  get(params: CharacterParams): CharacterPreset {
+    const match = this.findClosest(params);
     if (match) {
-        return customizePreset(match, params);
+      return this.customize(match, params);
     }
-    return {
-        id: 'fallback',
-        params,
-    };
+    return { id: 'fallback', params };
+  }
 }
 
-export default getFallbackCharacter;
+export const fallbackManager = new FallbackManager();
+export default FallbackManager;

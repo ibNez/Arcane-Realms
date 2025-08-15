@@ -1,0 +1,10 @@
+{
+  "id": "northern_warrior_masculine",
+  "name": "Northern Warrior",
+  "portraitUrl": "/images/presets/northern_warrior.png",
+  "params": {
+    "heritage": "nordic_inspired",
+    "genderExpression": "masculine",
+    "clothingStyle": "armored"
+  }
+}

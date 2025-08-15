@@ -1,0 +1,10 @@
+{
+  "id": "forest_rogue_androgynous",
+  "name": "Forest Rogue",
+  "portraitUrl": "/images/presets/forest_rogue.png",
+  "params": {
+    "heritage": "celtic_inspired",
+    "genderExpression": "androgynous",
+    "clothingStyle": "adventurer"
+  }
+}
