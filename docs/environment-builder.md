@@ -50,7 +50,28 @@ Built with **Phaser** for rendering, **React** for the interface, and **Vite** w
 - Assign metadata to each object, including collision detection on/off
 - Export to and import from JSON for source control
 
-> **TODO:** Specify the JSON schema and versioning approach for exported tiles.
+Exported tiles follow a structured JSON schema:
+
+```json
+{
+  "version": "1.0.0",
+  "background": "assets/tiles/grassland.png",
+  "grid": { "rows": 64, "cols": 64, "cellSize": 16 },
+  "objects": [
+    {
+      "id": "uuid",
+      "type": "tree.oak",
+      "x": 12,
+      "y": 34,
+      "rotation": 0,
+      "metadata": { "collision": false }
+    }
+  ]
+}
+```
+
+- `version` uses semantic versioning and increments on schema changes.
+- Importers migrate older versions and refuse unsupported future major versions, ensuring compatibility as the format evolves.
 
 ## Component Library
 The test tool exposes the core pieces used in world generation. Components are
