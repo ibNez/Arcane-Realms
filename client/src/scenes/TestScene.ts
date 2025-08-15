@@ -3,6 +3,7 @@ import { ChatPanel } from '../ui/ChatPanel'
 import { SkillBar } from '../ui/SkillBar'
 import { getDevConsole } from '../ui/DevConsole'
 import { registerHeroAnimations } from '../animations/heroAnimations'
+import { playerProfile, loadPlayerProfile } from '../playerProfile'
 
 type Enemy = { id:number; node:Phaser.GameObjects.Arc; hp:number; maxHp:number; speed:number; hpBg: Phaser.GameObjects.Rectangle; hpFg: Phaser.GameObjects.Rectangle }
 type Loot  = { id:number; node:Phaser.GameObjects.Rectangle; value:number }
@@ -135,6 +136,11 @@ export class TestScene extends Phaser.Scene {
     ])
     this.skillBar.setCooldown(0, this.cdSkill1)
       this.skillBar.setCooldown(1, this.cdSkill2)
+
+    loadPlayerProfile().then(() => {
+      this.chat.setPortrait(playerProfile.portraitUrl)
+      this.skillBar.setPortrait(playerProfile.portraitUrl)
+    })
 
     // entities store
     this.bullets = []
