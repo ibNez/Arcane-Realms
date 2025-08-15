@@ -120,7 +120,19 @@ created and stitched seamlessly to the current one. Outer tiles belong to
 progressively harder "rings" radiating from the starting tile; enemies and
 resources scale with distance, encouraging players to grow before venturing
 outward.
-> **TODO:** Document tools or scripts used to generate and validate Realm Tiles automatically.
+Arcane Forge includes command line utilities to batch-generate Realm Tiles and
+verify that new images stitch cleanly to their neighbors. The `tilegen`
+script renders tiles via Stable Diffusion and records metadata for the
+environment editor, while `tilegen validate` scans a directory of tiles for
+dimension, seam, and collision-map issues.
+
+```bash
+# Create a 4×4 forest set
+node ops/tilegen.js generate --biome forest --count 16 --out tiles/forest
+
+# Verify edges and metadata before committing
+node ops/tilegen.js validate tiles/forest
+```
 
 ## Environment Design Tools
 To author Realm Tiles, designers begin with a single **seamless 1024 × 1024**
