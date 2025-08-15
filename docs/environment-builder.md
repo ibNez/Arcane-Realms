@@ -3,12 +3,14 @@
 ## Overview
 The environment builder is a standalone editor for assembling and validating
 grid-based world segments called **Realm Tiles** before integrating them into
-gameplay. Each tile begins with a single generated ground image—such as a field
-or desert—and designers layer objects like walls, hills, trees, bushes, houses,
-and characters on top. Objects carry metadata (e.g., collision on/off) so they
-can be easily toggled during testing. The tool provides a controlled sandbox
-where designers can spawn components, experiment with decoration themes, and
-ensure every square connects cleanly to its neighbors.
+gameplay. Each tile is derived from a **1024 × 1024** Stable Diffusion image and
+represents a 64 × 64 grid (1 cell = 16 px = 5 ft). This yields **320 ft per side**
+for a single tile. Designers layer objects like walls, hills, trees, bushes,
+houses, and characters on top. Objects carry metadata (e.g., collision on/off)
+so they can be easily toggled during testing. The tool provides a controlled
+sandbox where designers can spawn components, experiment with decoration themes,
+and ensure every square connects cleanly to its neighbors. To prototype a play
+space of ~1000 ft per side, combine tiles in a **4 × 4 grid** (16 tiles total).
 
 ## Goals
 - Run independently from the main application, similar to character testing
@@ -32,7 +34,7 @@ ensure every square connects cleanly to its neighbors.
 - **Snap to Grid** toggle for precise alignment
 
 ### Realm Tile Composition
-- Start with a single generated background image of flat ground
+- Start with a single 1024 × 1024 seamless ground tile
 - Layer components from the library on top of the background
 - Assign metadata to each object, including collision detection on/off
 - Export to and import from JSON for source control
