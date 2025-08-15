@@ -86,7 +86,18 @@ collision is enabled. The authoritative list of components lives in
 - Corn fields and farm equipment
 - Additional decorative or functional items as needed
 
-> **TODO:** Clarify how new components are added to the library and synced with the database.
+To add a new component to the library:
+
+1. Place the sprite on the shared asset sheet or drop an image into `assets/`.
+2. Append a row describing it in [asset-catalog.md](asset-catalog.md).
+3. Rebuild the SQLite cache so the editor can load it:
+
+   ```bash
+   node ops/asset-sync.mjs  # reads the catalog and updates ops/data/assets.db
+   ```
+
+   (A manual `sqlite3` import into `ops/data/assets.db` works as well.)
+4. Restart the environment builder; it reads the refreshed database on startup.
 
 ## Asset Sheet Integration
 - A single static image contains all component sprites with predefined
