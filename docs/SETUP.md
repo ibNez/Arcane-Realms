@@ -44,8 +44,22 @@ Install dependencies in the client and server directories:
 cd client && npm install
 cd ../server && npm install
 ```
+Install the global TypeScript compiler if it's not already available:
 
-> **TODO:** Mention any required global npm packages or environment variables.
+```sh
+npm install -g typescript
+```
+
+The server expects certain environment variables for local development. Create `server/.env` with values like:
+
+```env
+PORT=8080
+HOST=0.0.0.0
+CORS_ORIGIN=http://localhost:5173
+REDIS_URL=redis://localhost:6379
+OLLAMA_BASE_URL=http://localhost:11434
+SD_URL=http://localhost:7860
+```
 
 These commands install the TypeScript build system, Phaser, ws and other runtime dependencies.
 
