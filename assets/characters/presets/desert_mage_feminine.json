@@ -1,0 +1,10 @@
+{
+  "id": "desert_mage_feminine",
+  "name": "Desert Mage",
+  "portraitUrl": "/images/presets/desert_mage.png",
+  "params": {
+    "heritage": "middle_eastern_inspired",
+    "genderExpression": "feminine",
+    "clothingStyle": "robes"
+  }
+}
