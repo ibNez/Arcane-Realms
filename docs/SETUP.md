@@ -2,7 +2,24 @@
 
 This document explains how to set up the **Arcane Forge** development environment for local development and testing.
 
-> **TODO:** Add a high-level overview diagram of the services started during setup.
+During setup you will launch the game client, game server, and several supporting services.
+The diagram below shows how they connect.
+
+```mermaid
+graph TD
+    Client[Client Dev Server]
+    Server[Game Server]
+    Postgres[(Postgres DB)]
+    Redis[(Redis Cache)]
+    Milvus[(Milvus Vector DB)]
+    Ollama[(Ollama LLM Host)]
+
+    Client -->|WebSocket| Server
+    Server --> Postgres
+    Server --> Redis
+    Server --> Milvus
+    Server --> Ollama
+```
 
 ## Prerequisites
 
