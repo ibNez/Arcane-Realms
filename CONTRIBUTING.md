@@ -12,7 +12,8 @@ participants to uphold respectful, inclusive behavior in every project space.
 - Node.js **18+** is required for both the client and server (Vite 5 and other
 dependencies require Node 18 or newer).
 - npm comes bundled with Node; yarn/pnpm are not officially supported.
-> **TODO:** Clarify supported operating systems and development environment setups.
+- Supported operating systems: Windows 10+, macOS 12+, and Linux distributions such as Ubuntu 20.04+.
+- Development requires Git and a compatible shell environment (e.g. Bash, Zsh, or PowerShell; WSL is recommended on Windows).
 
 ## Building and Running
 1. **Server**
