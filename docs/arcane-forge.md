@@ -6,7 +6,12 @@ brings together the tools needed to build and test new features, including
 character creation and world assembly. This document explains how to set up and
 use Arcane Forge while highlighting the areas that require focused testing.
 
-> **TODO:** Provide architecture diagrams showing how client and server components interact during development.
+During development the Vite-powered client communicates with the Node.js
+server over HTTP and WebSocket channels. The client performs hot-module reloads
+and submits API calls, while the server exposes REST routes and live game
+state for rapid iteration.
+
+![Client–server development flow](images/arcane-forge-overview.svg)
 
 ## Prerequisites
 - **Node.js v20.x** and npm
