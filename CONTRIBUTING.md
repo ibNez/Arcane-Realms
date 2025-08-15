@@ -5,7 +5,8 @@ This project uses separate client and server packages built with
 [Phaser](https://phaser.io/) and Node.js. The guidelines below explain how to
 get set up and how to contribute effectively.
 
-> **TODO:** Add a code of conduct link and expectations for community behavior.
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md). We expect all
+participants to uphold respectful, inclusive behavior in every project space.
 
 ## Requirements
 - Node.js **18+** is required for both the client and server (Vite 5 and other
