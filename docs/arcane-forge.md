@@ -84,6 +84,16 @@ To author Realm Tiles, designers use an Inkarnate-style editor (see
 - Export/import of tile data for version control and sharing
 - Previewing neighboring tiles to verify seamless borders
 
+## Interactive Features
+To prototype gameplay, Arcane Forge includes basic simulation tools:
+
+- Drop playable characters onto the environment for layout testing
+- Drop enemies into the scene to validate encounters
+- Test environment objects for collision detection
+- Regenerate selected objects; for example, selecting a wall and pressing
+  **Generate** produces a new image from the base wall and swaps it in place
+- Start and stop buttons to toggle object and enemy movement during playtests
+
 ## Additional Resources
 - [Test Area](test-area.md) – sandbox for validating combat and movement within a
   single tile
