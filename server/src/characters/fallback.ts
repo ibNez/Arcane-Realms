@@ -72,4 +72,7 @@ export class FallbackManager {
 }
 
 export const fallbackManager = new FallbackManager();
+export function getFallbackCharacter(params: CharacterParams): CharacterPreset {
+  return fallbackManager.get(params);
+}
 export default FallbackManager;
