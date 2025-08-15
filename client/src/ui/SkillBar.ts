@@ -10,6 +10,9 @@ export class SkillBar {
   private slots: HTMLDivElement[] = []
   private cds: number[] = [] // remaining ms per slot
   private lastTs = performance.now()
+  private portraitWrap: HTMLDivElement
+  private portraitImg: HTMLImageElement
+  private portraitPh: HTMLDivElement
 
   constructor(skills: SkillSlot[]) {
     this.root = document.createElement('div')
@@ -21,6 +24,27 @@ export class SkillBar {
       borderRadius: '10px', color: '#eaeefb', zIndex: 10000,
       fontFamily: 'ui-sans-serif,system-ui', fontSize: '12px', userSelect: 'none'
     } as CSSStyleDeclaration)
+
+    this.portraitWrap = document.createElement('div')
+    Object.assign(this.portraitWrap.style, {
+      width: '56px', height: '56px', borderRadius: '8px', overflow: 'hidden',
+      background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center'
+    } as CSSStyleDeclaration)
+    this.portraitWrap.style.pointerEvents = 'none'
+
+    this.portraitImg = new Image(56, 56)
+    Object.assign(this.portraitImg.style, { display: 'none', objectFit: 'cover' } as CSSStyleDeclaration)
+    this.portraitWrap.appendChild(this.portraitImg)
+
+    this.portraitPh = document.createElement('div')
+    this.portraitPh.textContent = '…'
+    Object.assign(this.portraitPh.style, {
+      color: '#889', fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      width: '100%', height: '100%'
+    } as CSSStyleDeclaration)
+    this.portraitWrap.appendChild(this.portraitPh)
+
+    this.root.appendChild(this.portraitWrap)
 
     skills.forEach((s, idx) => {
       const slot = document.createElement('div')
@@ -55,6 +79,7 @@ export class SkillBar {
 
     document.body.appendChild(this.root)
     requestAnimationFrame(this.tick)
+    this.setPortrait(null)
   }
 
   // arrow function to preserve this
@@ -70,6 +95,24 @@ export class SkillBar {
       }
     }
     requestAnimationFrame(this.tick)
+  }
+
+  setPortrait(url: string | null) {
+    if (url) {
+      this.portraitImg.src = url
+      this.portraitImg.onload = () => {
+        this.portraitImg.style.display = 'block'
+        this.portraitPh.style.display = 'none'
+      }
+      this.portraitImg.onerror = () => {
+        this.portraitImg.style.display = 'none'
+        this.portraitPh.style.display = 'flex'
+      }
+    } else {
+      this.portraitImg.src = ''
+      this.portraitImg.style.display = 'none'
+      this.portraitPh.style.display = 'flex'
+    }
   }
 
   setCooldown(slotIndex: number, cooldownMs: number) {

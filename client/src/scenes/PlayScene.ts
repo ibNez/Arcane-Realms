@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { ChatPanel } from '../ui/ChatPanel'
 import { registerHeroAnimations } from '../animations/heroAnimations'
+import { playerProfile, loadPlayerProfile } from '../playerProfile'
 
 type Enemy = { id:number; node:Phaser.GameObjects.Arc; hp:number; maxHp:number; speed:number }
 type Loot = { id:number; node:Phaser.GameObjects.Rectangle; value:number }
@@ -75,6 +76,10 @@ export class PlayScene extends Phaser.Scene {
       this.chat.addUser(text)
       const reply = await this.askNpc(text)
       this.chat.addNpc(reply || '(no reply)')
+    })
+
+    loadPlayerProfile().then(() => {
+      this.chat.setPortrait(playerProfile.portraitUrl)
     })
 
     // net
