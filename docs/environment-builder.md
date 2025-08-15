@@ -12,6 +12,8 @@ sandbox where designers can spawn components, experiment with decoration themes,
 and ensure every square connects cleanly to its neighbors. To prototype a play
 space of ~1000 ft per side, combine tiles in a **4 × 4 grid** (16 tiles total).
 
+> **TODO:** Note the technology stack for this editor and any browser requirements.
+
 ## Goals
 - Run independently from the main application, similar to character testing
 - Focus on a single world square while preserving connections to adjacent
@@ -33,11 +35,15 @@ space of ~1000 ft per side, combine tiles in a **4 × 4 grid** (16 tiles t
 - **Drag & Duplicate** for rapid placement of multiples
 - **Snap to Grid** toggle for precise alignment
 
+> **TODO:** Document keyboard shortcuts and UI conventions for these controls.
+
 ### Realm Tile Composition
 - Start with a single 1024 × 1024 seamless ground tile
 - Layer components from the library on top of the background
 - Assign metadata to each object, including collision detection on/off
 - Export to and import from JSON for source control
+
+> **TODO:** Specify the JSON schema and versioning approach for exported tiles.
 
 ## Component Library
 The test tool exposes the core pieces used in world generation. Components are
@@ -52,6 +58,8 @@ collision is enabled. The authoritative list of components lives in
 - Corn fields and farm equipment
 - Additional decorative or functional items as needed
 
+> **TODO:** Clarify how new components are added to the library and synced with the database.
+
 ## Asset Sheet Integration
 - A single static image contains all component sprites with predefined
   coordinates
@@ -59,7 +67,11 @@ collision is enabled. The authoritative list of components lives in
 - Sliced assets feed Stable Diffusion prompts to generate themed variants
 - Generated pieces remain aligned to the grid for seamless square assembly
 
+> **TODO:** Describe how asset variations are cached and reused across sessions.
+
 ## Future Enhancements
 - Connect multiple squares to build larger test scenes
 - Save/load layouts for regression testing
 - Batch-generate random squares to stress test decoration themes
+
+> **TODO:** Investigate collaboration features for multiple designers editing the same scene.

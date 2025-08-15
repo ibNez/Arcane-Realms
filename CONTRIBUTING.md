@@ -5,10 +5,13 @@ This project uses separate client and server packages built with
 [Phaser](https://phaser.io/) and Node.js. The guidelines below explain how to
 get set up and how to contribute effectively.
 
+> **TODO:** Add a code of conduct link and expectations for community behavior.
+
 ## Requirements
 - Node.js **18+** is required for both the client and server (Vite 5 and other
 dependencies require Node 18 or newer).
 - npm comes bundled with Node; yarn/pnpm are not officially supported.
+> **TODO:** Clarify supported operating systems and development environment setups.
 
 ## Building and Running
 1. **Server**
@@ -38,6 +41,7 @@ dependencies require Node 18 or newer).
 There are currently **no dedicated lint or format scripts**.
 Please run your preferred tooling (e.g. ESLint or Prettier) before committing
 and ensure any generated files are ignored.
+> **TODO:** Provide recommended ESLint/Prettier configurations or shared settings.
 
 ## Branch and Commit Guidelines
 - Create branches from `main` using prefixes such as
@@ -55,6 +59,7 @@ and ensure any generated files are ignored.
 - Link any related GitHub issues in the PR description.
 - At least one maintainer approval is required before merging.
 - Keep PRs focused—smaller, incremental changes are easier to review.
+> **TODO:** Explain required test coverage and link to any CI pipelines.
 
 ## Where to Ask Questions
 - **Issues:** Report bugs or request features at

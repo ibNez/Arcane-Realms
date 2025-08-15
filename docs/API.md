@@ -2,6 +2,8 @@
 
 ## REST Endpoints
 
+> **TODO:** Document authentication requirements, versioning scheme, and rate limits for all endpoints.
+
 ### POST `/llm`
 **Request**
 
@@ -25,6 +27,7 @@
 |-------|------|-------------|
 | `text` | string | Model reply |
 | `toolCalls`? | { name: string; args: any }[] | Tool call results |
+> **TODO:** List possible error codes and retry behavior for this endpoint.
 
 ### POST `/embed`
 **Request**
@@ -38,6 +41,7 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `vectors` | number[][] | Embedding vectors |
+> **TODO:** Clarify vector dimensionality and embedding model used.
 
 ### POST `/memory/search`
 **Request**
@@ -54,6 +58,7 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `hits` | { doc: object; score: number }[] | Matching documents |
+> **TODO:** Specify index consistency guarantees and latency expectations.
 
 ### POST `/memory/upsert`
 **Request**
@@ -68,6 +73,7 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `ok` | boolean | Upsert success flag |
+> **TODO:** Describe concurrency handling and conflict resolution strategies.
 
 ### POST `/stt`
 **Request**
@@ -75,6 +81,7 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `audioWavBase64` | string | Base64 WAV audio |
+> **TODO:** Note supported audio formats and maximum payload sizes.
 
 **Response**
 
@@ -94,6 +101,7 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `audioWavBase64` | string | Base64 WAV audio |
+> **TODO:** Document voice selection parameters and output encoding options.
 
 ### POST `/gen/image`
 **Request**
@@ -108,8 +116,11 @@
 |-------|------|-------------|
 | `imagePngBase64` | string | Base64 PNG image |
 | `assetKey` | string | Identifier for caching |
+> **TODO:** Include information on image resolution limits and processing timeouts.
 
 ## WebSocket Messages
+
+> **TODO:** Outline handshake procedure, reconnection strategy, and message signing or encryption plans.
 
 ### `move`
 Client → Server payload:

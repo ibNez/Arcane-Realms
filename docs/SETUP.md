@@ -2,12 +2,15 @@
 
 This document explains how to set up the **Arcane Forge** development environment for local development and testing.
 
+> **TODO:** Add a high-level overview diagram of the services started during setup.
+
 ## Prerequisites
 
 - **Node.js v20.x** (LTS) and npm or yarn  
 - **Git** for version control  
-- **Docker** and **docker‑compose** for the offline AI stack  
+- **Docker** and **docker‑compose** for the offline AI stack
 - A working **GPU** is recommended if you plan to run larger models like SDXL
+> **TODO:** Specify minimum hardware requirements and OS compatibility.
 
 Clone the repository:
 
@@ -24,6 +27,8 @@ Install dependencies in the client and server directories:
 cd client && npm install
 cd ../server && npm install
 ```
+
+> **TODO:** Mention any required global npm packages or environment variables.
 
 These commands install the TypeScript build system, Phaser, ws and other runtime dependencies.
 
@@ -42,6 +47,7 @@ This starts the following services (ports exposed on your machine):
 - **Postgres** on `localhost:5432` – game state
 - **Redis** on `localhost:6379` – pub/sub and caches
 - **Milvus** on `localhost:19530` – vector memory (NPC memory, creature lineages)
+> **TODO:** Provide instructions for initializing databases and seeding data after services start.
 
 Stable Diffusion is not part of `docker-compose`. Run it separately if you plan to generate or edit images. See [stable-diffusion.md](stable-diffusion.md) for Windows installation and API options.
 

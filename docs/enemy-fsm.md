@@ -12,6 +12,8 @@ stateDiagram-v2
     Recover --> Pursue: Player still in range
 ```
 
+> **TODO:** Describe how the FSM handles multiple players targeting the same enemy.
+
 ## Cooldowns
 - **Wind-up:** 0.5 s telegraph before attack.
 - **Attack:** Instant damage frame.
@@ -24,6 +26,7 @@ stateDiagram-v2
 - Should different enemy types override the default timers?
 - How are interrupts or stuns represented in the state machine?
 - Do ranged enemies share the same state flow or branch after Pursue?
+> **TODO:** Define separate behaviors for ranged and special enemy types.
 
 ## Acceptance Criteria
 - Enemy state transitions follow the diagram above and are driven by timers and player proximity.

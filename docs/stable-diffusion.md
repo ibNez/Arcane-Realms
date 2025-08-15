@@ -2,6 +2,8 @@
 
 Arcane Realms relies on open-source Stable Diffusion services for text-to-image, image-to-image, and inpainting tasks (e.g., redrawing walls, trees, bushes, or houses) on Windows 11 hardware with an RTX 5090 GPU.
 
+> **TODO:** Document steps for Linux/macOS setups and any GPU driver requirements beyond the RTX 5090 example.
+
 ## Available Options
 
 | Service | License | Highlights |
@@ -12,6 +14,7 @@ Arcane Realms relies on open-source Stable Diffusion services for text-to-image,
 | [Diffusers + FastAPI](https://github.com/huggingface/diffusers) | Apache‑2.0 | Build a custom service using Hugging Face Diffusers and FastAPI for maximum control. |
 
 All of these options run locally and satisfy the requirement to use public, free software.
+> **TODO:** Provide guidance on choosing between these services and outline pros/cons for production deployment.
 
 ## Quick Start (Automatic1111 Example)
 
@@ -32,6 +35,7 @@ All of these options run locally and satisfy the requirement to use public, free
 - Install the latest NVIDIA drivers and CUDA toolkit for the RTX 5090.
 - Enable `xformers` or FlashAttention to reduce VRAM usage.
 - SDXL models require roughly 12 GB of VRAM, which fits comfortably on the 5090.
+> **TODO:** Include benchmarks or expected generation times under typical configurations.
 
 ## Tiling Strategy & Scale
 

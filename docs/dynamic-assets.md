@@ -3,6 +3,8 @@
 ## Overview
 Arcane Realms employs an **AI-powered dynamic asset generation system** using Stable Diffusion to create contextually appropriate environmental visuals. This system transforms base architectural and environmental components based on biome characteristics, historical context, and player actions, creating a living world that visually evolves and adapts.
 
+> **TODO:** Add a diagram of the asset-generation pipeline and list external services or libraries required.
+
 ## Core Philosophy
 
 ### Functional Aesthetics
@@ -16,6 +18,7 @@ Arcane Realms employs an **AI-powered dynamic asset generation system** using St
 - **Functional Recognition**: Players can always identify asset types and interactions
 - **Progressive Enhancement**: Base assets provide fallback while enhanced versions generate
 - **Style Persistence**: Generated variations maintain artistic consistency
+> **TODO:** Describe content moderation steps to ensure generated assets remain safe and lore-friendly.
 
 ## Base Asset Library
 
@@ -23,6 +26,8 @@ The foundational assets are cataloged in
 [asset-catalog.md](asset-catalog.md) and mirrored in a SQLite database
 (`ops/data/assets.db`) so generation and gameplay systems share the same
 authoritative metadata.
+
+> **TODO:** Explain how the asset catalog is versioned and synchronized between the database and this document.
 
 ### Architectural Foundation
 ```
