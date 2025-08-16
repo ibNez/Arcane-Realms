@@ -7,10 +7,28 @@
     <style>
       html, body, #app { height: 100%; margin:0; background:#0b0e14; overflow:hidden; position:relative; z-index:1 }
       .hud { position:fixed; top:8px; left:8px; color:#eaeefb; font-family:ui-sans-serif,system-ui; }
+      #toolbar { position:fixed; top:8px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10 }
+      #toolbar button { background:#1f2937; color:#eaeefb; border:none; padding:4px 8px; cursor:pointer }
+      #toolbar button.active { background:#374151 }
+      #component-library { position:fixed; left:0; right:0; bottom:-140px; height:140px; background:#1f2937; color:#eaeefb; display:flex; gap:8px; padding:8px; transition:bottom .2s; z-index:10 }
+      #component-library.open { bottom:0 }
+      #component-library .component { width:64px; height:64px; background:#374151; border:1px solid #555; display:flex; align-items:center; justify-content:center; cursor:grab }
     </style>
   </head>
   <body>
     <div id="app"></div>
+    <div id="toolbar">
+      <button id="tool-add">Add</button>
+      <button id="tool-zoom-in">+</button>
+      <button id="tool-zoom-out">&minus;</button>
+      <button id="tool-select" class="active">Select</button>
+      <button id="tool-delete">Delete</button>
+      <button id="tool-snap" class="active">Snap</button>
+    </div>
+    <div id="component-library">
+      <div class="component" draggable="true" data-type="tree">Tree</div>
+      <div class="component" draggable="true" data-type="rock">Rock</div>
+    </div>
     <div class="hud" style="pointer-events:none">
       ARCANE FORGE
     </div>

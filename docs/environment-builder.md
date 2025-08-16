@@ -35,6 +35,11 @@ Built with **Phaser** for rendering, **React** for the interface, and **Vite** w
 - **Drag & Duplicate** for rapid placement of multiples
 - **Snap to Grid** toggle for precise alignment
 
+The canvas opens empty to encourage fresh layouts. Selecting **Add Component**
+slides the component library up from the bottom of the screen. Drag any entry
+from this panel onto the canvas to place it; holding **Alt** while dragging an
+existing object creates a duplicate.
+
 | Control | Shortcut | UI Behavior |
 |---------|----------|-------------|
 | Add Component | **A** | Opens the component palette with search focus. |
