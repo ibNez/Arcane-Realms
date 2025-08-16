@@ -1,6 +1,6 @@
 import { ForgeScene } from '../scenes/ForgeScene'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:8080'
 
 export function setupForgeUI(scene: ForgeScene) {
   const library = document.getElementById('component-library')!
@@ -76,13 +76,17 @@ export function setupForgeUI(scene: ForgeScene) {
     fd.append('image', file)
     fd.append('name', name)
     fetch(`${API_BASE}/api/assets`, { method: 'POST', body: fd })
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error('upload failed')
+        return r.json()
+      })
       .then((asset) => {
         addComponent(asset)
         importPanel.classList.add('hidden')
         fileInput.value = ''
         nameInput.value = ''
       })
+      .catch((err) => console.error('asset upload failed', err))
   })
 
   document.querySelectorAll('#component-library .component').forEach((el) => {
@@ -92,4 +96,5 @@ export function setupForgeUI(scene: ForgeScene) {
   fetch(`${API_BASE}/api/assets`)
     .then((r) => r.json())
     .then((assets) => assets.forEach(addComponent))
+    .catch((err) => console.error('asset list failed', err))
 }
