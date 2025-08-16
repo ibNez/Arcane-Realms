@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
 import { logImportStep } from '../utils/logger.js';
 
 const router = Router();
@@ -26,7 +27,7 @@ router.get('/', (_req, res) => {
   }
 });
 
-router.post('/', upload.single('image'), (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   logImportStep('Received asset upload request');
 
   const file = req.file;
@@ -48,17 +49,27 @@ router.post('/', upload.single('image'), (req, res) => {
   fs.renameSync(file.path, target);
   logImportStep(`Stored image as ${target}`);
 
+  const iconName = safeName + '-icon' + ext;
+  const iconPath = path.join(IMG_DIR, iconName);
+  try {
+    await sharp(target).resize(64, 64).toFile(iconPath);
+    logImportStep(`Created icon at ${iconPath}`);
+  } catch (err) {
+    fs.copyFileSync(target, iconPath);
+    logImportStep(`Icon generation failed, copied original to ${iconPath}`);
+  }
+
   let meta: any[] = [];
   try {
     meta = JSON.parse(fs.readFileSync(META_FILE, 'utf-8'));
   } catch {
     logImportStep('Meta file missing, creating new one');
   }
-  meta.push({ name: safeName, file: filename });
+  meta.push({ name: safeName, file: filename, icon: iconName });
   fs.writeFileSync(META_FILE, JSON.stringify(meta, null, 2));
   logImportStep(`Updated metadata at ${META_FILE}`);
 
-  res.json({ name: safeName, file: filename });
+  res.json({ name: safeName, file: filename, icon: iconName });
   logImportStep(`Completed import for ${name}`);
 });
 
