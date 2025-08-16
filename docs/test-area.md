@@ -6,7 +6,7 @@ The Test Area is a dedicated playground for validating character abilities and e
 
 ## Launching
 1. Start the server and client as described in [SETUP.md](SETUP.md).
-2. Open `http://localhost:5173` in a browser. The **TestScene** loads by default.
+2. Open `http://localhost:5173/forge` in a browser. The **TestScene** loads by default.
 
 ## Controls
 - **Movement:** WASD or arrow keys

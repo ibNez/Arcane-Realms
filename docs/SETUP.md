@@ -195,7 +195,7 @@ npm run dev
 - The **client** runs via Vite on `http://localhost:5173`.
 - The **server** exposes a WebSocket on `ws://localhost:8080` for multiplayer and routes on `http://localhost:8080`.
 
-Open `http://localhost:5173` in a browser to play. The Test Area is available at root.
+Open `http://localhost:5173` in a browser to play. The Test Area is available at `http://localhost:5173/forge`.
 
 ## Environment Variables
 
