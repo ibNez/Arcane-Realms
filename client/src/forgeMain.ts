@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { ForgeScene } from './scenes/ForgeScene'
 import { setupForgeUI } from './ui/ForgeToolbar'
+import { getDevConsole } from './ui/DevConsole'
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -12,4 +13,8 @@ const game = new Phaser.Game({
 
 const forgeScene = game.scene.getScene('ForgeScene') as ForgeScene
 setupForgeUI(forgeScene)
+
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Backquote') getDevConsole().toggle()
+})
 
