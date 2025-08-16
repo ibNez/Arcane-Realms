@@ -90,6 +90,7 @@ export function setupForgeUI(scene: ForgeScene) {
         fileInput.value = ''
         nameInput.value = ''
       })
+      .catch((err) => console.error('asset upload failed', err))
   })
 
   fetch(`${API_BASE}/api/assets`)
