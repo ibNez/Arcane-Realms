@@ -7,7 +7,10 @@ import { fileURLToPath } from 'node:url';
 const router = Router();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ASSET_DIR = path.resolve(__dirname, '../../../assets/components');
+const ASSET_DIR = process.env.ASSET_DIR
+  ? path.resolve(process.env.ASSET_DIR)
+  : path.resolve(__dirname, '../../../assets/components');
+fs.mkdirSync(path.join(ASSET_DIR, 'tmp'), { recursive: true });
 const IMG_DIR = path.join(ASSET_DIR, 'images');
 const META_FILE = path.join(ASSET_DIR, 'assets.json');
 
