@@ -238,7 +238,14 @@ export class PlayScene extends Phaser.Scene {
     const right = !!(this.cursors.right?.isDown || this.wasd.right?.isDown)
     const up = !!(this.cursors.up?.isDown || this.wasd.up?.isDown)
     const down = !!(this.cursors.down?.isDown || this.wasd.down?.isDown)
-    if ((left || right || up || down) && this.target) this.target = null
+    const usingKeys = left || right || up || down
+    if (usingKeys && this.target) this.target = null
+
+    // continuous pointer tracking while left button held
+    const p = this.input.activePointer
+    if (!usingKeys && p.isDown && p.leftButtonDown() && this.target) {
+      this.target.set(p.worldX, p.worldY)
+    }
 
     let vx = 0, vy = 0
     if (left) vx -= 1; if (right) vx += 1; if (up) vy -= 1; if (down) vy += 1
