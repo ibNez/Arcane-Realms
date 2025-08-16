@@ -23,15 +23,16 @@ export function setupForgeUI(scene: ForgeScene) {
     })
   }
 
-  function addComponent(asset: { name: string; file: string }) {
+  function addComponent(asset: { name: string; file: string; icon?: string }) {
     const div = document.createElement('div')
     div.className = 'component'
     div.draggable = true
     div.dataset.type = asset.name
-    const src = `${API_BASE}/assets/components/images/${asset.file}`
-    div.dataset.src = src
+    const fullSrc = `${API_BASE}/assets/components/images/${asset.file}`
+    const iconSrc = `${API_BASE}/assets/components/images/${asset.icon ?? asset.file}`
+    div.dataset.src = fullSrc
     const img = document.createElement('img')
-    img.src = src
+    img.src = iconSrc
     img.width = 64
     img.height = 64
     div.appendChild(img)

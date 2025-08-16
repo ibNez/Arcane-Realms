@@ -27,14 +27,16 @@ describe('assets routes', () => {
     const res = await fetch(url + '/api/assets', { method: 'POST', body: fd as any });
     expect(res.status).toBe(200);
     const out = await res.json();
-    expect(out).toEqual({ name: 'test', file: 'test.png' });
+    expect(out).toEqual({ name: 'test', file: 'test.png', icon: 'test-icon.png' });
 
     const metaPath = path.join(tmpBase, 'assets.json');
     const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
-    expect(meta).toEqual([{ name: 'test', file: 'test.png' }]);
+    expect(meta).toEqual([{ name: 'test', file: 'test.png', icon: 'test-icon.png' }]);
 
     const imgPath = path.join(tmpBase, 'images', 'test.png');
     expect(fs.existsSync(imgPath)).toBe(true);
+    const iconPath = path.join(tmpBase, 'images', 'test-icon.png');
+    expect(fs.existsSync(iconPath)).toBe(true);
 
     server.close();
     delete process.env.ASSET_DIR;
