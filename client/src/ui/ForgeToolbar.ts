@@ -82,11 +82,13 @@ export function setupForgeUI(scene: ForgeScene) {
       })
       .then((asset) => {
         addComponent(asset)
+      })
+      .catch((err) => console.error('asset upload failed', err))
+      .finally(() => {
         importPanel.classList.add('hidden')
         fileInput.value = ''
         nameInput.value = ''
       })
-      .catch((err) => console.error('asset upload failed', err))
   })
 
   document.querySelectorAll('#component-library .component').forEach((el) => {
