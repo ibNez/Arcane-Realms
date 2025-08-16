@@ -13,6 +13,10 @@
       #component-library { position:fixed; left:0; right:0; bottom:-140px; height:140px; background:#1f2937; color:#eaeefb; display:flex; gap:8px; padding:8px; transition:bottom .2s; z-index:10 }
       #component-library.open { bottom:0 }
       #component-library .component { width:64px; height:64px; background:#374151; border:1px solid #555; display:flex; align-items:center; justify-content:center; cursor:grab }
+      #import-panel { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:20 }
+      #import-panel.hidden { display:none }
+      #import-panel .panel { background:#1f2937; padding:16px; display:flex; flex-direction:column; gap:8px; color:#eaeefb }
+      #import-panel input { padding:4px }
     </style>
   </head>
   <body>
@@ -24,10 +28,21 @@
       <button id="tool-select" class="active">Select</button>
       <button id="tool-delete">Delete</button>
       <button id="tool-snap" class="active">Snap</button>
+      <button id="tool-import">Import</button>
     </div>
     <div id="component-library">
       <div class="component" draggable="true" data-type="tree">Tree</div>
       <div class="component" draggable="true" data-type="rock">Rock</div>
+    </div>
+    <input type="file" id="asset-file" accept="image/*" style="display:none"/>
+    <div id="import-panel" class="hidden">
+      <div class="panel">
+        <label>Name <input type="text" id="asset-name"/></label>
+        <div style="display:flex; gap:8px; justify-content:flex-end">
+          <button id="asset-save">Save</button>
+          <button id="asset-cancel">Cancel</button>
+        </div>
+      </div>
     </div>
     <div class="hud" style="pointer-events:none">
       ARCANE FORGE

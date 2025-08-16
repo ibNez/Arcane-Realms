@@ -1,5 +1,7 @@
 import { ForgeScene } from '../scenes/ForgeScene'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+
 export function setupForgeUI(scene: ForgeScene) {
   const library = document.getElementById('component-library')!
   const addBtn = document.getElementById('tool-add')!
@@ -7,6 +9,35 @@ export function setupForgeUI(scene: ForgeScene) {
   const zoomOutBtn = document.getElementById('tool-zoom-out')!
   const deleteBtn = document.getElementById('tool-delete')!
   const snapBtn = document.getElementById('tool-snap')!
+  const importBtn = document.getElementById('tool-import')!
+  const fileInput = document.getElementById('asset-file') as HTMLInputElement
+  const importPanel = document.getElementById('import-panel')!
+  const nameInput = document.getElementById('asset-name') as HTMLInputElement
+  const saveBtn = document.getElementById('asset-save')!
+  const cancelBtn = document.getElementById('asset-cancel')!
+
+  function registerComponent(el: HTMLElement) {
+    el.addEventListener('dragstart', (ev) => {
+      ev.dataTransfer?.setData('component', el.dataset.type || '')
+      ev.dataTransfer?.setData('src', el.dataset.src || '')
+    })
+  }
+
+  function addComponent(asset: { name: string; file: string }) {
+    const div = document.createElement('div')
+    div.className = 'component'
+    div.draggable = true
+    div.dataset.type = asset.name
+    const src = `${API_BASE}/assets/components/images/${asset.file}`
+    div.dataset.src = src
+    const img = document.createElement('img')
+    img.src = src
+    img.width = 64
+    img.height = 64
+    div.appendChild(img)
+    registerComponent(div)
+    library.appendChild(div)
+  }
 
   addBtn.addEventListener('click', () => {
     library.classList.toggle('open')
@@ -26,9 +57,39 @@ export function setupForgeUI(scene: ForgeScene) {
     snapBtn.classList.toggle('active', scene.snapToGrid)
   })
 
-  document.querySelectorAll('#component-library .component').forEach((el) => {
-    el.addEventListener('dragstart', (ev) => {
-      ev.dataTransfer?.setData('component', (ev.target as HTMLElement).dataset.type || '')
-    })
+  importBtn.addEventListener('click', () => fileInput.click())
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files[0]) {
+      importPanel.classList.remove('hidden')
+    }
   })
+  cancelBtn.addEventListener('click', () => {
+    importPanel.classList.add('hidden')
+    fileInput.value = ''
+    nameInput.value = ''
+  })
+  saveBtn.addEventListener('click', () => {
+    const file = fileInput.files?.[0]
+    const name = nameInput.value.trim()
+    if (!file || !name) return
+    const fd = new FormData()
+    fd.append('image', file)
+    fd.append('name', name)
+    fetch(`${API_BASE}/api/assets`, { method: 'POST', body: fd })
+      .then((r) => r.json())
+      .then((asset) => {
+        addComponent(asset)
+        importPanel.classList.add('hidden')
+        fileInput.value = ''
+        nameInput.value = ''
+      })
+  })
+
+  document.querySelectorAll('#component-library .component').forEach((el) => {
+    registerComponent(el as HTMLElement)
+  })
+
+  fetch(`${API_BASE}/api/assets`)
+    .then((r) => r.json())
+    .then((assets) => assets.forEach(addComponent))
 }
