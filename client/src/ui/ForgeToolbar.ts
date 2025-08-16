@@ -92,10 +92,6 @@ export function setupForgeUI(scene: ForgeScene) {
       })
   })
 
-  document.querySelectorAll('#component-library .component').forEach((el) => {
-    registerComponent(el as HTMLElement)
-  })
-
   fetch(`${API_BASE}/api/assets`)
     .then((r) => r.json())
     .then((assets) => assets.forEach(addComponent))
