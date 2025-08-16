@@ -1,15 +1,6 @@
 [
   {
     "name": "oak_tree",
-    "file": "oak_tree.png"
-  },
-  {
-    "name": "oak_tree",
-    "file": "oak_tree.png",
-    "icon": "oak_tree-icon.png"
-  },
-  {
-    "name": "oak_tree",
     "file": "oak_tree.png",
     "icon": "oak_tree-icon.png"
   }
