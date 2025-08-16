@@ -1,6 +1,8 @@
 import { ForgeScene } from '../scenes/ForgeScene'
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:8080'
+const API_BASE =
+  (import.meta.env.VITE_API_BASE_URL as string | undefined) ||
+  window.location.origin
 
 export function setupForgeUI(scene: ForgeScene) {
   const library = document.getElementById('component-library')!
