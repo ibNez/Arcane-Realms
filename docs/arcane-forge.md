@@ -109,7 +109,21 @@ Launch the environment editor to assemble and validate Realm Tiles. With the
 client running, open the `EnvironmentTestScene` (see
 [environment-builder.md](environment-builder.md)) and use the control panel to
 place components, verify snap-to-grid alignment, and confirm that tiles connect
-cleanly.
+cleanly. The editor canvas opens empty so you can lay out objects from scratch.
+At the top of the screen a toolbar exposes common actions:
+
+- **Add Component** toggles the component library panel from the bottom of the
+  screen. Drag any entry from this panel onto the canvas to create an instance.
+- **Zoom In/Out** adjusts the camera zoom level for precise editing.
+- **Select Item** highlights an object for manipulation.
+- **Delete Item** removes the currently selected component.
+- **Drag & Duplicate** – hold **Alt** while dragging a selected object to clone
+  it.
+- **Snap to Grid** toggles grid snapping for dragged items.
+
+The component panel contains basic placeholders (e.g., Tree, Rock) and is
+extendable via the asset catalog. All tools mirror their keyboard shortcuts in
+the interface for discoverability.
 
 ## Realm Tiles
 The world is assembled from **Realm Tiles** — each derived from a 1024 × 1024
