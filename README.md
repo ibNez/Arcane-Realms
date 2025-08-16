@@ -56,7 +56,8 @@ Refer to the [contribution guidelines](CONTRIBUTING.md) and [project roadmap](do
    npm i
    npm run dev
    ```
-   Client: http://localhost:5173
+   Game: http://localhost:5173
+   Arcane Forge: http://localhost:5173/forge
 
 3) (Optional) AI services
    ```bash

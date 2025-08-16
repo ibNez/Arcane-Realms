@@ -62,7 +62,8 @@ npm run dev
 ```
 
 - **Server**: http://localhost:8080
-- **Client**: http://localhost:5173
+- **Game**: http://localhost:5173
+- **Arcane Forge**: http://localhost:5173/forge
  
 Server configuration values are stored in `server/.env`. Start by copying the
 sample file and adjusting settings for your machine:
