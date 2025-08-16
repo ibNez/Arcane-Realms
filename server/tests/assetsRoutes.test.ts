@@ -38,6 +38,12 @@ describe('assets routes', () => {
     const iconPath = path.join(tmpBase, 'images', 'test-icon.png');
     expect(fs.existsSync(iconPath)).toBe(true);
 
+    // ensure GET route returns asset list and disables caching
+    const listRes = await fetch(url + '/api/assets');
+    expect(listRes.headers.get('cache-control')).toBe('no-store');
+    const list = await listRes.json();
+    expect(list).toEqual([{ name: 'test', file: 'test.png', icon: 'test-icon.png' }]);
+
     server.close();
     delete process.env.ASSET_DIR;
   });
