@@ -3,16 +3,22 @@ import express from 'express';
 import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import http from 'node:http';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { llm, embed, memorySearch, memoryUpsert, stt, tts, genImage} from './routes/ai.js';
 import { generateCharacter, saveCharacter, getCharacter } from './routes/character.js';
+import assetsRouter from './routes/assets.js';
 
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '0.0.0.0';
 const ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(cors({ origin: ORIGIN }));
 app.use(express.json({ limit: '5mb' }));
+app.use('/assets', express.static(path.resolve(__dirname, '../../assets')));
+app.use('/api/assets', assetsRouter);
 
 app.get('/health', (_, res) => res.json({ ok: true }));
 app.post('/llm', llm);

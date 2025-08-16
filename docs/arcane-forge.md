@@ -114,6 +114,8 @@ At the top of the screen a toolbar exposes common actions:
 
 - **Add Component** toggles the component library panel from the bottom of the
   screen. Drag any entry from this panel onto the canvas to create an instance.
+- **Import Asset** opens a file picker and lets you add new image assets with
+  accompanying metadata to the component library.
 - **Zoom In/Out** adjusts the camera zoom level for precise editing.
 - **Select Item** highlights an object for manipulation.
 - **Delete Item** removes the currently selected component.
