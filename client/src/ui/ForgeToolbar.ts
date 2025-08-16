@@ -6,7 +6,6 @@ const API_BASE =
 
 export function setupForgeUI(scene: ForgeScene) {
   const library = document.getElementById('component-library')!
-  const addBtn = document.getElementById('tool-add')!
   const zoomInBtn = document.getElementById('tool-zoom-in')!
   const zoomOutBtn = document.getElementById('tool-zoom-out')!
   const deleteBtn = document.getElementById('tool-delete')!
@@ -37,14 +36,11 @@ export function setupForgeUI(scene: ForgeScene) {
     img.src = iconSrc
     img.width = 64
     img.height = 64
+    img.alt = asset.name
     div.appendChild(img)
     registerComponent(div)
     library.appendChild(div)
   }
-
-  addBtn.addEventListener('click', () => {
-    library.classList.toggle('open')
-  })
 
   zoomInBtn.addEventListener('click', () => {
     scene.cameras.main.setZoom(scene.cameras.main.zoom + 0.25)
