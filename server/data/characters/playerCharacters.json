@@ -1,0 +1,13 @@
+[
+  {
+    "name": "nez",
+    "portrait": "http://localhost:5173/images/presets/desert_mage.png",
+    "parameters": {
+      "accessories": [],
+      "pose": "neutral",
+      "art_seed": 0
+    },
+    "createdAt": "2025-08-15T18:21:29.255Z",
+    "updatedAt": "2025-08-15T18:21:29.255Z"
+  }
+]
