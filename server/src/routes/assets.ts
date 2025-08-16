@@ -67,6 +67,8 @@ router.post('/', upload.single('image'), async (req, res) => {
   } catch {
     logImportStep('Meta file missing, creating new one');
   }
+  // Replace any existing entry for this asset to avoid duplicates
+  meta = meta.filter((a) => a.name !== safeName);
   meta.push({ name: safeName, file: filename, icon: iconName });
   fs.writeFileSync(META_FILE, JSON.stringify(meta, null, 2));
   logImportStep(`Updated metadata at ${META_FILE}`);

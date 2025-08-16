@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import express from 'express';
 import type { AddressInfo } from 'net';
 import fs from 'node:fs';
@@ -12,6 +12,7 @@ describe('assets routes', () => {
   it('stores uploaded image and metadata', async () => {
     const tmpBase = fs.mkdtempSync(path.join(os.tmpdir(), 'ar-assets-'));
     process.env.ASSET_DIR = tmpBase;
+    vi.resetModules();
     const { default: assetsRouter } = await import('../src/routes/assets.js');
 
     const app = express();
@@ -43,6 +44,38 @@ describe('assets routes', () => {
     expect(listRes.headers.get('cache-control')).toBe('no-store');
     const list = await listRes.json();
     expect(list).toEqual([{ name: 'test', file: 'test.png', icon: 'test-icon.png' }]);
+
+    server.close();
+    delete process.env.ASSET_DIR;
+  });
+
+  it('replaces existing metadata when uploading asset with same name', async () => {
+    const tmpBase = fs.mkdtempSync(path.join(os.tmpdir(), 'ar-assets-'));
+    process.env.ASSET_DIR = tmpBase;
+    vi.resetModules();
+    const { default: assetsRouter } = await import('../src/routes/assets.js');
+
+    const app = express();
+    app.use('/api/assets', assetsRouter);
+    const server = app.listen(0);
+    const url = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+
+    const imgBuf = Buffer.from(PIXEL_PNG_BASE64, 'base64');
+
+    const fd1 = new FormData();
+    fd1.append('name', 'test');
+    fd1.append('image', new Blob([imgBuf], { type: 'image/png' }), 'pixel.png');
+    await fetch(url + '/api/assets', { method: 'POST', body: fd1 as any });
+
+    const fd2 = new FormData();
+    fd2.append('name', 'test');
+    fd2.append('image', new Blob([imgBuf], { type: 'image/png' }), 'pixel2.png');
+    await fetch(url + '/api/assets', { method: 'POST', body: fd2 as any });
+
+    const metaPath = path.join(tmpBase, 'assets.json');
+    const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+    expect(meta).toHaveLength(1);
+    expect(meta[0]).toEqual({ name: 'test', file: 'test.png', icon: 'test-icon.png' });
 
     server.close();
     delete process.env.ASSET_DIR;
