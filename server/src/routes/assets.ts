@@ -19,6 +19,8 @@ const META_FILE = path.join(ASSET_DIR, 'assets.json');
 const upload = multer({ dest: path.join(ASSET_DIR, 'tmp') });
 
 router.get('/', (_req, res) => {
+  // Avoid client-side caching so newly uploaded assets are always listed
+  res.set('Cache-Control', 'no-store');
   try {
     const raw = fs.readFileSync(META_FILE, 'utf-8');
     res.json(JSON.parse(raw));
