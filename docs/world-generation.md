@@ -5,6 +5,13 @@ Arcane Realms features a **player-driven world generation system** where the gam
 
 > **TODO:** Describe the persistence layer and how world state is stored and retrieved across sessions.
 
+## Edge Barrier & Review Cycle
+- Players begin inside a 12×12 region centered on Nexus Town.
+- The outer boundary is sealed by an **Aegis Wall**. Touching it starts a server-wide battle against spectral **Watchers**.
+- When enough Watchers fall, the next region is generated and held behind a **24‑hour delay** so the Arcane Forge can review the assets.
+- After the delay, the wall vanishes permanently and the new land becomes explorable.
+- See [world-expansion.md](world-expansion.md) for the full requirement breakdown.
+
 ## Generation Philosophy
 
 ### Player-Centric Design
