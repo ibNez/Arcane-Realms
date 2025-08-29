@@ -18,6 +18,11 @@ stateDiagram-v2
     Recover --> Ready: Cooldown expires
 ```
 
+During the **Recover** state, new skill inputs are ignored rather than queued.
+This forces the player to wait until the skill fully recovers before executing
+another ability, preventing accidental buffering and preserving reaction
+windows for counterplay.
+
 ## Skill List
 
 | Rank | Skill Name | Description | Skill Type |
@@ -150,7 +155,6 @@ stateDiagram-v2
 - **Scaling:** All abilities scale with INT to maintain relevance
 
 ## Open Questions
-- Should skills queue if activated during Recover state, or should they be ignored?
 - Do critical hits apply to spells, and if so, what's the base critical chance?
 - Should mana regeneration be affected by casting spells or taking damage?
 - How should spell interruption work for channeled abilities like Arcane Missiles?
