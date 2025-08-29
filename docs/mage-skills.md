@@ -11,6 +11,7 @@ The Mage class is a ranged spellcaster focused on elemental damage, crowd contro
   - Casting a spell or taking damage pauses regeneration for 3 seconds.
 - **Range:** Primarily ranged combat with some point-blank area effects
 - **Role:** Damage dealer with utility and crowd control options
+- **Friendly Fire:** Area-of-effect spells do not harm allies; optional friendly-fire modes are planned for future updates.
 
 ### Scaling and Critical Hits
 - **INT Scaling:** Damage and healing for all mage spells follow `base + coefficient * INT` formulas. Each skill's coefficient is listed in its description.
@@ -181,7 +182,7 @@ windows for counterplay.
 
 ## Open Questions
 - What happens when a mage runs out of mana mid-cast?
-- Should area spells have friendly fire considerations?
+- How should optional friendly-fire modes be implemented?
 - How should line-of-sight affect targeted spells?
 > **TODO:** Decide if terrain and obstacles block spells and include LOS checks in design.
 
