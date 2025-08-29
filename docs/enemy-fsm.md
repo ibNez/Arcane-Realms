@@ -24,8 +24,12 @@ stateDiagram-v2
 > **TODO:** Describe how the FSM handles multiple players targeting the same enemy.
 
 ### Crowd Control
-- **Stunned:** Triggered by skills like *Frost Nova* or *Polymorph*. The enemy is immobile and unable to act until the effect ends, then transitions to **Recover**.
-- **Interrupted:** Caused by knockback or counter skills such as *Arcane Nova*. The current **WindUp** or **Attack** is canceled and the enemy briefly enters **Interrupted** before moving to **Recover**.
+- **Stunned:** Triggered by skills like *Frost Nova* or *Polymorph*. The enemy is
+  immobile and unable to act until the effect ends, then transitions to
+  **Recover**.
+- **Interrupted:** Caused by knockback or counter skills such as *Arcane Nova*.
+  The current **WindUp** or **Attack** is canceled and the enemy briefly enters
+  **Interrupted** before moving to **Recover**.
 
 ## Cooldowns
 - **Wind-up:** 0.5 s telegraph before attack.
