@@ -17,6 +17,10 @@ The Mage class is a ranged spellcaster focused on elemental damage, crowd contro
 - **Critical Chance:** Spells have a baseline 5% chance to critically hit.
 - **Critical Multiplier:** Critical hits deal 150% of the INT-scaled result and apply after all additive modifiers.
 
+### Resistances
+- **Damage Modification:** After INT scaling and critical calculations, elemental resistances reduce damage by their percentage. `finalDamage = damageAfterCrit × (1 - resistance)`.
+- **Player Visibility:** Character sheets and enemy inspect windows list Fire, Frost, and Arcane resistances. Floating combat text and combat logs show a **Resist** tag with the mitigated amount whenever resistance reduces damage.
+
 ## Shared Skill State Diagram
 ```mermaid
 stateDiagram-v2
@@ -164,7 +168,6 @@ windows for counterplay.
 - **Scaling:** All abilities scale with INT to maintain relevance
 
 ## Open Questions
-- Should there be spell resistance mechanics for certain enemies?
 - What happens when a mage runs out of mana mid-cast?
 - Should area spells have friendly fire considerations?
 - How should line-of-sight affect targeted spells?
