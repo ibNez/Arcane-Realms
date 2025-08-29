@@ -60,6 +60,7 @@ windows for counterplay.
 - **Range:** 8 m
 - **Mana Cost:** 10
 - **Cast Time:** 1.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Fires a homing projectile at the target. Cannot miss once cast.
 > **TODO:** Describe projectile speed and interaction with obstacles.
 
@@ -70,6 +71,7 @@ windows for counterplay.
 - **Area:** 2 m radius explosion
 - **Mana Cost:** 25
 - **Cast Time:** 2.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** High damage fire projectile that explodes on impact, dealing area damage.
 
 ### Frost Nova
@@ -79,6 +81,7 @@ windows for counterplay.
 - **Area:** 5 m radius
 - **Mana Cost:** 30
 - **Cast Time:** 1.5 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Status Effect:** Freeze for 3 seconds
 - **Details:** AoE freeze that immobilizes all enemies within range.
 
@@ -88,6 +91,7 @@ windows for counterplay.
 - **Range:** 12 m
 - **Mana Cost:** 35
 - **Cast Time:** 3.0 s (channeled)
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Interruption Threshold:** Channel ends if the mage moves or a single hit deals ≥10% of max health.
 - **Partial Damage:** Fires one missile every 0.6 s (max 5). If interrupted early, `totalDamage = floor(channelTime / 0.6) × (6 + 1.5 × INT)`.
 - **Details:** Rapid-fire magical projectiles.
@@ -97,6 +101,7 @@ windows for counterplay.
 - **Range:** 5 m
 - **Mana Cost:** 80
 - **Cast Time:** 3.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 60 s
 - **Details:** Summons a fire elemental with 50 + 5 * INT health that fights alongside you.
 
@@ -105,6 +110,7 @@ windows for counterplay.
 - **Range:** 6 m
 - **Mana Cost:** 20
 - **Cast Time:** Instant
+- **Failure Mode:** Fails and consumes cooldown if mana is insufficient when cast.
 - **Details:** Instantly teleports to target location within range. Cannot pass through walls.
 
 ### Meteor
@@ -114,6 +120,7 @@ windows for counterplay.
 - **Area:** 4 m radius
 - **Mana Cost:** 100
 - **Cast Time:** 4.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Massive area damage with a delay. Area is marked before impact.
 
 ### Polymorph
@@ -121,6 +128,7 @@ windows for counterplay.
 - **Range:** 8 m
 - **Mana Cost:** 40
 - **Cast Time:** 2.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 8 s
 - **Details:** Transforms target enemy into a harmless sheep. Breaks on damage.
 
@@ -129,6 +137,7 @@ windows for counterplay.
 - **Range:** Self
 - **Mana Cost:** 50
 - **Cast Time:** 1.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 20 s
 - **Details:** Absorbs `30 + 2 * INT` damage using mana instead of health (2 mana per damage).
 > **TODO:** Define recharge mechanics and interactions with other defensive buffs.
@@ -140,6 +149,7 @@ windows for counterplay.
 - **Targets:** Up to 5 enemies
 - **Mana Cost:** 60
 - **Cast Time:** 1.5 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Lightning bounces between nearby enemies, dealing reduced damage with each jump.
 
 ### Time Manipulation
@@ -148,6 +158,7 @@ windows for counterplay.
 - **Area:** 6 m radius
 - **Mana Cost:** 70
 - **Cast Time:** 2.5 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 10 s
 - **Details:** Slows enemy movement and attack speed by 50%, or increases ally speed by 30%.
 
@@ -158,6 +169,7 @@ windows for counterplay.
 - **Area:** 4 m radius
 - **Mana Cost:** 45
 - **Cast Time:** 1.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Point-blank area burst with brief knockback.
 
 ## Design Principles
