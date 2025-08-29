@@ -5,7 +5,10 @@ The Mage class is a ranged spellcaster focused on elemental damage, crowd contro
 
 ### Class Characteristics
 - **Primary Attribute:** Intelligence (INT) - affects all spell damage and healing
-- **Resource:** Mana - consumed by all abilities. Mana regenerates at 1% of maximum per second and doubles to 2% per second while out of combat. Casting a spell or taking damage pauses regeneration for 3 seconds.
+- **Resource:** Mana – consumed by all abilities.
+  - Regenerates at 1% of maximum per second.
+  - Doubles to 2% per second while out of combat.
+  - Casting a spell or taking damage pauses regeneration for 3 seconds.
 - **Range:** Primarily ranged combat with some point-blank area effects
 - **Role:** Damage dealer with utility and crowd control options
 
