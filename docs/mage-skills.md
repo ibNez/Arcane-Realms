@@ -84,8 +84,8 @@ windows for counterplay.
 - **Range:** 12 m
 - **Mana Cost:** 35
 - **Cast Time:** 3.0 s (channeled)
-- **Interruption Threshold:** Movement or taking damage exceeding 10% of max health in a single hit ends the channel.
-- **Partial Damage:** One missile fires every 0.6 s. If interrupted, total damage = missiles_fired × `6 + 1.5 * INT` with missiles_fired = floor(channel_time / 0.6).
+- **Interruption Threshold:** Channel ends if the mage moves or a single hit deals ≥10% of max health.
+- **Partial Damage:** Fires one missile every 0.6 s (max 5). If interrupted early, `totalDamage = floor(channelTime / 0.6) × (6 + 1.5 × INT)`.
 - **Details:** Rapid-fire magical projectiles.
 
 ### Summon Elemental
@@ -164,7 +164,6 @@ windows for counterplay.
 - **Scaling:** All abilities scale with INT to maintain relevance
 
 ## Open Questions
-- How should spell interruption work for channeled abilities like Arcane Missiles?
 - Should there be spell resistance mechanics for certain enemies?
 - What happens when a mage runs out of mana mid-cast?
 - Should area spells have friendly fire considerations?
