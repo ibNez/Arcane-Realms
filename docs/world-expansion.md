@@ -27,3 +27,10 @@ Arcane Realms features a world that grows outward whenever players reach its cur
 ## Growth Pace
 - Higher‑level regions take players longer to reach, naturally spacing out expansions.
 - Expansion cadence slows over time, giving the team more opportunity to review large, complex regions.
+
+## Mob Density and Player Progression
+- Towns and other settled hubs act as sanctuaries where no hostile creatures spawn.
+- Spawn density is calculated outward from each town. The farther a player travels from a safe zone, the more frequent the mob encounters.
+- Newly revealed frontier cells start sparse and build to heavy concentrations at the edge of explored land, hinting at the next expansion.
+- Each mob is procedurally generated as an image sprite and assigned attributes when created. It remains at the level of its home area rather than scaling with players.
+- Difficulty rises the farther one moves from the starting town, naturally dividing the world into level bands. New players progress by grinding through inner rings before venturing outward, while veterans push the frontier forward.
