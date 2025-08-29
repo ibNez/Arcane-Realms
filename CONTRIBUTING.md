@@ -2,7 +2,7 @@
 
 Thank you for your interest in improving **Arcane Realms**!
 This project uses separate client and server packages built with
-[Phaser](https://phaser.io/) and Node.js. The guidelines below explain how to
+[LÖVE](https://love2d.org/) and Node.js. The guidelines below explain how to
 get set up and how to contribute effectively.
 
 Please review our [Code of Conduct](CODE_OF_CONDUCT.md). We expect all
