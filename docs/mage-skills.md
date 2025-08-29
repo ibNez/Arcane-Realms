@@ -84,8 +84,9 @@ windows for counterplay.
 - **Range:** 12 m
 - **Mana Cost:** 35
 - **Cast Time:** 3.0 s (channeled)
-- **Details:** Rapid-fire magical projectiles. Can be interrupted by movement or damage.
-> **TODO:** Specify channel break conditions and whether partial damage is applied on interruption.
+- **Interruption Threshold:** Movement or taking damage exceeding 10% of max health in a single hit ends the channel.
+- **Partial Damage:** One missile fires every 0.6 s. If interrupted, total damage = missiles_fired × `6 + 1.5 * INT` with missiles_fired = floor(channel_time / 0.6).
+- **Details:** Rapid-fire magical projectiles.
 
 ### Summon Elemental
 - **Cooldown:** 45 s
