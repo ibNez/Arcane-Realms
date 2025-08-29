@@ -62,8 +62,8 @@ windows for counterplay.
 - **Mana Cost:** 10
 - **Cast Time:** 1.0 s
 - **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
-- **Details:** Fires a homing projectile at the target. Cannot miss once cast.
-> **TODO:** Describe projectile speed and interaction with obstacles.
+- **Projectile Speed:** 20 m/s
+- **Details:** Fires a homing projectile at the target. Requires line of sight and dissipates if a solid obstacle blocks its path. Cannot miss once cast unless intercepted.
 
 ### Fireball
 - **Cooldown:** 3.0 s
@@ -178,13 +178,12 @@ windows for counterplay.
 - **Resource Management:** Mana costs should create meaningful choices
 - **Risk/Reward:** Longer cast times for more powerful effects
 - **Counterplay:** All crowd control effects should have counterplay options
+- **Line of Sight:** Targeted spells require unobstructed LOS and are blocked by solid terrain unless noted
 - **Scaling:** All abilities scale with INT to maintain relevance
 
 ## Open Questions
 - What happens when a mage runs out of mana mid-cast?
 - How should optional friendly-fire modes be implemented?
-- How should line-of-sight affect targeted spells?
-> **TODO:** Decide if terrain and obstacles block spells and include LOS checks in design.
 
 ## Acceptance Criteria
 - Each skill follows the shared state diagram and respects its cooldown
