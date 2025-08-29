@@ -35,6 +35,21 @@ client/
 `love.load` bootstraps assets and pushes `PlayState` onto the stack. The `StateStack` routes `love.update` and `love.draw`
 callbacks to the active state. States may push another state (e.g., opening the Forge editor) or pop themselves when complete.
 
+## State Management
+Arcane Realms currently relies on a small custom `StateStack` to handle screen transitions.  It keeps dependencies light and
+the API straightforward while the client only has a few states.
+
+### Migrating to `hump.gamestate`
+If the number of states grows and we decide to adopt [`hump.gamestate`](https://github.com/vrld/hump/blob/master/gamestate.lua),
+follow these steps:
+1. Vendor or install `gamestate.lua` and require it from `main.lua`.
+2. Refactor each module in `states/` to expose the callbacks expected by `hump.gamestate` (`init`, `enter`, `leave`, `update`,
+   `draw`).
+3. Replace the custom stack logic in `main.lua` with calls to `Gamestate.switch`, `push`, and `pop`.
+4. Remove the old `StateStack` implementation and any references to it.
+5. Test transitions between `PlayState`, `ForgeState`, `TestState`, and any new states to confirm behavior matches the previous
+   system.
+
 ## Networking
 The client connects to the Node.js server at `ws://localhost:8080`:
 1. `net/websocket.lua` opens a WebSocket and registers callbacks.
@@ -81,6 +96,5 @@ WASD controls movement; left click issues move/attack commands; pressing **C** t
 red via the dev console so testers can spot flaky connections.
 
 ## Open Items
-- **State management** – continue with the custom stack for now; evaluate `hump.gamestate` once more than three states exist.
 - **Logging** – decide if logs should persist to disk or remain ephemeral during development.
 - **Message schemas** – expand the JSON examples above to cover inventory updates and complex skill payloads.
