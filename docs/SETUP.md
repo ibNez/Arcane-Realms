@@ -56,6 +56,12 @@ Install the global TypeScript compiler if it's not already available:
 npm install -g typescript
 ```
 
+Install the WebSocket client library for LÖVE using [LuaRocks](https://luarocks.org):
+
+```sh
+luarocks install lua-websockets
+```
+
 The server expects certain environment variables for local development. Create `server/.env` with values like:
 
 ```env

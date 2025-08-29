@@ -69,6 +69,7 @@ server/
 - JSON messages: `{ type:"move", x, y }`, `{ type:"chat", text }`,
   `{ type:"skill", id, target }`, world snapshots, etc.
 - Exponential backoff reconnects on disconnect.
+- Future enhancement: optional ENet transport for lower‑latency UDP.
 
 ### 5.4 Rendering & Camera
 - `love.graphics.translate` for camera, spritesheets animated with quads.
@@ -94,6 +95,8 @@ server/
   - `POST /llm` – NPC dialog via Ollama.
   - `GET /assets` – list of available assets.
 - Messages are JSON encoded; all messages include `type` and `playerId` fields.
+- Connection handshake: client sends `{type:"join", name}` and receives a
+  `{type:"welcome", id}` response before gameplay messages flow.
 
 ## 7. Server Design
 - **Stack:** Node.js 20, TypeScript, `ws`, `express`.

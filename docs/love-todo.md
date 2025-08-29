@@ -6,11 +6,13 @@ This checklist tracks remaining work to build Arcane Realms from scratch using L
   - [ ] Initialize `client/` Lua project with `main.lua` and `conf.lua`.
   - [ ] Initialize `server/` TypeScript project with Express and `ws`.
   - [ ] Choose dependency managers (`luarocks` and `npm`) and document installation.
-- [ ] **Networking Layer**
-  - [ ] Add `lua-websockets` client and wrap send/receive API.
-  - [ ] Implement server WebSocket handlers for join/leave, movement, skills, and chat.
-  - [ ] Define JSON schemas for all messages and document in `docs/API.md`.
-  - [ ] Implement reconnect and error handling strategy.
+  - [ ] **Networking Layer**
+    - [ ] Add `lua-websockets` client and wrap send/receive API.
+    - [ ] Implement server WebSocket handlers for join/leave, movement, skills, and chat.
+    - [ ] Define JSON schemas for all messages and document in `docs/API.md`.
+    - [ ] Implement reconnect and error handling strategy.
+    - [ ] Perform connection handshake and heartbeat ping/pong.
+    - [ ] Evaluate ENet/UDP transport for future low-latency play.
 - [ ] **State Management**
   - [ ] Implement `StateStack` or adopt `hump.gamestate`.
   - [ ] Implement `Play`, `Forge`, `Test`, and `Loading` states.
@@ -47,9 +49,9 @@ This checklist tracks remaining work to build Arcane Realms from scratch using L
   - [ ] Integrate Milvus for vector memory storage.
   - [ ] Expose REST endpoints for `/join`, `/llm`, and `/assets`.
   - [ ] Write Vitest suites for message handlers and world generation.
-- [ ] **Build/Distribution**
-  - [ ] Document packaging via `.love` files and platform-specific binaries.
-  - [ ] Automate builds with CI scripts.
+  - [ ] **Build/Distribution**
+    - [ ] Document packaging via `.love` files and platform-specific binaries.
+    - [ ] Automate builds with CI scripts for Windows, macOS, and Linux.
 - [ ] **Testing**
   - [ ] Create unit tests for networking and state transitions (e.g., using `busted`).
   - [ ] Hook into server Vitest suites for integration testing.

@@ -40,7 +40,9 @@ The client connects to the Node.js server at `ws://localhost:8080`:
 1. `net/websocket.lua` opens a WebSocket and registers callbacks.
 2. Input events (movement, skills, chat) serialize to JSON and send over the socket.
 3. Incoming messages update world entities or append to chat.
-4. Reconnection logic attempts exponential backoff when the socket closes.
+4. On connect the client sends a `join` message and waits for a `welcome` before processing gameplay traffic.
+5. A periodic heartbeat (`ping`/`pong`) detects dropped connections.
+6. Reconnection logic attempts exponential backoff when the socket closes.
 
 ## Input Flow
 ```

@@ -8,6 +8,14 @@ The legacy Phaser/Node implementation now lives under [`old/`](old/) for referen
 - Multiplayer gameplay via a lightweight server (to be reimplemented).
 - Fully documented asset pipeline and offline AI stack for world and NPC generation.
 
+### Why LÖVE?
+
+LÖVE was selected over the former Phaser/browser stack to gain native desktop
+performance and simpler packaging for Windows, macOS, and Linux. While LÖVE does
+not ship with built‑in networking, libraries such as `lua-websockets` or ENet let
+the client communicate with the Node.js server just as the original web client
+did, preserving multiplayer features while moving out of the browser.
+
 ## Repository Layout
 - `client/` – new LÖVE client (work in progress)
 - `server/` – new game server (work in progress)
