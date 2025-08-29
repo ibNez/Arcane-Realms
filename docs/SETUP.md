@@ -2,6 +2,11 @@
 
 This document explains how to set up the **Arcane Forge** development environment for local development and testing.
 
+<<<<<<< HEAD
+Arcane Realms is being rebuilt from scratch in LÖVE. Legacy Phaser and Node client code lives under `old/`; this guide targets the new build.
+
+=======
+>>>>>>> main
 During setup you will launch the LÖVE game client, game server, and several supporting services.
 The diagram below shows how they connect.
 
@@ -41,7 +46,11 @@ cd Arcane-Realms
 
 ## Install Dependencies
 
+<<<<<<< HEAD
+Install dependencies for the server (after it is implemented) and confirm LÖVE is available on your `PATH`:
+=======
 Install dependencies for the server and confirm LÖVE is available on your `PATH`:
+>>>>>>> main
 
 ```
 cd server && npm install
@@ -52,6 +61,12 @@ Install the global TypeScript compiler if it's not already available:
 
 ```sh
 npm install -g typescript
+```
+
+Install the WebSocket client library for LÖVE using [LuaRocks](https://luarocks.org):
+
+```sh
+luarocks install lua-websockets
 ```
 
 The server expects certain environment variables for local development. Create `server/.env` with values like:
@@ -185,7 +200,11 @@ PIPER_URL=http://localhost:9002
 To start the game in development mode:
 
 ``` 
+<<<<<<< HEAD
+# start the server (once implemented)
+=======
 # start the server (express + ws)
+>>>>>>> main
 cd server
 npm run dev
 

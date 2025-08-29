@@ -35,6 +35,8 @@ client/
 `love.load` bootstraps assets and pushes `PlayState` onto the stack. The `StateStack` routes `love.update` and `love.draw`
 callbacks to the active state. States may push another state (e.g., opening the Forge editor) or pop themselves when complete.
 
+<<<<<<< HEAD
+=======
 ## State Management
 Arcane Realms currently relies on a small custom `StateStack` to handle screen transitions.  It keeps dependencies light and
 the API straightforward while the client only has a few states.
@@ -50,11 +52,17 @@ follow these steps:
 5. Test transitions between `PlayState`, `ForgeState`, `TestState`, and any new states to confirm behavior matches the previous
    system.
 
+>>>>>>> main
 ## Networking
 The client connects to the Node.js server at `ws://localhost:8080`:
 1. `net/websocket.lua` opens a WebSocket and registers callbacks.
 2. Input events (movement, skills, chat) serialize to JSON and send over the socket.
 3. Incoming messages update world entities or append to chat.
+<<<<<<< HEAD
+4. On connect the client sends a `join` message and waits for a `welcome` before processing gameplay traffic.
+5. A periodic heartbeat (`ping`/`pong`) detects dropped connections.
+6. Reconnection logic attempts exponential backoff when the socket closes.
+=======
 4. Reconnection logic attempts exponential backoff when the socket closes.
 
 ### Message Formats
@@ -77,6 +85,7 @@ Server → Client:
 For a complete list of planned message fields and types, including
 handshake and error packets, see
 [ws-schemas.md](ws-schemas.md).
+>>>>>>> main
 
 ## Input Flow
 ```
@@ -95,6 +104,12 @@ WASD controls movement; left click issues move/attack commands; pressing **C** t
 2. Add an entry to the `SkillBar` UI and bind a key in `love.keypressed`.
 3. Emit a network message if the skill affects other players.
 
+<<<<<<< HEAD
+## Notes
+- The client uses a minimal custom `StateStack`; no third‑party library is required.
+- Errors and socket failures are surfaced in `console.lua` via `pcall` and status messages.
+- JSON message schemas are documented in `docs/API.md`.
+=======
 ## Error Handling & Logging
 `love.errhand` is hooked to capture runtime errors and print them to the console. Socket disconnects and retries are surfaced in
 red via the dev console so testers can spot flaky connections.
@@ -105,3 +120,4 @@ archives so disk usage stays bounded across sessions.
 
 ## Open Items
 - **Message schemas** – see [ws-schemas.md](ws-schemas.md) for inventory updates and complex skill payloads.
+>>>>>>> main

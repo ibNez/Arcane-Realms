@@ -1,25 +1,29 @@
 # Asset Catalog
 
 ## Overview
-The asset catalog tracks reusable game objects for the component library. Each entry includes visual and gameplay metadata so assets can be referenced consistently across tools and the runtime.
+The asset catalog tracks reusable game objects for the component library. Each
+entry includes visual and gameplay metadata so assets can be referenced
+consistently across tools and the runtime.
 
-> **TODO:** Define naming conventions and tagging standards for assets to ensure consistent organization.
+Assets use lowercase names with underscores (e.g., `oak_tree.png`). Prefix the
+category when helpful (`tree_oak.png`, `wall_stone.png`). Tag assets with the
+biomes they appear in and an approximate rarity (`common`, `uncommon`, `rare`).
 
 ## Asset Fields
-| Image | Name | Description | Dimensions (px) | Object Type | Default Collision |
-|-------|------|-------------|-----------------|-------------|-------------------|
-| `oak_tree.png` | Oak Tree | Standard deciduous tree used in forest biomes. | 128×256 | vegetation | true |
-| `stone_wall.png` | Stone Wall | Modular wall segment for towns and dungeons. | 64×128 | structure | true |
-| `campfire.png` | Campfire | Small decorative fire source. | 32×32 | decorative | false |
+| Image | Name | Description | Dimensions (px) | Object Type | Default Collision | Biomes | Rarity |
+|-------|------|-------------|-----------------|-------------|-------------------|--------|--------|
+| `oak_tree.png` | Oak Tree | Standard deciduous tree used in forest biomes. | 128×256 | vegetation | true | forest | common |
+| `stone_wall.png` | Stone Wall | Modular wall segment for towns and dungeons. | 64×128 | structure | true | all | common |
+| `campfire.png` | Campfire | Small decorative fire source. | 32×32 | decorative | false | all | uncommon |
 
-> **TODO:** Add columns for biome affinity, rarity, or interactive properties as needed.
-
-Add new rows as assets are created. Image paths are relative to the project root.
+Additional columns (tags, interactive properties) can be added as needed.
 
 ## SQLite Storage
-Asset metadata is stored in a lightweight SQLite database for use by the component library and runtime systems.
+Asset metadata is stored in a lightweight SQLite database for use by the
+component library and runtime systems.
 
-> **TODO:** Document migration procedures when the schema changes.
+When the schema changes, create a migration under `ops/migrations` and update
+the application to run migrations on startup.
 
 ```sql
 CREATE TABLE assets (
@@ -30,13 +34,16 @@ CREATE TABLE assets (
     width INTEGER NOT NULL,
     height INTEGER NOT NULL,
     object_type TEXT NOT NULL,
-    default_collision INTEGER NOT NULL CHECK (default_collision IN (0,1))
+    default_collision INTEGER NOT NULL CHECK (default_collision IN (0,1)),
+    biomes TEXT,
+    rarity TEXT
 );
 ```
 
-Populate the table from `asset-catalog.md` or import directly via tooling. The database file lives under `ops/data/assets.db` and is loaded at startup by the component library.
-
-> **TODO:** Describe tooling for syncing between the markdown catalog and SQLite database.
+A CLI tool (`ops/sync-assets.js`) will sync `asset-catalog.md` with the SQLite
+database by parsing the markdown and inserting or updating rows.
 
 ## Usage
-The environment builder and world generation pipelines read from the SQLite database to retrieve asset definitions. See the referenced documents for how assets are applied in each system.
+The environment builder and world generation pipelines read from the SQLite
+database to retrieve asset definitions. See the referenced documents for how
+assets are applied in each system.

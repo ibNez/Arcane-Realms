@@ -1,18 +1,24 @@
 # Contributing
 
 Thank you for your interest in improving **Arcane Realms**!
+<<<<<<< HEAD
+This project uses separate client and server packages: a LÖVE (Lua) desktop
+client and a Node.js server. The guidelines below explain how to get set up and
+how to contribute effectively.
+=======
 This project uses separate client and server packages built with
 [LÖVE](https://love2d.org/) and Node.js. The guidelines below explain how to
 get set up and how to contribute effectively.
+>>>>>>> main
 
 Please review our [Code of Conduct](CODE_OF_CONDUCT.md). We expect all
 participants to uphold respectful, inclusive behavior in every project space.
 
 ## Requirements
-- Node.js **18+** is required for both the client and server (Vite 5 and other
-dependencies require Node 18 or newer).
+- Node.js **20+** for the server.
+- LÖVE **11.x** for the client.
 - npm comes bundled with Node; yarn/pnpm are not officially supported.
-- Supported operating systems: Windows 10+, macOS 12+, and Linux distributions such as Ubuntu 20.04+.
+- Supported operating systems: Windows 10+, macOS 13+, and Linux distributions such as Ubuntu 22.04+.
 - Development requires Git and a compatible shell environment (e.g. Bash, Zsh, or PowerShell; WSL is recommended on Windows).
 
 ## Building and Running
@@ -26,9 +32,7 @@ dependencies require Node 18 or newer).
 2. **Client**
    ```bash
    cd client
-   npm install
-   npm run dev      # start Vite dev server at http://localhost:5173
-   npm run build    # produce production assets in dist/
+   love .           # launch LÖVE client
    ```
 3. **Optional AI services**
    ```bash
@@ -41,13 +45,10 @@ dependencies require Node 18 or newer).
 
 ## Linting and Formatting
 There are currently **no dedicated lint or format scripts**.
-Please run your preferred tooling (e.g. ESLint or Prettier) before committing
-and ensure any generated files are ignored.
-> **Recommended:** Use ESLint's [recommended config](https://eslint.org/docs/latest/use/configure/)
-> or the TypeScript variant [`plugin:@typescript-eslint/recommended`](https://typescript-eslint.io/linting/configs#recommended).
-> Format code with Prettier using a [.prettierrc](https://prettier.io/docs/en/configuration.html) or a shared
-> config such as [`prettier-config-standard`](https://github.com/prettier/prettier-config-standard).
-> To avoid conflicts between the two tools, add [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
+For the server, run your preferred tooling (e.g. ESLint or Prettier) before
+committing and ensure generated files are ignored. For Lua, tools such as
+[luacheck](https://github.com/mpeterv/luacheck) or
+[StyLua](https://github.com/JohnnyMorganz/StyLua) may be used.
 
 ## Branch and Commit Guidelines
 - Create branches from `main` using prefixes such as
@@ -60,14 +61,12 @@ and ensure any generated files are ignored.
   - `chore:` for build/maintenance tasks
 
 ## Pull Request Expectations
-- Ensure `npm run build` succeeds in both `server` and `client` before
-  requesting review.
+- Ensure `npm run build` succeeds in the server before requesting review.
 - Link any related GitHub issues in the PR description.
 - At least one maintainer approval is required before merging.
 - Keep PRs focused—smaller, incremental changes are easier to review.
 - Tests must pass with at least **80%** line coverage. Run `npm test -- --coverage`
-  in any affected package and ensure overall coverage stays above this
-  threshold.
+  in the server package and ensure overall coverage stays above this threshold.
 - Continuous integration runs via GitHub Actions—see
   [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for the pipeline that
   builds, tests, and checks coverage.
