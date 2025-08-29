@@ -2,9 +2,10 @@
 
 ## REST Endpoints
 
-All routes are served over HTTP on port **8080** and currently require no authentication in local development. The plan is to
-prefix stable routes with `/v1/` once the API hardens. Requests should include a `Content-Type: application/json` header.
-Basic IP‑based rate limiting will be introduced as soon as the API is exposed beyond localhost.
+All routes are served over HTTP on port **8080**. In production, requests must include an `Authorization: Bearer <JWT>` header;
+local development still bypasses authentication. The plan is to prefix stable routes with `/v1/` once the API hardens.
+Requests should include a `Content-Type: application/json` header. Rate limiting is enforced at **100 requests per minute**
+per IP and **10 000** requests per day per token.
 
 ### POST `/llm`
 **Request**
