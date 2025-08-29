@@ -1,9 +1,15 @@
 # Contributing
 
 Thank you for your interest in improving **Arcane Realms**!
+<<<<<<< HEAD
 This project uses separate client and server packages: a LÖVE (Lua) desktop
 client and a Node.js server. The guidelines below explain how to get set up and
 how to contribute effectively.
+=======
+This project uses separate client and server packages built with
+[LÖVE](https://love2d.org/) and Node.js. The guidelines below explain how to
+get set up and how to contribute effectively.
+>>>>>>> main
 
 Please review our [Code of Conduct](CODE_OF_CONDUCT.md). We expect all
 participants to uphold respectful, inclusive behavior in every project space.

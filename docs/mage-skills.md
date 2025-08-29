@@ -5,9 +5,22 @@ The Mage class is a ranged spellcaster focused on elemental damage, crowd contro
 
 ### Class Characteristics
 - **Primary Attribute:** Intelligence (INT) - affects all spell damage and healing
-- **Resource:** Mana - consumed by all abilities
+- **Resource:** Mana – consumed by all abilities.
+  - Regenerates at 1% of maximum per second.
+  - Doubles to 2% per second while out of combat.
+  - Casting a spell or taking damage pauses regeneration for 3 seconds.
 - **Range:** Primarily ranged combat with some point-blank area effects
 - **Role:** Damage dealer with utility and crowd control options
+- **Friendly Fire:** Area-of-effect spells do not harm allies; optional friendly-fire modes are planned for future updates.
+
+### Scaling and Critical Hits
+- **INT Scaling:** Damage and healing for all mage spells follow `base + coefficient * INT` formulas. Each skill's coefficient is listed in its description.
+- **Critical Chance:** Spells have a baseline 5% chance to critically hit.
+- **Critical Multiplier:** Critical hits deal 150% of the INT-scaled result and apply after all additive modifiers.
+
+### Resistances
+- **Damage Modification:** After INT scaling and critical calculations, elemental resistances reduce damage by their percentage. `finalDamage = damageAfterCrit × (1 - resistance)`.
+- **Player Visibility:** Character sheets and enemy inspect windows list Fire, Frost, and Arcane resistances. Floating combat text and combat logs show a **Resist** tag with the mitigated amount whenever resistance reduces damage.
 
 ## Shared Skill State Diagram
 ```mermaid
@@ -17,6 +30,11 @@ stateDiagram-v2
     Casting --> Recover: Spell resolves
     Recover --> Ready: Cooldown expires
 ```
+
+During the **Recover** state, new skill inputs are ignored rather than queued.
+This forces the player to wait until the skill fully recovers before executing
+another ability, preventing accidental buffering and preserving reaction
+windows for counterplay.
 
 ## Skill List
 
@@ -43,6 +61,7 @@ stateDiagram-v2
 - **Range:** 8 m
 - **Mana Cost:** 10
 - **Cast Time:** 1.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Fires a homing projectile at the target. Cannot miss once cast.
 > **TODO:** Describe projectile speed and interaction with obstacles.
 
@@ -53,6 +72,7 @@ stateDiagram-v2
 - **Area:** 2 m radius explosion
 - **Mana Cost:** 25
 - **Cast Time:** 2.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** High damage fire projectile that explodes on impact, dealing area damage.
 
 ### Frost Nova
@@ -62,6 +82,7 @@ stateDiagram-v2
 - **Area:** 5 m radius
 - **Mana Cost:** 30
 - **Cast Time:** 1.5 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Status Effect:** Freeze for 3 seconds
 - **Details:** AoE freeze that immobilizes all enemies within range.
 
@@ -71,14 +92,17 @@ stateDiagram-v2
 - **Range:** 12 m
 - **Mana Cost:** 35
 - **Cast Time:** 3.0 s (channeled)
-- **Details:** Rapid-fire magical projectiles. Can be interrupted by movement or damage.
-> **TODO:** Specify channel break conditions and whether partial damage is applied on interruption.
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
+- **Interruption Threshold:** Channel ends if the mage moves or a single hit deals ≥10% of max health.
+- **Partial Damage:** Fires one missile every 0.6 s (max 5). If interrupted early, `totalDamage = floor(channelTime / 0.6) × (6 + 1.5 × INT)`.
+- **Details:** Rapid-fire magical projectiles.
 
 ### Summon Elemental
 - **Cooldown:** 45 s
 - **Range:** 5 m
 - **Mana Cost:** 80
 - **Cast Time:** 3.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 60 s
 - **Details:** Summons a fire elemental with 50 + 5 * INT health that fights alongside you.
 
@@ -87,6 +111,7 @@ stateDiagram-v2
 - **Range:** 6 m
 - **Mana Cost:** 20
 - **Cast Time:** Instant
+- **Failure Mode:** Fails and consumes cooldown if mana is insufficient when cast.
 - **Details:** Instantly teleports to target location within range. Cannot pass through walls.
 
 ### Meteor
@@ -96,6 +121,7 @@ stateDiagram-v2
 - **Area:** 4 m radius
 - **Mana Cost:** 100
 - **Cast Time:** 4.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Massive area damage with a delay. Area is marked before impact.
 
 ### Polymorph
@@ -103,6 +129,7 @@ stateDiagram-v2
 - **Range:** 8 m
 - **Mana Cost:** 40
 - **Cast Time:** 2.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 8 s
 - **Details:** Transforms target enemy into a harmless sheep. Breaks on damage.
 
@@ -111,6 +138,7 @@ stateDiagram-v2
 - **Range:** Self
 - **Mana Cost:** 50
 - **Cast Time:** 1.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 20 s
 - **Details:** Absorbs `30 + 2 * INT` damage using mana instead of health (2 mana per damage).
 > **TODO:** Define recharge mechanics and interactions with other defensive buffs.
@@ -122,6 +150,7 @@ stateDiagram-v2
 - **Targets:** Up to 5 enemies
 - **Mana Cost:** 60
 - **Cast Time:** 1.5 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Lightning bounces between nearby enemies, dealing reduced damage with each jump.
 
 ### Time Manipulation
@@ -130,6 +159,7 @@ stateDiagram-v2
 - **Area:** 6 m radius
 - **Mana Cost:** 70
 - **Cast Time:** 2.5 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Duration:** 10 s
 - **Details:** Slows enemy movement and attack speed by 50%, or increases ally speed by 30%.
 
@@ -140,6 +170,7 @@ stateDiagram-v2
 - **Area:** 4 m radius
 - **Mana Cost:** 45
 - **Cast Time:** 1.0 s
+- **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Details:** Point-blank area burst with brief knockback.
 
 ## Design Principles
@@ -150,13 +181,8 @@ stateDiagram-v2
 - **Scaling:** All abilities scale with INT to maintain relevance
 
 ## Open Questions
-- Should skills queue if activated during Recover state, or should they be ignored?
-- Do critical hits apply to spells, and if so, what's the base critical chance?
-- Should mana regeneration be affected by casting spells or taking damage?
-- How should spell interruption work for channeled abilities like Arcane Missiles?
-- Should there be spell resistance mechanics for certain enemies?
 - What happens when a mage runs out of mana mid-cast?
-- Should area spells have friendly fire considerations?
+- How should optional friendly-fire modes be implemented?
 - How should line-of-sight affect targeted spells?
 > **TODO:** Decide if terrain and obstacles block spells and include LOS checks in design.
 

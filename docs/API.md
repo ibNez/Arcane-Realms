@@ -2,7 +2,10 @@
 
 ## REST Endpoints
 
-> **TODO:** Document authentication requirements, versioning scheme, and rate limits for all endpoints.
+All routes are served over HTTP on port **8080**. In production, requests must include an `Authorization: Bearer <JWT>` header;
+local development still bypasses authentication. The plan is to prefix stable routes with `/v1/` once the API hardens.
+Requests should include a `Content-Type: application/json` header. Rate limiting is enforced at **100 requests per minute**
+per IP and **10 000** requests per day per token.
 
 ### POST `/llm`
 **Request**
@@ -27,7 +30,14 @@
 |-------|------|-------------|
 | `text` | string | Model reply |
 | `toolCalls`? | { name: string; args: any }[] | Tool call results |
-> **TODO:** List possible error codes and retry behavior for this endpoint.
+
+**Errors**
+
+| Code | Meaning |
+|------|---------|
+| `400` | Invalid request shape or empty `messages` array |
+| `500` | Upstream model failure |
+Clients should retry with exponential backoff on `500` responses.
 
 ### POST `/embed`
 **Request**
@@ -35,13 +45,19 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `texts` | string[] | Texts to embed |
+| `model`? | string | Embedding model (default `nomic-embed-text`) |
 
 **Response**
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `vectors` | number[][] | Embedding vectors |
-> **TODO:** Clarify vector dimensionality and embedding model used.
+
+Embeddings are generated using the selected model. Supported models:
+
+- `nomic-embed-text` (768 dims)
+- `text-embedding-3-small` (1536 dims)
+- `text-embedding-3-large` (3072 dims)
 
 ### POST `/memory/search`
 **Request**
@@ -58,7 +74,9 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `hits` | { doc: object; score: number }[] | Matching documents |
-> **TODO:** Specify index consistency guarantees and latency expectations.
+
+Milvus is queried in **consistency level: eventual** mode; newly upserted rows may take a few seconds to appear.  
+Typical latency for 10K rows is under **50 ms** on a local machine.
 
 ### POST `/memory/upsert`
 **Request**
@@ -73,7 +91,9 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `ok` | boolean | Upsert success flag |
-> **TODO:** Describe concurrency handling and conflict resolution strategies.
+
+Upserts are idempotent per document `id`; later writes overwrite existing rows.  
+There is no transaction isolation—clients should avoid concurrent updates to the same `id`.
 
 ### POST `/stt`
 **Request**
@@ -81,7 +101,8 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `audioWavBase64` | string | Base64 WAV audio |
-> **TODO:** Note supported audio formats and maximum payload sizes.
+
+Audio must be 16‑bit PCM WAV, 16 kHz mono. Payloads above **5 MB** will be rejected.
 
 **Response**
 
@@ -95,13 +116,15 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `text` | string | Text to synthesize |
+| `voice`? | string | Voice name (`alloy` or `verse`) |
 
 **Response**
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `audioWavBase64` | string | Base64 WAV audio |
-> **TODO:** Document voice selection parameters and output encoding options.
+
+Output is 16‑bit PCM WAV at 16 kHz mono. Supported voices are `alloy` and `verse` (default `alloy`).
 
 ### POST `/gen/image`
 **Request**
@@ -109,6 +132,7 @@
 | Field | Type | Description |
 |-------|------|-------------|
 | `prompt` | string | Image prompt |
+| `resolution`? | string | `'256x256' | '512x512' | '1024x1024'` image size |
 
 **Response**
 
@@ -116,11 +140,14 @@
 |-------|------|-------------|
 | `imagePngBase64` | string | Base64 PNG image |
 | `assetKey` | string | Identifier for caching |
-> **TODO:** Include information on image resolution limits and processing timeouts.
+
+Images default to **1024×1024** and may take up to **20 s** to return.
+Supported resolutions: `256×256`, `512×512`, and `1024×1024` via `resolution`.
 
 ## WebSocket Messages
 
-> **TODO:** Outline handshake procedure, reconnection strategy, and message signing or encryption plans.
+The WebSocket server speaks raw JSON over a standard upgrade handshake. Clients attempt reconnect with exponential backoff.
+Messages are unsigned and unencrypted on localhost; TLS and HMAC signing will be evaluated for remote deployments.
 
 ### `move`
 Client → Server payload:
