@@ -12,7 +12,12 @@ stateDiagram-v2
     Recover --> Pursue: Player still in range
 ```
 
-> **TODO:** Describe how the FSM handles multiple players targeting the same enemy.
+## Threat Mechanics
+- Each enemy tracks a threat value for every nearby player.
+- **Damage:** Threat increases by the exact damage dealt to the enemy.
+- **Proximity:** Players within melee range gain a small, steady threat per second.
+- The enemy targets the player with the highest accumulated threat.
+- **Tie‑breaking:** When threat values match, the closest player is targeted; if still tied, the one who first generated threat retains aggro.
 
 ## Cooldowns
 Default timers apply to enemies that do not specify their own values:
