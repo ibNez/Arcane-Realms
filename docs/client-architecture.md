@@ -74,6 +74,9 @@ Server → Client:
 { "t": "chat", "id": "player1", "text": "hello" }
 ```
 
+For a complete list of planned message fields and types, see
+[ws-schemas.md](ws-schemas.md).
+
 ## Input Flow
 ```
 Keyboard/Mouse → love callbacks → Active State → WebSocket → Server
@@ -100,4 +103,4 @@ directory (see `love.filesystem.getSaveDirectory`). The file rotates when it rea
 archives so disk usage stays bounded across sessions.
 
 ## Open Items
-- **Message schemas** – expand the JSON examples above to cover inventory updates and complex skill payloads.
+- **Message schemas** – see [ws-schemas.md](ws-schemas.md) for inventory updates and complex skill payloads.
