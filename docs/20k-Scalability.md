@@ -4,7 +4,7 @@
 
 ## 1) Goals & Non-Goals
 **Goals**
-- Top-down ARPG (Diablo/PoE/Hades/Zelda vibes) in the **browser** (Phaser + TypeScript).
+- Top-down ARPG (Diablo/PoE/Hades/Zelda vibes) with a native LÖVE (Lua) client.
 - Hybrid controls: **point-and-click + WASD**, target-lock skills, readable telegraphs.
 - **Offline-capable AI** across the stack (Ollama, Whisper, Piper, optional SDXL).
 - Dynamic world that **changes around the player**: procedural biomes, evolving wildlife, **breeding** (wild & player-driven), adaptive NPC dialog/quests.
@@ -15,8 +15,8 @@
 - Fully authoritative, low-latency global netcode across continents (we’ll stage via realms).
 
 ## 2) High-Level Architecture
-**Clients (Phaser)**  
-- Browser builds use **WebSockets** first; **WebRTC DataChannels** later (p2p voice or edge relays).  
+**Clients (LÖVE)**
+- Native builds use **WebSockets** first; **WebRTC DataChannels** later (p2p voice or edge relays).
 - Client prediction + server reconciliation; interest-managed replication.
 
 **Edge Gateways**  

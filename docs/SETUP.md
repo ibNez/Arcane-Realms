@@ -2,7 +2,9 @@
 
 This document explains how to set up the **Arcane Forge** development environment for local development and testing.
 
-During setup you will launch the game client, game server, and several supporting services.
+Arcane Realms is being rebuilt from scratch in LÖVE. Legacy Phaser and Node client code lives under `old/`; this guide targets the new build.
+
+During setup you will launch the LÖVE game client, game server, and several supporting services.
 The diagram below shows how they connect.
 
 ```mermaid
@@ -23,6 +25,7 @@ graph TD
 
 ## Prerequisites
 
+- **LÖVE 11.x** and LuaJIT (bundled with LÖVE)
 - **Node.js v20.x** (LTS) and npm or yarn
 - **Git** for version control
 - **Docker** and **docker‑compose** for the offline AI stack
@@ -40,12 +43,13 @@ cd Arcane-Realms
 
 ## Install Dependencies
 
-Install dependencies in the client and server directories:
+Install dependencies for the server (after it is implemented) and confirm LÖVE is available on your `PATH`:
 
 ```
-cd client && npm install
-cd ../server && npm install
+cd server && npm install
+love --version   # verify LÖVE installation
 ```
+
 Install the global TypeScript compiler if it's not already available:
 
 ```sh
@@ -63,7 +67,7 @@ OLLAMA_BASE_URL=http://localhost:11434
 SD_URL=http://localhost:7860
 ```
 
-These commands install the TypeScript build system, Phaser, ws and other runtime dependencies.
+These commands install the TypeScript build system, networking libraries, and other runtime dependencies.
 
 ## Running the Offline AI Stack
 
@@ -182,20 +186,20 @@ PIPER_URL=http://localhost:9002
 
 To start the game in development mode:
 
-```
-# start the server (express + ws)
+``` 
+# start the server (once implemented)
 cd server
 npm run dev
 
-# in a separate terminal, start the client
+# in a separate terminal, start the LÖVE client
 cd client
-npm run dev
+love .
 ```
 
-- The **client** runs via Vite on `http://localhost:5173`.
+- The **client** launches a native window via LÖVE.
 - The **server** exposes a WebSocket on `ws://localhost:8080` for multiplayer and routes on `http://localhost:8080`.
 
-Open `http://localhost:5173` in a browser to play. The Test Area is available at `http://localhost:5173/forge`.
+The Forge test tools remain available at `http://localhost:5173/forge` for asset and environment authoring.
 
 ## Environment Variables
 

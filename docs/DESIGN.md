@@ -2,7 +2,11 @@
 
 This document outlines the game design for Arcane Realms.
 
-> **TODO:** Add an overview of the full technology stack (engines, frameworks, languages) to give contributors context on how the design maps to implementation.
+## Technology Stack
+- **Client:** [LÖVE 11.x](https://love2d.org/) with Lua modules for states, networking, and UI.
+- **Server:** Node.js (Express + WebSocket) written in TypeScript.
+- **Tooling:** Vite for asset bundling, Docker for local AI services (Ollama, Postgres, Redis, Milvus).
+- **AI & Generation:** Stable Diffusion for images, Ollama for NPC dialogue, Whisper & Piper for voice.
 
 #### Dynamic Content**: Points of interest, dungeons, and special locations are generated based on player actions and exploration patterns
 
