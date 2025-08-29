@@ -2,7 +2,7 @@
 
 This document describes the end‑to‑end design for the LÖVE implementation of Arcane Realms. It covers
 module layout, networking, asset requirements, and build instructions so contributors can recreate the
-current Phaser client in native Lua.
+current client in native Lua.
 
 ## 1. Goals
 - Native desktop client using [LÖVE 11.x](https://love2d.org/) for rendering and input.
