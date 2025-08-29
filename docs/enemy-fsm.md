@@ -10,9 +10,22 @@ stateDiagram-v2
     Attack --> Recover: After hit
     Recover --> Idle: Cooldown over
     Recover --> Pursue: Player still in range
+    WindUp --> Interrupted: Arcane Nova
+    Attack --> Interrupted: Arcane Nova
+    Interrupted --> Recover: Interrupt recovery
+    Idle --> Stunned: Frost Nova / Polymorph
+    Pursue --> Stunned: Frost Nova / Polymorph
+    WindUp --> Stunned: Frost Nova / Polymorph
+    Attack --> Stunned: Frost Nova / Polymorph
+    Recover --> Stunned: Frost Nova / Polymorph
+    Stunned --> Recover: Stun expires
 ```
 
 > **TODO:** Describe how the FSM handles multiple players targeting the same enemy.
+
+### Crowd Control
+- **Stunned:** Triggered by skills like *Frost Nova* or *Polymorph*. The enemy is immobile and unable to act until the effect ends, then transitions to **Recover**.
+- **Interrupted:** Caused by knockback or counter skills such as *Arcane Nova*. The current **WindUp** or **Attack** is canceled and the enemy briefly enters **Interrupted** before moving to **Recover**.
 
 ## Cooldowns
 - **Wind-up:** 0.5 s telegraph before attack.
@@ -24,7 +37,6 @@ stateDiagram-v2
 
 ## Open Questions
 - Should different enemy types override the default timers?
-- How are interrupts or stuns represented in the state machine?
 - Do ranged enemies share the same state flow or branch after Pursue?
 > **TODO:** Define separate behaviors for ranged and special enemy types.
 
