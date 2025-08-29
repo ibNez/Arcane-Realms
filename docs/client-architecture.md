@@ -42,6 +42,23 @@ The client connects to the Node.js server at `ws://localhost:8080`:
 3. Incoming messages update world entities or append to chat.
 4. Reconnection logic attempts exponential backoff when the socket closes.
 
+### Message Formats
+
+Client → Server:
+
+```json
+{ "t": "move", "x": 10, "y": 20 }
+{ "t": "chat", "text": "hello" }
+{ "t": "skill", "id": "magic_missile", "target": 123 }
+```
+
+Server → Client:
+
+```json
+{ "t": "pos", "id": "player1", "x": 10, "y": 20 }
+{ "t": "chat", "id": "player1", "text": "hello" }
+```
+
 ## Input Flow
 ```
 Keyboard/Mouse → love callbacks → Active State → WebSocket → Server
@@ -59,8 +76,11 @@ WASD controls movement; left click issues move/attack commands; pressing **C** t
 2. Add an entry to the `SkillBar` UI and bind a key in `love.keypressed`.
 3. Emit a network message if the skill affects other players.
 
-## Outstanding Questions
-- **State management** – confirm whether a third‑party library (e.g., [hump.gamestate](https://github.com/vrld/hump)) will be
-  adopted or a custom stack is sufficient.
-- **Error handling & logging** – define a strategy for surfacing Lua errors and remote socket failures in the dev console.
-- **Message format** – document the JSON schemas exchanged with the server for player updates, chat, and skills.
+## Error Handling & Logging
+`love.errhand` is hooked to capture runtime errors and print them to the console. Socket disconnects and retries are surfaced in
+red via the dev console so testers can spot flaky connections.
+
+## Open Items
+- **State management** – continue with the custom stack for now; evaluate `hump.gamestate` once more than three states exist.
+- **Logging** – decide if logs should persist to disk or remain ephemeral during development.
+- **Message schemas** – expand the JSON examples above to cover inventory updates and complex skill payloads.
