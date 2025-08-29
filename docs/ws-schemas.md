@@ -34,6 +34,13 @@ Fields with a `?` suffix are optional.
 | `item`| string | item identifier |
 | `qty?`| number | quantity affected |
 
+### `join`
+| field | type | description |
+|-------|------|-------------|
+| `t`     | string | literal `"join"` identifying a connection handshake |
+| `name`  | string | player display name |
+| `class` | string | chosen character class |
+
 ## Server → Client
 
 ### `pos`
@@ -65,4 +72,11 @@ Fields with a `?` suffix are optional.
 | `target` | string | target entity id |
 | `result` | string | outcome such as `"hit"` or `"miss"` |
 | `hp?`    | number | updated hit points for the target |
+
+### `error`
+| field | type | description |
+|-------|------|-------------|
+| `t`       | string | literal `"error"` |
+| `code`    | string | machine‑readable error code |
+| `message` | string | human‑readable description of the problem |
 

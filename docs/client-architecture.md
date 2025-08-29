@@ -74,7 +74,8 @@ Server → Client:
 { "t": "chat", "id": "player1", "text": "hello" }
 ```
 
-For a complete list of planned message fields and types, see
+For a complete list of planned message fields and types, including
+handshake and error packets, see
 [ws-schemas.md](ws-schemas.md).
 
 ## Input Flow
