@@ -9,6 +9,11 @@ The Mage class is a ranged spellcaster focused on elemental damage, crowd contro
 - **Range:** Primarily ranged combat with some point-blank area effects
 - **Role:** Damage dealer with utility and crowd control options
 
+### Scaling and Critical Hits
+- **INT Scaling:** Damage and healing for all mage spells follow `base + coefficient * INT` formulas. Each skill's coefficient is listed in its description.
+- **Critical Chance:** Spells have a baseline 5% chance to critically hit.
+- **Critical Multiplier:** Critical hits deal 150% of the INT-scaled result and apply after all additive modifiers.
+
 ## Shared Skill State Diagram
 ```mermaid
 stateDiagram-v2
@@ -155,7 +160,6 @@ windows for counterplay.
 - **Scaling:** All abilities scale with INT to maintain relevance
 
 ## Open Questions
-- Do critical hits apply to spells, and if so, what's the base critical chance?
 - Should mana regeneration be affected by casting spells or taking damage?
 - How should spell interruption work for channeled abilities like Arcane Missiles?
 - Should there be spell resistance mechanics for certain enemies?
