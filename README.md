@@ -1,4 +1,4 @@
-# Top-Down ARPG MVP v0.2 (Phaser + Node + Offline AI)
+# Top-Down ARPG MVP v0.2 (LÖVE + Node + Offline AI)
 This build adds a Chat panel (press **C**) that talks to `/llm` on the server (Ollama if running, stub otherwise),
 and keeps the improved input (WASD + arrows + click-to-move; keys cancel click-to-move immediately).
 
@@ -28,9 +28,9 @@ Arcane Forge is the integrated playground where designers and programmers craft,
 Together, Arcane Realms delivers an endlessly evolving adventure, while Arcane Forge empowers creators to shape every spell, tile, and quest that makes the world come alive.
 
 Core technologies:
-- Phaser
+- LÖVE 11.x (Lua)
 - Node.js
-- Vite
+- Vite (asset tooling)
 - Docker
 
 See the [API reference](docs/API.md) for available REST routes and WebSocket messages.
@@ -52,12 +52,12 @@ Refer to the [contribution guidelines](CONTRIBUTING.md) and [project roadmap](do
 
 2) Client
    ```bash
+   # requires LÖVE 11.x https://love2d.org/
    cd client
-   npm i
-   npm run dev
+   love .
    ```
-   Game: http://localhost:5173
-   Arcane Forge: http://localhost:5173/forge
+   Game window launches via LÖVE
+   Forge tools: http://localhost:5173/forge
 
 3) (Optional) AI services
    ```bash

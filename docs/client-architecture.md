@@ -1,43 +1,66 @@
-# Client Architecture
+# Client Architecture (LÖVE)
 
-## Scene Structure
-- **TestScene** – sandbox for skill and UI experiments. It binds movement and skill keys, toggles the in-game DevConsole with the backtick key, and wires up chat and skill cooldown UI.
-- **PlayScene** – main gameplay loop. It handles pointer-based movement and shooting, creates the ChatPanel, and connects to the server over WebSockets to sync other players and enemies.
+This document outlines the structure of the LÖVE client used by Arcane Realms.
 
-> **TODO:** Explain how state is managed between scenes and whether a global store (e.g., Redux) is used.
+## Module Layout
+- **main.lua** – entry point. Loads configuration, initializes subsystems, and pushes the initial state.
+- **states/** – gameplay states implemented with a simple stack (e.g., `PlayState`, `ForgeState`, `TestState`). Each state
+  implements `enter`, `update(dt)`, `draw()`, and `exit`.
+- **net/** – WebSocket wrapper built on [`lua-websockets`](https://github.com/lipp/lua-websockets) handling connection,
+  message dispatch, and reconnection.
+- **ui/** – immediate‑mode UI widgets (chat panel, skill bar, dev console) rendered in `love.draw`.
+- **assets/** – spritesheets, sound effects, music loops, and fonts loaded at startup via `love.graphics.newImage` and
+  `love.audio.newSource`.
 
-## UI Components
-- **ChatPanel** – DOM overlay shown with `C`; captures text input and sends it back to the scene via a callback.
-- **SkillBar** – bottom-center HUD that displays skill slots and cooldown fill animations.
-- **DevConsole** – lightweight log viewer toggled with the backtick key; scenes can call `getDevConsole()` to show it.
-
-Scenes create these components and coordinate them—for example, TestScene disables pointer actions while ChatPanel is open and triggers SkillBar cooldowns when spells cast.
-
-> **TODO:** Describe error-handling and logging strategies for UI components.
-
-## Input → Network → Game Objects
-```mermaid
-flowchart LR
-    Input[Player Input] --> Scene[Scene Handlers]
-    Scene --> Net[WebSocket]
-    Net --> Server
-    Server --> Update[State Updates]
-    Update --> Objects[Game Objects & UI]
+```
+client/
+├── main.lua
+├── states/
+│   ├── play.lua
+│   ├── forge.lua
+│   └── test.lua
+├── net/
+│   └── websocket.lua
+├── ui/
+│   ├── chat.lua
+│   ├── skillbar.lua
+│   └── console.lua
+└── assets/
+    ├── images/
+    ├── sounds/
+    └── fonts/
 ```
 
-> **TODO:** Clarify message formats and serialization libraries used in WebSocket communication.
+## Game Loop
+`love.load` bootstraps assets and pushes `PlayState` onto the stack. The `StateStack` routes `love.update` and `love.draw`
+callbacks to the active state. States may push another state (e.g., opening the Forge editor) or pop themselves when complete.
+
+## Networking
+The client connects to the Node.js server at `ws://localhost:8080`:
+1. `net/websocket.lua` opens a WebSocket and registers callbacks.
+2. Input events (movement, skills, chat) serialize to JSON and send over the socket.
+3. Incoming messages update world entities or append to chat.
+4. Reconnection logic attempts exponential backoff when the socket closes.
+
+## Input Flow
+```
+Keyboard/Mouse → love callbacks → Active State → WebSocket → Server
+```
+WASD controls movement; left click issues move/attack commands; pressing **C** toggles the chat panel which captures text input.
 
 ## Extending the Client
-### Adding a Scene
-1. Create a new class in `client/src/scenes` extending `Phaser.Scene`.
-2. Import and register it in the game config (`client/src/main.ts`).
-3. Reuse helpers like `ChatPanel`, `SkillBar`, or `getDevConsole` as needed.
-
-> **TODO:** Provide conventions for directory structure and naming when adding new scenes or systems.
+### Adding a State
+1. Create a module under `states/` returning a table with `enter`, `update`, `draw`, and `exit`.
+2. Require it in `main.lua` and push the state when needed.
+3. Use the networking and UI helpers as required.
 
 ### Adding a Skill
-1. Declare a keybinding and add a slot in `SkillBar` (`TestScene.create` shows the pattern).
-2. Implement the ability (e.g., `castMagicMissile` or `castArcaneNova`) and trigger cooldowns through `SkillBar`.
-3. For networked skills, send a message through the scene's WebSocket handler similar to other actions.
+1. Define the skill logic in `states/play.lua` (cast, cooldown, visuals).
+2. Add an entry to the `SkillBar` UI and bind a key in `love.keypressed`.
+3. Emit a network message if the skill affects other players.
 
-> **TODO:** Add guidance on synchronizing client-side prediction with server reconciliation for new skills.
+## Outstanding Questions
+- **State management** – confirm whether a third‑party library (e.g., [hump.gamestate](https://github.com/vrld/hump)) will be
+  adopted or a custom stack is sufficient.
+- **Error handling & logging** – define a strategy for surfacing Lua errors and remote socket failures in the dev console.
+- **Message format** – document the JSON schemas exchanged with the server for player updates, chat, and skills.
