@@ -95,6 +95,9 @@ WASD controls movement; left click issues move/attack commands; pressing **C** t
 `love.errhand` is hooked to capture runtime errors and print them to the console. Socket disconnects and retries are surfaced in
 red via the dev console so testers can spot flaky connections.
 
+In addition to the on‑screen console, logs are written to `client.log` under a `logs/` directory inside the LÖVE save
+directory (see `love.filesystem.getSaveDirectory`). The file rotates when it reaches ~1 MB, keeping the five most recent
+archives so disk usage stays bounded across sessions.
+
 ## Open Items
-- **Logging** – decide if logs should persist to disk or remain ephemeral during development.
 - **Message schemas** – expand the JSON examples above to cover inventory updates and complex skill payloads.
