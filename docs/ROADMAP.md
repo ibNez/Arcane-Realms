@@ -74,5 +74,6 @@ This document outlines a phased plan for building Arcane Realms from a minimum 
 - [ ] Harden security: input validation, rate limiting, anti‑cheat measures.
 - [ ] Continually refine **user experience**: controls, feedback, art direction, accessibility.
 - [ ] Gather **player feedback** through playtests and adjust roadmap accordingly.
+- [ ] Keep `docs/API.md` updated with supported embedding models, audio parameters, image resolutions and TTS voices.
 
 > **Roadmap updates:** Review progress at the end of each monthly milestone. Incorporate player feedback and technical discoveries into the next revision; significant scope changes require team consensus.

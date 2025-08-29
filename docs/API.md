@@ -45,6 +45,7 @@ Clients should retry with exponential backoff on `500` responses.
 | Field | Type | Description |
 |-------|------|-------------|
 | `texts` | string[] | Texts to embed |
+| `model`? | string | Embedding model (default `nomic-embed-text`) |
 
 **Response**
 
@@ -52,8 +53,11 @@ Clients should retry with exponential backoff on `500` responses.
 |-------|------|-------------|
 | `vectors` | number[][] | Embedding vectors |
 
-Embeddings are generated using the `nomic-embed-text` model and are **768** dimensions.  
-Use of other models will alter the dimensionality.
+Embeddings are generated using the selected model. Supported models:
+
+- `nomic-embed-text` (768 dims)
+- `text-embedding-3-small` (1536 dims)
+- `text-embedding-3-large` (3072 dims)
 
 ### POST `/memory/search`
 **Request**
@@ -98,7 +102,7 @@ There is no transaction isolation—clients should avoid concurrent updates to t
 |-------|------|-------------|
 | `audioWavBase64` | string | Base64 WAV audio |
 
-Accepts 16‑bit PCM WAVs sampled at 16 kHz. Payloads above **5 MB** will be rejected.
+Audio must be 16‑bit PCM WAV, 16 kHz mono. Payloads above **5 MB** will be rejected.
 
 **Response**
 
@@ -112,6 +116,7 @@ Accepts 16‑bit PCM WAVs sampled at 16 kHz. Payloads above **5 MB** will be
 | Field | Type | Description |
 |-------|------|-------------|
 | `text` | string | Text to synthesize |
+| `voice`? | string | Voice name (`alloy` or `verse`) |
 
 **Response**
 
@@ -119,7 +124,7 @@ Accepts 16‑bit PCM WAVs sampled at 16 kHz. Payloads above **5 MB** will be
 |-------|------|-------------|
 | `audioWavBase64` | string | Base64 WAV audio |
 
-Voice is fixed to an `en-US` neutral speaker. Future versions may expose a `voice` parameter for selection. Output is 16‑bit PCM WAV.
+Output is 16‑bit PCM WAV at 16 kHz mono. Supported voices are `alloy` and `verse` (default `alloy`).
 
 ### POST `/gen/image`
 **Request**
@@ -127,6 +132,7 @@ Voice is fixed to an `en-US` neutral speaker. Future versions may expose a `voic
 | Field | Type | Description |
 |-------|------|-------------|
 | `prompt` | string | Image prompt |
+| `resolution`? | string | `'256x256' | '512x512' | '1024x1024'` image size |
 
 **Response**
 
@@ -135,8 +141,8 @@ Voice is fixed to an `en-US` neutral speaker. Future versions may expose a `voic
 | `imagePngBase64` | string | Base64 PNG image |
 | `assetKey` | string | Identifier for caching |
 
-Images are generated at **1024×1024** by default and may take up to **20 s** to return.  
-Custom resolutions are currently unsupported.
+Images default to **1024×1024** and may take up to **20 s** to return.
+Supported resolutions: `256×256`, `512×512`, and `1024×1024` via `resolution`.
 
 ## WebSocket Messages
 
