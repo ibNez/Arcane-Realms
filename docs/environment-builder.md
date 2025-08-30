@@ -12,11 +12,7 @@ sandbox where designers can spawn components, experiment with decoration themes,
 and ensure every square connects cleanly to its neighbors. To prototype a play
 space of ~1000 ft per side, combine tiles in a **4 × 4 grid** (16 tiles total).
 
-<<<<<<< HEAD
 The game client uses LÖVE, but the environment builder remains a web tool built with **Phaser** for rendering, **React** for the interface, and **Vite** with TypeScript for bundling. The editor runs in modern browsers such as Chrome 118+, Firefox 115+, Safari 17+, and Edge 118+.
-=======
-The game client uses LÖVE, while the environment builder is a web tool built with **React** for the interface and **Vite** with TypeScript for bundling. The editor runs in modern browsers such as Chrome 118+, Firefox 115+, Safari 17+, and Edge 118+.
->>>>>>> main
 
 ## Goals
 - Run independently from the main application, similar to character testing
