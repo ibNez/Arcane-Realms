@@ -78,7 +78,8 @@ windows for counterplay.
 - **Cast Time:** 1.0 s
 - **Failure Mode:** Fizzles and triggers full cooldown if the mage runs out of mana mid-cast.
 - **Projectile Speed:** 20 m/s
-- **Details:** Fires a homing projectile at the target. Requires line of sight and dissipates if a solid obstacle blocks its path. Cannot miss once cast unless intercepted.
+- **Collision:** Stops at the first enemy or solid obstacle; ignores allies and dissipates if intercepted by shields or projectiles.
+- **Details:** Fires a homing projectile at the target. Requires line of sight and cannot miss once cast unless blocked or intercepted.
 
 ### Fireball
 - **Cooldown:** 3.0 s
