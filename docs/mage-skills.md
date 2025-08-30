@@ -51,7 +51,22 @@ windows for counterplay.
 | 9 | Chain Lightning / Thunderbolt | Bouncing lightning spell | Offense (Damage) |
 | 10 | Time Manipulation | Slow enemies or haste allies | Control / Utility |
 
-> **TODO:** Outline progression tiers and how new mage skills unlock over levels.
+## Skill Progression
+
+| Level | Skills Unlocked |
+| --- | --- |
+| 1 | Magic Missile |
+| 2 | Fireball |
+| 3 | Frost Nova |
+| 4 | Arcane Missiles |
+| 5 | Summon Elemental |
+| 6 | Blink |
+| 7 | Meteor |
+| 8 | Polymorph |
+| 9 | Mana Shield |
+| 10 | Chain Lightning |
+| 11 | Time Manipulation |
+| 12 | Arcane Nova |
 
 ## Skills
 
